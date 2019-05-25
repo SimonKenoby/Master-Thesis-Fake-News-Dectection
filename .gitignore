@@ -1,6 +1,7 @@
 __pycache__/
 .ipynb_checkpoints/
 ./Data/
+.DS_Store/
 ./papers./Code/models/LDA/lda_10.state.sstats.npy
 ./Code/models/LDA/lda_10.expElogbeta.npy
 ./Code/models/LDA/lda_25.state.sstats.npy
