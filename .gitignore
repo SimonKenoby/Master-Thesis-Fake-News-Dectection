@@ -13,3 +13,4 @@ __pycache__/
 ./Data/kaggle-fake-news/fake.csv
 ./Data/FakeNewsNet-master/Data/PolitiFact/UserFeature.mat
 ./Data/news_cleaned_2018_02_13.csv
+Data/FakeNewsNet-master/Data/BuzzFeed/FakeNewsContent/
