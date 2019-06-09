@@ -1,0 +1,86 @@
+%% Creator: Inkscape inkscape 0.92.3, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'plot1.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{241.99804688bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,1.1832613)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{plot1.pdf}}%
+    \put(0.25619234,0.21810307){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}bias\end{tabular}}}}}%
+    \put(0.32127551,0.21810307){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}clickbait\end{tabular}}}}}%
+    \put(0.38635868,0.21810307){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}conspiracy\end{tabular}}}}}%
+    \put(0.45144185,0.21810307){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}fake\end{tabular}}}}}%
+    \put(0.51652502,0.21810307){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}hate\end{tabular}}}}}%
+    \put(0.58160819,0.21810307){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}junksci\end{tabular}}}}}%
+    \put(0.64669136,0.21810307){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}political\end{tabular}}}}}%
+    \put(0.71177453,0.21810307){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}reliable\end{tabular}}}}}%
+    \put(0.7768577,0.21810307){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}rumor\end{tabular}}}}}%
+    \put(0.84194087,0.21810307){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}satire\end{tabular}}}}}%
+    \put(0.90702404,0.21810307){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}unknown\end{tabular}}}}}%
+    \put(0.97210721,0.21810307){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}unreliable\end{tabular}}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{plot1.pdf}}%
+    \put(0.60795138,0.00735757){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{type}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{plot1.pdf}}%
+    \put(0.19575797,0.23049987){\color[rgb]{0,0,0}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}0\end{tabular}}}}%
+    \put(0.19575797,0.32347582){\color[rgb]{0,0,0}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}200,000\end{tabular}}}}%
+    \put(0.19575797,0.41645178){\color[rgb]{0,0,0}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}400,000\end{tabular}}}}%
+    \put(0.19575797,0.50942774){\color[rgb]{0,0,0}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}600,000\end{tabular}}}}%
+    \put(0.19575797,0.60240369){\color[rgb]{0,0,0}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}800,000\end{tabular}}}}%
+    \put(0.19575797,0.69537965){\color[rgb]{0,0,0}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}1,000,000\end{tabular}}}}%
+    \put(0.19575797,0.78835561){\color[rgb]{0,0,0}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}1,200,000\end{tabular}}}}%
+    \put(0.19575797,0.88133157){\color[rgb]{0,0,0}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}1,400,000\end{tabular}}}}%
+    \put(0.19575797,0.97430752){\color[rgb]{0,0,0}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}1,600,000\end{tabular}}}}%
+    \put(0.19575797,1.06728348){\color[rgb]{0,0,0}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}1,800,000\end{tabular}}}}%
+    \put(0.19575797,1.16025944){\color[rgb]{0,0,0}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}2,000,000\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{plot1.pdf}}%
+    \put(0.02530205,0.70467725){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{Count}\end{tabular}}}}}%
+  \end{picture}%
+\endgroup%
