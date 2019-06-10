@@ -14,12 +14,12 @@ Fake news have also been used in order to influence the referendum in the United
 
 \section{Datasets}
 \subsection{Fake News Corpus}
+\paragraph{}
 This works uses multiples corpus in order to train and test different models. The main corpus used for training is called Fake News Corpus\cite{Szpakowski}. This corpus have been automatically crawled using \url{opensources.co} labels. In other words, domains have been labeled with one or more labels in \begin{itemize}
 	\item Fake News
 	\item Satire
 	\item Extreme Bias
 	\item Conspiracy Theory
-	\item State News
 	\item Junk Science
 	\item Hate News
 	\item Clickbait
@@ -27,15 +27,17 @@ This works uses multiples corpus in order to train and test different models. Th
 	\item Political
 	\item Credible
 \end{itemize}
-
+\paragraph{}
 These annotations have been provided by crowdsourcing, which means that they might not be exactly accurate, but are expected to be close to the reality. Because this works focus on fake news detection against reliable news, only the news labels as fake and credible have been used. 
 
 \textbf{TODO: Expliquer comment le dataset a été nettoyé et mis dans une base de données afin d'augmenter les performances. }
 
 \subsection{Fake News Net}
+\paragraph{}
 The second dataset used is fake news net\cite{shu2018fakenewsnet,shu2017exploiting,shu2017fake}. This corpus is made of news from two different sources, PolitiFact and GossipCop. An older version also provide news from BuzzFeed. News are categorized in two classes: fake and non fake. Being quite smaller than fake news corpus, this dataset will be used as a test dataset. 
 
 \subsection{Liar, Liar Pants on Fire}
+\paragraph{}
 The third and last dataset is \textbf{Liar, Liar Pants on Fire} dataset\cite{Wang2017}, which is a collection of twelve thousand small sentences collected from various sources and hand labeled. They are devided in six classes:
 \begin{itemize}
 	\item pants-fire
@@ -45,7 +47,7 @@ The third and last dataset is \textbf{Liar, Liar Pants on Fire} dataset\cite{Wan
 	\item mostly-true
 	\item true
 \end{itemize} 
-
+\paragraph{}
 This set will be used a second test set. Because in this case there are six classes againt two in the other cases, a threshould should be used in order to fix which one will be concidered as true or false. 
-
+\paragraph{}
 It should be noted that this one differ from the two other dataset is it is composed only on short sentences, and thus it should not be expected to have very good results on this dataset for models trained on Fake News Corpus which is made of full texts. 
