@@ -33,7 +33,7 @@ def train_and_test(max_features = None):
     train = utils.dbUtils.TokenizedIterator('news_cleaned', filters = {'type' : {'$in' : ['fake', 'reliable']}, 'domain' : {'$nin' : ['nytimes.com', 'beforeitsnews.com']}})
     y_train = np.array([x for x in train.iterTags()])
 
-    test = utils.dbUtils.TokenizedIterator('liar_liar')
+    test = utils.dbUtils.TokenizedIterator('liar_liar', filters = {'split' : 'test'})
     y_test = np.array([x for x in test.iterTags()])
 
     print("Fiting tf-idf")

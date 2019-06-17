@@ -1,23 +1,15 @@
 import pandas as pd
-import matplotlib.pyplot as plt
 import numpy as np
-import seaborn as sns
-import sys,os
-import json
-import random
-import csv
-import string
-from scipy import stats
 from tqdm import tqdm
 from pymongo import MongoClient
+import string
 
 from gensim.parsing.preprocessing import preprocess_string, strip_tags, strip_punctuation, remove_stopwords, strip_numeric, strip_short, strip_multiple_whitespaces, strip_non_alphanum, strip_punctuation2
-from gensim.corpora.dictionary import Dictionary
 from nltk import tokenize
 import re
 
 
-test = pd.read_csv("../../Data/liar_dataset/test.tsv", sep = '\t', header = None, usecols = [1, 2], names = ['full_type', 'content'])
+test = pd.read_csv("../../Data/liar_dataset/valid.tsv", sep = '\t', header = None, usecols = [1, 2], names = ['full_type', 'content'])
 def filtering(x):
     if x in set(['true', 'mostly-true', 'half-true']):
         return 'reliable'
@@ -33,6 +25,7 @@ def averageSentence(text):
     return np.mean(length), len(sentences)
 
 test['type'] = test['full_type'].apply(lambda x: filtering(x))
+test['split'] = 'valid'
 
 client = MongoClient('localhost', 27017)
 db = client.TFE
