@@ -11,6 +11,37 @@
 Fake news have also been used in order to influence the referendum in the United Kingdom for the "Brexit".
 
 %TODO: Define fake news
+%TODO: Expliquer les differentes méthodes de détection de fake news dans le paper Fake News Detection on Social Media: A Data Mining Perspective 1708.01967v3.pdf
+\paragraph{}Shu et al\cite{shu2017fake} provides multiples features that can be used for fake news detection: 
+
+\begin{itemize}
+\item News Content Features:
+	\begin{itemize}
+		\item Linguistic-based
+		\item Visual-based
+	\end{itemize}
+	\item Social Context Features:
+	\begin{itemize}
+		\item User-based
+		\item Post-based
+		\item Network-based
+	\end{itemize}
+\end{itemize} 
+
+They also provides multiples approaches in order to build the model. 
+
+\begin{itemize}
+	\item News Content Models:
+	\begin{itemize}
+		\item Knowledge-based
+		\item Style-based
+	\end{itemize}
+	\item Social Context Models:
+	\begin{itemize}
+		\item Stance-based
+		\item Propagation-based
+	\end{itemize}
+\end{itemize}
 
 \section{Datasets}
 \subsection{Fake News Corpus}
@@ -51,3 +82,5 @@ The third and last dataset is \textbf{Liar, Liar Pants on Fire} dataset\cite{Wan
 This set will be used a second test set. Because in this case there are six classes againt two in the other cases, a threshould should be used in order to fix which one will be concidered as true or false. 
 \paragraph{}
 It should be noted that this one differ from the two other dataset is it is composed only on short sentences, and thus it should not be expected to have very good results on this dataset for models trained on Fake News Corpus which is made of full texts. 
+
+\section{State of the Art}
