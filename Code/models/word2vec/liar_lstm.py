@@ -66,8 +66,9 @@ model = Sequential()
 model.add(LSTM(300, return_sequences=False, input_shape=(None, 300)))
 #model.add(Activation('softmax'))
 #model.add(TimeDistributed(Dense(1)))
-#model.add(Dropout(0.5))
+model.add(Dropout(0.2))
 model.add(Dense(1, activation='sigmoid'))
+
 
 model.compile(loss='binary_crossentropy',
               optimizer='adam',
@@ -95,7 +96,7 @@ client = MongoClient('192.168.178.25', 27017)
 db = client.TFE
 collection = db.results
 
-idx = collection.insert_one({'date' : datetime.datetime.now(), 'corpus' : 'liar_liar', 'experiment_id' : 1})
+idx = collection.insert_one({'date' : datetime.datetime.now(), 'corpus' : 'liar_liar', 'experiment_id' : 3})
 collection.update_one({'_id' : idx.inserted_id},{'$set' : {'model' : 'LSTM', 'classification_report' : clr}})
 collection.update_one({'_id' : idx.inserted_id},{'$set' : {'model_json' : model.to_json()}})
 
