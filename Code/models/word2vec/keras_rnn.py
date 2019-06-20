@@ -19,9 +19,13 @@ import numpy as np
 
 from w2vVectorizer import text2vec
 
+print("Loading data")
+
 data = pd.read_json('train.json', lines=True)
 train = data['tokenized_text'].values[0:128]
 y_train = data['type'].values[0:128]
+
+print("Label binarization")
 
 lb = LabelBinarizer()
 lb.fit(y_train)
@@ -42,8 +46,10 @@ class generator(Sequence):
     def __getitem__(self, idx):
         return self.vectorizer.transform(self.X[idx]).reshape(1, -1, 300), self.y[idx]
     
+print("Making generator")
 gen = generator(train, y_train)
 
+print("Making model")
 model = Sequential()
 model.add(LSTM(300, return_sequences=False, input_shape=(None, 300)))
 #model.add(Activation('softmax'))
@@ -55,7 +61,8 @@ model.compile(loss='binary_crossentropy',
               optimizer='adam',
               metrics=['accuracy'])
 
-model.fit_generator(gen, steps_per_epoch=len(y_train), epochs=10, verbose=1, max_queue_size=16, workers=8, use_multiprocessing=True)
+print("Fiting model")
+model.fit_generator(gen, steps_per_epoch=len(y_train), epochs=10, verbose=1, max_queue_size=1, workers=1, use_multiprocessing=True)
 
 model.save("lstm.h5")
 
