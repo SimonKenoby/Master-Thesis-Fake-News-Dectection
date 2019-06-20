@@ -171,6 +171,7 @@ INPUT /home/simon/Documents/TFE/reviews/final/chapter/introduction.tex
 INPUT /home/simon/Documents/TFE/reviews/final/chapter/introduction.tex
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmti12.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmtt12.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmsl12.tfm
 OUTPUT /home/simon/Documents/TFE/reviews/final/chapter/data_exploration.aux
@@ -181,7 +182,6 @@ INPUT /home/simon/Documents/TFE/reviews/final/chapter/images/data_exploration/pl
 INPUT /home/simon/Documents/TFE/reviews/final/chapter/images/data_exploration/plot1.pdf
 INPUT /home/simon/Documents/TFE/reviews/final/main.bbl
 INPUT /home/simon/Documents/TFE/reviews/final/main.bbl
-INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmti12.tfm
 INPUT /home/simon/Documents/TFE/reviews/final/main.aux
 INPUT /home/simon/Documents/TFE/reviews/final/chapter/acknowledgement.aux
 INPUT /home/simon/Documents/TFE/reviews/final/chapter/acknowledgement.aux
