@@ -20,6 +20,11 @@ Kai Shu, Amy Sliva, Suhang Wang, Jiliang Tang, and Huan Liu.
 \newblock Fake news detection on social media: A data mining perspective.
 \newblock {\em ACM SIGKDD Explorations Newsletter}, 19(1):22--36, 2017.
 
+\bibitem{blei2003latent}
+David~M Blei, Andrew~Y Ng, and Michael~I Jordan.
+\newblock Latent dirichlet allocation.
+\newblock {\em Journal of machine Learning research}, 3(Jan):993--1022, 2003.
+
 \bibitem{Szpakowski}
 Maciej Szpakowski.
 \newblock Fake news corpus.
@@ -41,10 +46,5 @@ Kai Shu, Suhang Wang, and Huan Liu.
 William~Yang Wang.
 \newblock "liar, liar pants on fire": A new benchmark dataset for fake news
   detection.
-
-\bibitem{blei2003latent}
-David~M Blei, Andrew~Y Ng, and Michael~I Jordan.
-\newblock Latent dirichlet allocation.
-\newblock {\em Journal of machine Learning research}, 3(Jan):993--1022, 2003.
 
 \end{thebibliography}

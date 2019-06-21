@@ -34,7 +34,8 @@ Fake news is a news article that is intentionally and verifiably false
 
 The part of the definition introducing the intent of missleading the reader automaticaly discard satire news medias, that is why this works will focus on the first part, the fact that the piece of information is verifiably false or true. Indded, even if satire news medias does not have the intent to misslead the readers, not all of them have the ability of making criticisme and not taking it to the first degree. On the other hand, in the case of political media, even if it clearly try to influence the consumer, verifying the authenticity of there claims is usualy harder as, in most of the cases, openly lies. 
 
-\subsection{Feature Extraction}
+\section{Feature Extraction}
+\subsection{News Content Features}
 \paragraph{} Now that fake news have been defined and the target have been set, it is needed to analize what features can be used in order to classify fake news. Starting by looking at news content, it can be seen that it is made of four principal raw components: 
 \begin{itemize}
 	\item \textbf{Source}: Where does the news come from, who wrote it, is this source reliable or not.
@@ -54,6 +55,23 @@ The second features that need to be taken into account are visual features. Inde
 	\caption{The two images provided to show deforestation between two date are from the same image taken at the same time.}
 	\label{fig:intro:deforestation}
 \end{figure*}
+
+\subsection{Social Context Features}
+\paragraph{} In the context of news sharing on social medias, multiples aspect can be taken into account, such as user aspect, post aspect and group aspect. For instance, it is possible to analyize the behavior of specific users and use their metadata in order to find if a user is at risk of trusting or sharing false information. For instance, those metadata can be its center of intereset, its number of followers, or anything that relates to it. 
+
+\paragraph{} Post-based aspect is in a sense similar to user based: it can use post metadata in order to provide usefull informations, but in addition to metadata, the actual content can be used. It is also possible to extract features from the content using latent Dirichlet allocation (LDA)\cite{blei2003latent}.
+
+\section{News Content Models}
+
+Now that the differents kinds of features available for the news have been defined, it is possible to start to explain what kind of models can be built using these features. The first models that relates to the news content is based on knowledge: the goal of this model is to check the truthfulness of the news content and can be acheived in tree differents way (or a mixture of them):
+
+\begin{itemize}
+	\item \textbf{Expert-oriented}: relies on expert, such as journalist or scientist, to asses the news content.
+	\item \textbf{Crowdsourcing-oriented}: relies on the wisdom of crowd that says that if a suficiently large amount of persons says that something is false or true then it should be.
+	\item \textbf{Computational-oriented}: relies on automatic fact checking, that could be based on external resources shuch as DBpedia.
+\end{itemize}
+
+These methods all have pros and cons, hiring expert might be constly, and expert are limited in number and might not be able to treat all the news that are produced. In the case of crowdsourcing it can easily be fooled if enought bad annotators breaks the system and automatic fact checking might not have the necessary accuracy.
 
 \section{Datasets}
 \subsection{Fake News Corpus}
