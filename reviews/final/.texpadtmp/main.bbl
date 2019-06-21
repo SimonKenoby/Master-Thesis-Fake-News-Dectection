@@ -1,0 +1,50 @@
+\begin{thebibliography}{1}
+
+\bibitem{Allcott2017}
+Hunt Allcott and Matthew Gentzkow.
+\newblock Social media and fake news in the 2016 election.
+\newblock In {\em Journal of Economic Perspective}, volume~31, 2017.
+
+\bibitem{gottfried2016news}
+Jeffrey Gottfried and Elisa Shearer.
+\newblock {\em News Use Across Social Medial Platforms 2016}.
+\newblock Pew Research Center, 2016.
+
+\bibitem{silverman2016teens}
+Craig Silverman and Lawrence Alexander.
+\newblock How teens in the balkans are duping trump supporters with fake news.
+\newblock {\em Buzzfeed News}, 3, 2016.
+
+\bibitem{shu2017fake}
+Kai Shu, Amy Sliva, Suhang Wang, Jiliang Tang, and Huan Liu.
+\newblock Fake news detection on social media: A data mining perspective.
+\newblock {\em ACM SIGKDD Explorations Newsletter}, 19(1):22--36, 2017.
+
+\bibitem{Szpakowski}
+Maciej Szpakowski.
+\newblock Fake news corpus.
+\newblock \url{https://github.com/several27/FakeNewsCorpus}.
+\newblock Accessed: 2018-10.
+
+\bibitem{shu2018fakenewsnet}
+Kai Shu, Deepak Mahudeswaran, Suhang Wang, Dongwon Lee, and Huan Liu.
+\newblock Fakenewsnet: A data repository with news content, social context and
+  dynamic information for studying fake news on social media.
+\newblock {\em arXiv preprint arXiv:1809.01286}, 2018.
+
+\bibitem{shu2017exploiting}
+Kai Shu, Suhang Wang, and Huan Liu.
+\newblock Exploiting tri-relationship for fake news detection.
+\newblock {\em arXiv preprint arXiv:1712.07709}, 2017.
+
+\bibitem{Wang2017}
+William~Yang Wang.
+\newblock "liar, liar pants on fire": A new benchmark dataset for fake news
+  detection.
+
+\bibitem{blei2003latent}
+David~M Blei, Andrew~Y Ng, and Michael~I Jordan.
+\newblock Latent dirichlet allocation.
+\newblock {\em Journal of machine Learning research}, 3(Jan):993--1022, 2003.
+
+\end{thebibliography}

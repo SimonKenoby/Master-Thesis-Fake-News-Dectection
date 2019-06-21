@@ -4,10 +4,14 @@
 #SBATCH --output=res.txt
 #
 #SBATCH --ntasks=1
+#SBATCH --cpus-per-task=2
 #SBATCH --time=30:00
 #SBATCH --mem-per-cpu=10000
 #SBATCH --partition=gpu 
 #SBATCH --gres=gpu:1
+
+export OMP_NUM_THREADS=2
+export MKL_NUM_THREADS=2
 
 SCRATCH=$LOCALSCRATCH/$SLURM_JOB_ID
 srun echo "Loading TensorFlow"
@@ -25,6 +29,7 @@ srun ls $SCRATCH || exit $?
 srun echo "Running job"
 srun python3 $SCRATCH/word2vec/keras_rnn.py || exit $?
 
+srun echo "Copying files back"
 srun mkdir -p $HOME/TFE/Code/models/word2vec/$SLURM_JOB_ID || exit $? 
 
 srun cp $SCRATCH/word2vec/lstm.h5 $HOME/TFE/Code/models/word2vec/$SLURM_JOB_ID || exit $?

@@ -1,6 +1,7 @@
 
 \chapter{Introduction}
 \section{What are fake news?}
+\subsection{Definition}
 \paragraph{} Fake news have quickly become a society problem, being used to propagate false or rumorus informations in order to change behaviors of peoples. Before stating to work on detecting fake news, it is needed to first understand what they are. It have been show that propagation of fake news have had a non negligable influence of 2016 US presidential elections\cite{Allcott2017}. A few facts on fake news in the United States: 
 
 \begin{itemize}
@@ -16,41 +17,34 @@ Fake news have also been used in order to influence the referendum in the United
 \paragraph{}
 Fake news definition is made of two part: authenticity and intent. Authenticity means that fake news content fale information that can be verified as such, which means that concpiracy theory is not included in fake news as there are difficult to be proven true or false in most cases. The second part, intent, means that the false information have been written with the goal of missleading the reader. 
 
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{chapter/images/introduction/characterization.png}
+	\caption{Fake news on social media: from characterization to detection.\cite{shu2017fake}}
+	\label{fig:intro:characterization}
+\end{figure}
+
+\subsection{Fake News Characterization}
 \newtheorem{def:fake_news}{Definition}
 
 \begin{def:fake_news}
 Fake news is a news article that is intentionally and verifiably false
 \end{def:fake_news}
 
+The part of the definition introducing the intent of missleading the reader automaticaly discard satire news medias, that is why this works will focus on the first part, the fact that the piece of information is verifiably false or true. Indded, even if satire news medias does not have the intent to misslead the readers, not all of them have the ability of making criticisme and not taking it to the first degree. On the other hand, in the case of political media, even if it clearly try to influence the consumer, verifying the authenticity of there claims is usualy harder as, in most of the cases, openly lies. 
 
+\subsection{Feature Extraction}
+\paragraph{} Now that fake news have been defined and the target have been set, it is needed to analize what features can be used in order to classify fake news. Starting by looking at news content, it can be seen that it is made of four principal raw components: 
 \begin{itemize}
-\item News Content Features:
-	\begin{itemize}
-		\item Linguistic-based
-		\item Visual-based
-	\end{itemize}
-	\item Social Context Features:
-	\begin{itemize}
-		\item User-based
-		\item Post-based
-		\item Network-based
-	\end{itemize}
-\end{itemize} 
-
-They also provides multiples approaches in order to build the model. 
-
-\begin{itemize}
-	\item News Content Models:
-	\begin{itemize}
-		\item Knowledge-based
-		\item Style-based
-	\end{itemize}
-	\item Social Context Models:
-	\begin{itemize}
-		\item Stance-based
-		\item Propagation-based
-	\end{itemize}
+	\item \textbf{Source}: Where does the news come from, who wrote it, is this source reliable or not.
+	\item \textbf{Headline}: Short summary of the news content that try to attract the reader.
+	\item \textbf{Body Text}: The actual text content of the news.
+	\item \textbf{Image/Video}: Usualy, textual information is agremented with visual information such as images, videos or audio.  
 \end{itemize}
+
+\paragraph{} Features will be extracted from these four basic components, with the mains features being linguistic-based and visual-based. 
+As explained before, fake news are used to influence the consumer, and in order to do that, they often use a specific language in order to attract the readers. On the other hand, non fake news will mostly stick to a different language register, being more formal. This are languistic-based features, to which can be added lexical features such as total number of words, frenquency of large words or unique words. 
 
 \section{Datasets}
 \subsection{Fake News Corpus}

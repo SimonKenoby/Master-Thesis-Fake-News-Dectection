@@ -1,0 +1,54 @@
+This is BibTeX, Version 0.99d (TeX Live 2016/Debian)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: main.aux
+A level-1 auxiliary file: chapter/acknowledgement.aux
+A level-1 auxiliary file: chapter/abstract.aux
+A level-1 auxiliary file: chapter/introduction.aux
+A level-1 auxiliary file: chapter/data_exploration.aux
+The style file: unsrt.bst
+Database file #1: ../references/references.bib.bib
+Warning--can't use both volume and number fields in Allcott2017
+Warning--empty journal in Wang2017
+Warning--empty year in Wang2017
+You've used 9 entries,
+            1791 wiz_defined-function locations,
+            498 strings with 4992 characters,
+and the built_in function-call counts, 1657 in all, are:
+= -- 130
+> -- 88
+< -- 1
++ -- 33
+- -- 24
+* -- 98
+:= -- 284
+add.period$ -- 27
+call.type$ -- 9
+change.case$ -- 8
+chr.to.int$ -- 0
+cite$ -- 12
+duplicate$ -- 77
+empty$ -- 166
+format.name$ -- 24
+if$ -- 357
+int.to.chr$ -- 0
+int.to.str$ -- 9
+missing$ -- 9
+newline$ -- 48
+num.names$ -- 9
+pop$ -- 34
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 30
+stack$ -- 0
+substring$ -- 47
+swap$ -- 11
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 3
+while$ -- 13
+width$ -- 10
+write$ -- 94
+(There were 3 warnings)
