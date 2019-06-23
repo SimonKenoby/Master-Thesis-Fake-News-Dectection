@@ -62,7 +62,7 @@ The second features that need to be taken into account are visual features. Inde
 \paragraph{} Post-based aspect is in a sense similar to user based: it can use post metadata in order to provide usefull informations, but in addition to metadata, the actual content can be used. It is also possible to extract features from the content using latent Dirichlet allocation (LDA)\cite{blei2003latent}.
 
 \section{News Content Models} \label{intro:models}
-\subsection{Knowledge-based models}:
+\subsection{Knowledge-based models}
 Now that the differents kinds of features available for the news have been defined, it is possible to start to explain what kind of models can be built using these features. The first models that relates to the news content is based on knowledge: the goal of this model is to check the truthfulness of the news content and can be acheived in tree differents way (or a mixture of them):
 
 \begin{itemize}
@@ -70,12 +70,12 @@ Now that the differents kinds of features available for the news have been defin
 	\item \textbf{Crowdsourcing-oriented}: relies on the wisdom of crowd that says that if a suficiently large amount of persons says that something is false or true then it should be.
 	\item \textbf{Computational-oriented}: relies on automatic fact checking, that could be based on external resources shuch as DBpedia.
 \end{itemize}
-
 These methods all have pros and cons, hiring expert might be constly, and expert are limited in number and might not be able to treat all the news that are produced. In the case of crowdsourcing it can easily be fooled if enought bad annotators breaks the system and automatic fact checking might not have the necessary accuracy.
 
-\paragraph{Style-based model}: As explained earlier, fake news usualy tries to influence consumier behavior, and thus generaly use a specific style in order to play on the emotion. These methods are called deception-oriented stylometric methods.
+\subsection{Style-based model}
+\paragraph{} As explained earlier, fake news usualy tries to influence consumier behavior, and thus generaly use a specific style in order to play on the emotion. These methods are called deception-oriented stylometric methods.
 
-The second method is called objectivity-oriented approaches and tries to capture the objectivity of the texts or headlines. These kind of style is mostly used by partisan article or yellow-journalism, that is, website that relies on eye-catching headline without reporting any useful information. An example of these kind of headline could be:
+\paragraph{}The second method is called objectivity-oriented approaches and tries to capture the objectivity of the texts or headlines. These kind of style is mostly used by partisan article or yellow-journalism, that is, website that relies on eye-catching headline without reporting any useful information. An example of these kind of headline could be:
 	\begin{quote}You will never beleive what he did !!!!!!\end{quote}
 \paragraph{} This kind of headline plays on the curiosity of the reader that would click to read the news.
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2018.1.19)  23 JUN 2019 11:25
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2018.1.19)  23 JUN 2019 11:30
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -478,7 +478,7 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 8.
-<chapter/images/introduction/characterization.png, id=127, 1442.38875pt x 441.65pt>
+<chapter/images/introduction/characterization.png, id=132, 1442.38875pt x 441.65pt>
 File: chapter/images/introduction/characterization.png Graphic file (type png)
 <use chapter/images/introduction/characterization.png>
 Package pdftex.def Info: chapter/images/introduction/characterization.png  used on input line 23.
@@ -489,7 +489,7 @@ Package pdftex.def Info: chapter/images/introduction/characterization.png  used 
 
 
 ]
-<chapter/images/introduction/fake-news-photos-viral-photoshop-8-5c6fe61f88240__700.jpg, id=146, 702.625pt x 978.65625pt>
+<chapter/images/introduction/fake-news-photos-viral-photoshop-8-5c6fe61f88240__700.jpg, id=151, 702.625pt x 978.65625pt>
 File: chapter/images/introduction/fake-news-photos-viral-photoshop-8-5c6fe61f88240__700.jpg Graphic file (type jpg)
 <use chapter/images/introduction/fake-news-photos-viral-photoshop-8-5c6fe61f88240__700.jpg>
 Package pdftex.def Info: chapter/images/introduction/fake-news-photos-viral-photoshop-8-5c6fe61f88240__700.jpg  used on input line 54.
@@ -504,7 +504,7 @@ Missing character: There is no © in font cmbx12!
 Missing character: There is no Ã in font cmbx12!
 Missing character: There is no © in font cmbx12!
  [8]
-<chapter/images/introduction/features.png, id=194, 759.83875pt x 401.5pt>
+<chapter/images/introduction/features.png, id=200, 759.83875pt x 401.5pt>
 File: chapter/images/introduction/features.png Graphic file (type png)
 <use chapter/images/introduction/features.png>
 Package pdftex.def Info: chapter/images/introduction/features.png  used on input line 137.
@@ -519,7 +519,7 @@ Chapter 2.
 
 
 ]
-<chapter/images/data_exploration/plot1.pdf, id=226, 252.19218pt x 297.36093pt>
+<chapter/images/data_exploration/plot1.pdf, id=232, 252.19218pt x 297.36093pt>
 File: chapter/images/data_exploration/plot1.pdf Graphic file (type pdf)
 <use chapter/images/data_exploration/plot1.pdf>
 Package pdftex.def Info: chapter/images/data_exploration/plot1.pdf  used on input line 38.
@@ -544,18 +544,18 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 23.
  ) 
 Here is how much of TeX's memory you used:
- 9113 strings out of 492980
- 139284 string characters out of 6132509
+ 9116 strings out of 492980
+ 139329 string characters out of 6132509
  235844 words of memory out of 5000000
- 12424 multiletter control sequences out of 15000+600000
+ 12425 multiletter control sequences out of 15000+600000
  14184 words of font info for 54 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  49i,9n,44p,658b,360s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on /Users/simon/Documents/TFE/reviews/final/.texpadtmp/main.pdf (14 pages, 733604 bytes).
+Output written on /Users/simon/Documents/TFE/reviews/final/.texpadtmp/main.pdf (14 pages, 733724 bytes).
 PDF statistics:
- 299 PDF objects out of 1000 (max. 8388607)
- 262 compressed objects within 3 object streams
- 75 named destinations out of 1000 (max. 500000)
- 181 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 305 PDF objects out of 1000 (max. 8388607)
+ 268 compressed objects within 3 object streams
+ 77 named destinations out of 1000 (max. 500000)
+ 189 words of extra memory for PDF output out of 10000 (max. 10000000)
 
