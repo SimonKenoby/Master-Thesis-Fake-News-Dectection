@@ -30,3 +30,11 @@ Code/models/LDA/lda_10
 Code/models/LDA/lda_25
 
 *.npy
+
+Code/models/LSTM/crawl-300d-2M-subword\.bin
+
+Code/models/LSTM/crawl-300d-2M-subword\.vec
+
+Code/models/LSTM/crawl-300d-2M-subword\.zip
+
+Code/models/word2vec/lstm\.h5

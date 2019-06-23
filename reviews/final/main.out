@@ -1,0 +1,19 @@
+\BOOKMARK [0][-]{chapter.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.1.1}{What are fake news?}{chapter.1}% 2
+\BOOKMARK [2][-]{subsection.1.1.1}{Definition}{section.1.1}% 3
+\BOOKMARK [2][-]{subsection.1.1.2}{Fake News Characterization}{section.1.1}% 4
+\BOOKMARK [1][-]{section.1.2}{Feature Extraction}{chapter.1}% 5
+\BOOKMARK [2][-]{subsection.1.2.1}{News Content Features}{section.1.2}% 6
+\BOOKMARK [2][-]{subsection.1.2.2}{Social Context Features}{section.1.2}% 7
+\BOOKMARK [1][-]{section.1.3}{News Content Models}{chapter.1}% 8
+\BOOKMARK [2][-]{subsection.1.3.1}{Knowledge-based models}{section.1.3}% 9
+\BOOKMARK [2][-]{subsection.1.3.2}{Social Context Models}{section.1.3}% 10
+\BOOKMARK [1][-]{section.1.4}{Datasets}{chapter.1}% 11
+\BOOKMARK [2][-]{subsection.1.4.1}{Fake News Corpus}{section.1.4}% 12
+\BOOKMARK [2][-]{subsection.1.4.2}{Fake News Net}{section.1.4}% 13
+\BOOKMARK [2][-]{subsection.1.4.3}{Liar, Liar Pants on Fire}{section.1.4}% 14
+\BOOKMARK [1][-]{section.1.5}{State of the Art}{chapter.1}% 15
+\BOOKMARK [0][-]{chapter.2}{Data Exploration}{}% 16
+\BOOKMARK [1][-]{section.2.1}{Introduction}{chapter.2}% 17
+\BOOKMARK [1][-]{section.2.2}{Dataset statistics}{chapter.2}% 18
+\BOOKMARK [2][-]{subsection.2.2.1}{Fake News Corpus}{section.2.2}% 19
