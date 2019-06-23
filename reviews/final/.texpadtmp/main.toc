@@ -5,25 +5,40 @@
 \contentsline {paragraph}{}{4}{section*.3}
 \contentsline {paragraph}{}{4}{section*.4}
 \contentsline {subsection}{\numberline {1.1.2}Fake News Characterization}{4}{subsection.1.1.2}
-\contentsline {subsection}{\numberline {1.1.3}Feature Extraction}{5}{subsection.1.1.3}
+\contentsline {section}{\numberline {1.2}Feature Extraction}{5}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}News Content Features}{5}{subsection.1.2.1}
 \contentsline {paragraph}{}{5}{section*.6}
 \contentsline {paragraph}{}{5}{section*.7}
-\contentsline {section}{\numberline {1.2}Datasets}{5}{section.1.2}
-\contentsline {subsection}{\numberline {1.2.1}Fake News Corpus}{5}{subsection.1.2.1}
+\contentsline {subsection}{\numberline {1.2.2}Social Context Features}{5}{subsection.1.2.2}
 \contentsline {paragraph}{}{5}{section*.9}
 \contentsline {paragraph}{}{7}{section*.10}
-\contentsline {subsection}{\numberline {1.2.2}Fake News Net}{7}{subsection.1.2.2}
-\contentsline {paragraph}{}{7}{section*.11}
-\contentsline {subsection}{\numberline {1.2.3}Liar, Liar Pants on Fire}{7}{subsection.1.2.3}
+\contentsline {section}{\numberline {1.3}News Content Models}{7}{section.1.3}
+\contentsline {subsection}{\numberline {1.3.1}Knowledge-based models}{7}{subsection.1.3.1}
+\contentsline {paragraph}{Style-based model}{7}{section*.11}
 \contentsline {paragraph}{}{7}{section*.12}
+\contentsline {subsection}{\numberline {1.3.2}Social Context Models}{8}{subsection.1.3.2}
 \contentsline {paragraph}{}{8}{section*.13}
-\contentsline {paragraph}{}{8}{section*.14}
-\contentsline {section}{\numberline {1.3}State of the Art}{8}{section.1.3}
-\contentsline {chapter}{\numberline {2}Data Exploration}{9}{chapter.2}
-\contentsline {section}{\numberline {2.1}Introduction}{9}{section.2.1}
-\contentsline {paragraph}{}{9}{section*.15}
-\contentsline {section}{\numberline {2.2}Dataset statistics}{9}{section.2.2}
-\contentsline {subsection}{\numberline {2.2.1}Fake News Corpus}{9}{subsection.2.2.1}
-\contentsline {paragraph}{}{9}{section*.16}
-\contentsline {paragraph}{}{9}{section*.17}
-\contentsline {paragraph}{}{10}{section*.19}
+\contentsline {paragraph}{Stence-based}{8}{section*.14}
+\contentsline {paragraph}{Propagation-based}{8}{section*.15}
+\contentsline {section}{\numberline {1.4}Datasets}{8}{section.1.4}
+\contentsline {subsection}{\numberline {1.4.1}Fake News Corpus}{8}{subsection.1.4.1}
+\contentsline {paragraph}{}{8}{section*.16}
+\contentsline {paragraph}{}{8}{section*.17}
+\contentsline {subsection}{\numberline {1.4.2}Fake News Net}{9}{subsection.1.4.2}
+\contentsline {paragraph}{}{9}{section*.18}
+\contentsline {subsection}{\numberline {1.4.3}Liar, Liar Pants on Fire}{9}{subsection.1.4.3}
+\contentsline {paragraph}{}{9}{section*.19}
+\contentsline {paragraph}{}{9}{section*.20}
+\contentsline {paragraph}{}{9}{section*.21}
+\contentsline {section}{\numberline {1.5}State of the Art}{9}{section.1.5}
+\contentsline {section}{\numberline {1.6}Conclusion}{9}{section.1.6}
+\contentsline {paragraph}{}{9}{section*.22}
+\contentsline {paragraph}{}{9}{section*.23}
+\contentsline {chapter}{\numberline {2}Data Exploration}{11}{chapter.2}
+\contentsline {section}{\numberline {2.1}Introduction}{11}{section.2.1}
+\contentsline {paragraph}{}{11}{section*.25}
+\contentsline {section}{\numberline {2.2}Dataset statistics}{11}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Fake News Corpus}{11}{subsection.2.2.1}
+\contentsline {paragraph}{}{11}{section*.26}
+\contentsline {paragraph}{}{11}{section*.27}
+\contentsline {paragraph}{}{12}{section*.29}

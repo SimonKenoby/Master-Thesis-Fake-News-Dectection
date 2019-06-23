@@ -34,7 +34,7 @@ Fake news is a news article that is intentionally and verifiably false
 
 The part of the definition introducing the intent of missleading the reader automaticaly discard satire news medias, that is why this works will focus on the first part, the fact that the piece of information is verifiably false or true. Indded, even if satire news medias does not have the intent to misslead the readers, not all of them have the ability of making criticisme and not taking it to the first degree. On the other hand, in the case of political media, even if it clearly try to influence the consumer, verifying the authenticity of there claims is usualy harder as, in most of the cases, openly lies. 
 
-\section{Feature Extraction}
+\section{Feature Extraction} \label{intro:feature_extract}
 \subsection{News Content Features}
 \paragraph{} Now that fake news have been defined and the target have been set, it is needed to analize what features can be used in order to classify fake news. Starting by looking at news content, it can be seen that it is made of four principal raw components: 
 \begin{itemize}
@@ -61,7 +61,7 @@ The second features that need to be taken into account are visual features. Inde
 
 \paragraph{} Post-based aspect is in a sense similar to user based: it can use post metadata in order to provide usefull informations, but in addition to metadata, the actual content can be used. It is also possible to extract features from the content using latent Dirichlet allocation (LDA)\cite{blei2003latent}.
 
-\section{News Content Models}
+\section{News Content Models} \label{intro:models}
 \subsection{Knowledge-based models}:
 Now that the differents kinds of features available for the news have been defined, it is possible to start to explain what kind of models can be built using these features. The first models that relates to the news content is based on knowledge: the goal of this model is to check the truthfulness of the news content and can be acheived in tree differents way (or a mixture of them):
 
@@ -80,8 +80,13 @@ The second method is called objectivity-oriented approaches and tries to capture
 \paragraph{} This kind of headline plays on the curiosity of the reader that would click to read the news.
 
 \subsection{Social Context Models}
+\paragraph{} The last features that have not been used yet are social media features. There are two approaches to use these features: stance-based and propagation-based. 
 
-\section{Datasets}
+\paragraph{Stence-based} approaches use implicit or explicit representation. For instance, explicit representation might be positive or negative votes on social medias. Implicit representation need to be extracted from the post itself. 
+
+\paragraph{Propagation-based} approaches use features related to sharing such as the number of retweet on twitter. 
+
+\section{Datasets} \label{intro:dataset}
 \subsection{Fake News Corpus}
 \paragraph{}
 This works uses multiples corpus in order to train and test different models. The main corpus used for training is called Fake News Corpus\cite{Szpakowski}. This corpus have been automatically crawled using \url{opensources.co} labels. In other words, domains have been labeled with one or more labels in \begin{itemize}
@@ -122,3 +127,14 @@ This set will be used a second test set. Because in this case there are six clas
 It should be noted that this one differ from the two other dataset is it is composed only on short sentences, and thus it should not be expected to have very good results on this dataset for models trained on Fake News Corpus which is made of full texts. 
 
 \section{State of the Art}
+\section{Conclusion}
+\paragraph{} As it have been show in \textbf{Section \ref{intro:feature_extract}} and \textbf{Section \ref{intro:models}} mutliples approaches can be used in order to extract features and use them in models. This works focus on textual news content features. Indeed, other features related to social medias are difficult to aquire. For example, users information are difficult to obtain on Facebook, as well as post information. In addition, the different datasets that have been presented at \textbf{Section \ref{intro:dataset}} does not provides any other information than textual ones. 
+
+\paragraph{} Looking at \textbf{Figure \ref{fig:intro:features}} it can be seen that the main focus will be made on unsupervised and supervised learning models using textual news content. It should be noted that machine learning models usualy comes with a trade-off between precision and recall and thus that a model which is very good at detected fake news might have a high false positive rate as opposite to a model with a low false positive rate which might not be good at detecting them. This cause ethical questions such as automatic censorship that will not be discused here. 
+
+\begin{figure*}
+	\centering
+	\includegraphics[width=0.8\textwidth]{chapter/images/introduction/features}
+	\caption{Differents approaches to fake news detection.}
+	\label{fig:intro:features}
+\end{figure*}
