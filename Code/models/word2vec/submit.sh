@@ -16,6 +16,7 @@ export MKL_NUM_THREADS=2
 SCRATCH=$LOCALSCRATCH/$SLURM_JOB_ID
 srun echo "Loading TensorFlow"
 module load TensorFlow/1.12.0-fosscuda-2018b-Python-3.6.6
+module load OpenMPI/2.1.1-GCC-6.4.0-2.28
 
 srun rm -rf $SCRATCH || exit $?
 
@@ -27,7 +28,7 @@ srun cp -r $HOME/TFE/Code/models/word2vec $SCRATCH || exit $?
 srun ls $SCRATCH || exit $?
 
 srun echo "Running job"
-srun python3 $SCRATCH/word2vec/keras_rnn.py || exit $?
+mpirun python3 $SCRATCH/word2vec/keras_rnn.py || exit $?
 
 srun echo "Copying files back"
 srun mkdir -p $HOME/TFE/Code/models/word2vec/$SLURM_JOB_ID || exit $? 

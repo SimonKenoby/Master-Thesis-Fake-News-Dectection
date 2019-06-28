@@ -12,23 +12,23 @@ import numpy as np
 
 
 from pymongo import MongoClient
-from queue import Queue
-from threading import Thread
 from tqdm import tqdm
 
 from gensim.parsing.preprocessing import preprocess_string, strip_tags, strip_punctuation, remove_stopwords, strip_numeric, strip_short, strip_multiple_whitespaces, strip_non_alphanum, strip_punctuation2
-from gensim.corpora.dictionary import Dictionary
 
 from nltk import tokenize
 
 
-
+table = str.maketrans('', '', string.punctuation)
+CUSTOM_FILTERS = [lambda x: x.lower(), strip_tags, strip_punctuation, strip_numeric, 
+                    remove_stopwords, strip_multiple_whitespaces, strip_non_alphanum, strip_punctuation2,
+                    lambda x: re.sub('\s+', ' ', x), lambda x: re.sub("\'", "", x), lambda x: x.translate(table), strip_short]
 
 def averageSentence(text):
     sentences = tokenize.sent_tokenize(text)
     length = []
     for sentence in sentences:
-        words = tokenize.word_tokenize(sentence.translate(str.maketrans('','',string.punctuation)))
+        words = preprocess_string(sentence, CUSTOM_FILTERS)
         length.append(len(words))
     return np.mean(length), len(sentences)
 
@@ -41,10 +41,7 @@ collection = db.news_cleaned
 
 pbar = tqdm(total=collection.count_documents({}))
 
-table = str.maketrans('', '', string.punctuation)
-CUSTOM_FILTERS = [lambda x: x.lower(), strip_tags, strip_punctuation, strip_numeric, 
-                    remove_stopwords, strip_multiple_whitespaces, strip_non_alphanum, strip_punctuation2,
-                    lambda x: re.sub('\s+', ' ', x), lambda x: re.sub("\'", "", x), lambda x: x.translate(table), strip_short]
+
 
 for news in collection.find():
     text = news['content']

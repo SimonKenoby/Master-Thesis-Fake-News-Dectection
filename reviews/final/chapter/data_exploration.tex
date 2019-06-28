@@ -6,7 +6,8 @@ A good starting point for the analysis is to make some data exploration of the d
 
 \section{Dataset statistics}
 \subsection{Fake News Corpus}
-\paragraph{} Because \textbf{Fake News Corpus} is the main dataset, the data exploration will start with this dataset. And the first thing is to count the number of items per class. 
+\subsubsection{General Analysis}
+\paragraph{} Because \textbf{Fake News Corpus} is the main dataset, the data exploration will start with this dataset. And the first thing is to count the number of items per class. Before starting the analysis, it is needed to cleanup the dataset. As it is originaly given in a large 30GB CSV file, the first step is to put everything in a database in order to be able to retreive only wanted peice of information. In order to do so, the file have been red line by line. It appears that some of the lines are baddly formated, preventing them to be red correctly, in this case they are dropped without being put in the database. Also, each line that is a duplicate of a line already red is also dropped. The second step in cleaning the set consist of some more duplicate removal. Indeed, dropping same lines remove only exact duplicate. It appears that some news does have the same content, with slight variation in the title, or a different author. In order to remove the duplicate, each text is hashed using SHA256 and those hash a compared, removing duplicates and keeping only one. 
 
 \paragraph{} Because the dataset have been cleaned, numbers provided by the dataset creators and number computed after cleaning will be provided. We found the values given at \textbf{Table \ref{tab:explo:count1}}. It shows that the number of fake news is smaller by a small factors with respect to the number of reliable news, but given the total number of items it should not cause any problems. But it will still be taken into account later on. 
 
@@ -15,21 +16,27 @@ A good starting point for the analysis is to make some data exploration of the d
 	\begin{tabular}{l|r|r}
   Type & Provided & Computed\\
   \hline
-  Fake News & $928,083$ & \\
-  Satire & $146,080$ & \\
-  Extreme Bias & $1,300,444$ & \\
-  Conspiracy Theory & $905,981$ & \\
-  Junk Science & $144,939$ & \\
-  Hate News & $117,374$ & \\
-  Clickbait & $292,201$ & \\
-  Proceed With Caution & $319,830$ & \\
-  Political & $2,435,471$ & \\
-  Credible & $1,920,139$ & \\
+  Fake News & $928,083$ & $770,287$\\
+  Satire & $146,080$ & $855,23$\\
+  Extreme Bias & $1,300,444$ & $771,407$\\
+  Conspiracy Theory & $905,981$ & $495,402$\\
+  Junk Science & $144,939$ & $79,342$\\
+  Hate News & $117,374$ & $65,264$\\
+  Clickbait & $292,201$ & $176,403$\\
+  Proceed With Caution & $319,830$ & $104,657$\\
+  Political & $2,435,471$ & $972,283$\\
+  Credible & $1,920,139$ & $1,811,644$\\
   \hline
 \end{tabular}
   \caption{Number of texts per categories}
   \label{tab:explo:count1}
 \end{table}
+
+In addition to the numbers provided at \textbf{Table \ref{tab:explo:count1}}, there are also two more categories that are in the dataset but for which no description is provided: 
+\begin{itemize}
+  \item Unknwon: 231301
+  \item Rumor: 376815
+\end{itemize}
 
 \paragraph{} To have a better view of the distribution of categories, an histogram is provided at \textbf{Figure \ref{fig:chap1:hist1}}.
 
@@ -39,3 +46,54 @@ A good starting point for the analysis is to make some data exploration of the d
 	\caption{Histogram of text distribution along their categories on the computed numbers. }
 	\label{fig:chap1:hist1}
 \end{figure*}
+
+In addition, the number of words per text and the average number of words per sentences have been computed for each text categories. \textbf{Figure } shows the boxplots for these values. It can be seen that there is no significative difference that might be used in order to make class prediction. 
+
+\begin{figure}
+     \centering
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth, height=0.3\textheight]{chapter/images/data_exploration/clickbait.eps}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth,height=0.3\textheight]{chapter/images/data_exploration/hate.eps}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth,height=0.3\textheight]{chapter/images/data_exploration/junksci.eps}
+     \end{subfigure}
+     \vfill
+     \begin{subfigure}[b]{1\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{chapter/images/data_exploration/fake.eps}
+     \end{subfigure}
+     \vfill
+     \begin{subfigure}[b]{1\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{chapter/images/data_exploration/reliable.eps}
+     \end{subfigure}
+\end{figure}
+\begin{figure}\ContinuedFloat
+    \begin{subfigure}[b]{1\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{chapter/images/data_exploration/political.eps}
+     \end{subfigure}
+     \vfill
+     \begin{subfigure}[b]{1\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{chapter/images/data_exploration/satire.eps}
+     \end{subfigure}
+     \vfill
+     \begin{subfigure}[b]{1\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{chapter/images/data_exploration/unknown.eps}
+     \end{subfigure}
+        \caption{Three simple graphs}
+        \label{fig:three graphs}
+\end{figure}
+
+\subsubsection{Fake News analysis}
+\paragraph{} In this section, the analysis will focus on fake news and reliable news. 
