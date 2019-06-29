@@ -117,4 +117,11 @@
   pages   = {993--1022},
 }
 
+@Book{BirdKleinLoper09,
+  title     = {{Natural Language Processing with Python}},
+  publisher = {O'Reilly Media},
+  year      = {2009},
+  author    = {Steven Bird and Ewan Klein and Edward Loper},
+}
+
 @Comment{jabref-meta: databaseType:bibtex;}

@@ -47,53 +47,80 @@ In addition to the numbers provided at \textbf{Table \ref{tab:explo:count1}}, th
 	\label{fig:chap1:hist1}
 \end{figure*}
 
-In addition, the number of words per text and the average number of words per sentences have been computed for each text categories. \textbf{Figure } shows the boxplots for these values. It can be seen that there is no significative difference that might be used in order to make class prediction. 
+In addition, the number of words per text and the average number of words per sentences have been computed for each text categories. \textbf{Figure \ref{fig:data_explo:stats1}} shows the boxplots for these values. It can be seen that there is no significative difference that might be used in order to make class prediction. 
 
-\begin{figure}
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[b]{0.4\textwidth}
+    \includegraphics{chapter/images/data_exploration/boxplot_avgSentLen.eps}
+    \caption{Boxplot of average sentence length for each category.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.4\textwidth}
+    \includegraphics{chapter/images/data_exploration/boxplot_full_numSentences.eps}
+    \caption{Boxplot of number of sentences for each category.}
+  \end{subfigure}
+  \caption{Summary statistics}
+  \label{fig:data_explo:stats1}
+\end{figure}
+
+Before counting the number of words and sentences, the texts are preprocessed using gensim\cite{rehurek_lrec} and NLTK\cite{BirdKleinLoper09}. The first step consist of spliting text into an array of sentences on stop punctuation such as dots or questions mark, but not on commas. The second step consist on filttering words that are contained in these sentences, to do so, stopwords (words such as 'a', 'an', 'the'), punctuation, words or size less or equal to tree, non alpha-numeric words, numeric values and tags (such as html tags) are removed. Finnaly, the number of word still present is used. 
+
+\begin{figure}[h]
      \centering
      \begin{subfigure}[b]{0.3\textwidth}
          \centering
          \includegraphics[width=\textwidth, height=0.3\textheight]{chapter/images/data_exploration/clickbait.eps}
+         \caption{Clickbaits}
      \end{subfigure}
      \hfill
      \begin{subfigure}[b]{0.3\textwidth}
          \centering
          \includegraphics[width=\textwidth,height=0.3\textheight]{chapter/images/data_exploration/hate.eps}
+         \caption{Hate}
      \end{subfigure}
      \hfill
      \begin{subfigure}[b]{0.3\textwidth}
          \centering
          \includegraphics[width=\textwidth,height=0.3\textheight]{chapter/images/data_exploration/junksci.eps}
+         \caption{Junk sience}
      \end{subfigure}
      \vfill
      \begin{subfigure}[b]{1\textwidth}
          \centering
          \includegraphics[width=\textwidth]{chapter/images/data_exploration/fake.eps}
+         \caption{Fake}
      \end{subfigure}
      \vfill
      \begin{subfigure}[b]{1\textwidth}
          \centering
          \includegraphics[width=\textwidth]{chapter/images/data_exploration/reliable.eps}
+         \caption{Reliable}
      \end{subfigure}
 \end{figure}
 \begin{figure}\ContinuedFloat
     \begin{subfigure}[b]{1\textwidth}
          \centering
          \includegraphics[width=\textwidth]{chapter/images/data_exploration/political.eps}
+         \caption{Political}
      \end{subfigure}
      \vfill
      \begin{subfigure}[b]{1\textwidth}
          \centering
          \includegraphics[width=\textwidth]{chapter/images/data_exploration/satire.eps}
+         \caption{Satire}
      \end{subfigure}
      \vfill
      \begin{subfigure}[b]{1\textwidth}
          \centering
          \includegraphics[width=\textwidth]{chapter/images/data_exploration/unknown.eps}
+         \caption{Unknown}
      \end{subfigure}
-        \caption{Three simple graphs}
-        \label{fig:three graphs}
+        \caption{Histogram of news origin for each categories.}
+        \label{fig:data_explo:source}
 \end{figure}
+
+\paragraph{} An interesting features to look at is the distrubtion of news sources with respect to their categories. It shows that in some case some source a predominant. For instance, looking at \textbf{Figure \ref{fig:data_explo:source}} shows that most of the reliable news are from \textit{nytimes.com} and in the same way, most of the fake news are comming from \textit{beforeitsnews.com}. That have to be taken into account when training and testing models as the goal is not to distinguish between these two sources but between fake news and reliable news. 
 
 \subsubsection{Fake News analysis}
 \paragraph{} In this section, the analysis will focus on fake news and reliable news. 

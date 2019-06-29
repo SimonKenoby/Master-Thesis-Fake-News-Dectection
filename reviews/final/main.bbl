@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{Allcott2017}
 Hunt Allcott and Matthew Gentzkow.
@@ -46,5 +46,17 @@ Kai Shu, Suhang Wang, and Huan Liu.
 William~Yang Wang.
 \newblock "liar, liar pants on fire": A new benchmark dataset for fake news
   detection.
+
+\bibitem{rehurek_lrec}
+Radim {\v R}eh{\r u}{\v r}ek and Petr Sojka.
+\newblock {Software Framework for Topic Modelling with Large Corpora}.
+\newblock In {\em {Proceedings of the LREC 2010 Workshop on New Challenges for
+  NLP Frameworks}}, pages 45--50, Valletta, Malta, May 2010. ELRA.
+\newblock \url{http://is.muni.cz/publication/884893/en}.
+
+\bibitem{BirdKleinLoper09}
+Steven Bird, Ewan Klein, and Edward Loper.
+\newblock {\em {Natural Language Processing with Python}}.
+\newblock O'Reilly Media, 2009.
 
 \end{thebibliography}

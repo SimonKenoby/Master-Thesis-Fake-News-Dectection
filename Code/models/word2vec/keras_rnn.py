@@ -21,7 +21,7 @@ from w2vVectorizer import text2vec
 
 print("Loading data")
 
-data = pd.read_json('train.json', lines=True)
+data = pd.read_json(open("train.json", "r", encoding="utf8"))
 train = data['tokenized_text'].values[0:128]
 y_train = data['type'].values[0:128]
 
