@@ -120,33 +120,23 @@ Before counting the number of words and sentences, the texts are preprocessed us
         \label{fig:data_explo:source}
 \end{figure}
 
-\paragraph{} An interesting features to look at is the distrubtion of news sources with respect to their categories. It shows that in some case some source a predominant. For instance, looking at \textbf{Figure \ref{fig:data_explo:source}} shows that most of the reliable news are from \textit{nytimes.com} and in the same way, most of the fake news are comming from \textit{beforeitsnews.com}. That have to be taken into account when training and testing models as the goal is not to distinguish between these two sources but between fake news and reliable news. 
+\paragraph{} An interesting features to look at is the distrubtion of news sources with respect to their categories. It shows that in some case some source a predominant. For instance, looking at \textbf{Figure \ref{fig:data_explo:source}} shows that most of the reliable news are from \textit{nytimes.com} and in the same way, most of the fake news are coming from \textit{beforeitsnews.com}. That have to be taken into account when training and testing models as the goal is not to distinguish between these two sources but between fake news and reliable news. 
 
 \subsubsection{Fake News analysis}
 \paragraph{} In this section, the analysis will focus on fake news and reliable news. Because of what shows \textbf{Figure \ref{fig:data_explo:source}}, that is, some categories are almost all from the same source, an analysis of what happens when dropping these sources. First, lets compare the number of news while and while not taking into account majors sources. 
 
 \begin{figure}[h]
   \centering
-  \begin{subfigure}[b]{0.4\textwidth}
-     \centering
-     \includegraphics[]{chapter/images/data_exploration/notdown_hist.eps}
-     \caption{}
-     \label{fig:data_explo:hist2}
-   \end{subfigure}
-  \hfill
-  \begin{subfigure}[b]{0.4\textwidth}
-     \centering
-     \includegraphics[]{chapter/images/data_exploration/downsampled_news_count.eps}
-     \caption{}
-    \label{fig:data_explo:hist3}
-   \end{subfigure}
-   \caption{\ref{fig:data_explo:hist2} is the number of news taking unto account \textit{nytimes.com} and \textit{beforeitsnews} and \ref{fig:data_explo:hist3} does not take them into account.}
-\end{figure}
-
-While removing these two sources, it still leaves enought texts to train the different models without the risk of learning somthing unwanted such as only separating these two sources. 
-
-\begin{figure}
-  \centering
   \includegraphics[]{chapter/images/data_exploration/not_downsampled.eps}
   \caption{Summary statistics for not downsampled fake and reliable news.}
+  \label{fig:data_explo:summary1}
 \end{figure}
+
+\begin{figure*}
+	\centering
+	\includegraphics{chapter/images/data_exploration/downsampled.eps}
+	\caption{Summary statistics for downsampled dataset on fake and reliable news}
+	\label{fig:data_explo:summary2}
+\end{figure*}
+
+Comparing \textbf{Figure \ref{fig:data_explo:summary1}} and \textbf{Figure \ref{fig:data_explo:summary2}} shows that even by removing \textit{nytimes.com} and \textit{beforeitsnews.com} news from the dataset still leave enought texts to train the different models without the risk of learning something unwanted such as only separating these two sources. But one drawback is that the ratio between fake news and reliable news is going from around one half to around one fourth. 
