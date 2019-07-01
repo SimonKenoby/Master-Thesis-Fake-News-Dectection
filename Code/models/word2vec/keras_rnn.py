@@ -19,9 +19,13 @@ import numpy as np
 
 from w2vVectorizer import text2vec
 
+import sys
+
+path = sys.argv[1]
+
 print("Loading data")
 
-data = pd.read_json(open("train.json", "r", encoding="utf8"))
+data = pd.read_json(path+"train.json", lines=True)
 train = data['tokenized_text'].values[0:128]
 y_train = data['type'].values[0:128]
 
@@ -38,7 +42,7 @@ class generator(Sequence):
         self.X = X
         self.y = y
         self.size = len(y)
-        self.vectorizer = text2vec()
+        self.vectorizer = text2vec(path)
         
     def __len__(self):
         return self.size
@@ -64,7 +68,7 @@ model.compile(loss='binary_crossentropy',
 print("Fiting model")
 model.fit_generator(gen, steps_per_epoch=len(y_train), epochs=10, verbose=1, max_queue_size=1, workers=1, use_multiprocessing=True)
 
-model.save("lstm.h5")
+model.save(path+"lstm.h5")
 
 '''
 test = utils.dbUtils.TokenizedIterator('news_cleaned', filters = {'type' : {'$in' : ['fake', 'reliable']}, 'domain' : {'$in' : ['nytimes.com', 'beforeitsnews.com']}}, limit=64)

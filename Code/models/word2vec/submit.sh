@@ -28,7 +28,7 @@ srun cp -r $HOME/TFE/Code/models/word2vec $SCRATCH || exit $?
 srun ls $SCRATCH/word2vec || exit $?
 
 srun echo "Running job"
-mpirun python3 $SCRATCH/word2vec/keras_rnn.py || exit $?
+mpirun python3 $SCRATCH/word2vec/keras_rnn.py $SCRATCH/word2vec/ || exit $?
 
 srun echo "Copying files back"
 srun mkdir -p $HOME/TFE/Code/models/word2vec/$SLURM_JOB_ID || exit $? 

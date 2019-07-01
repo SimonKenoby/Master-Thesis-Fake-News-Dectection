@@ -2,9 +2,9 @@ import gensim.downloader as api
 import numpy as np
 
 class w2vVectorizer:
-    def __init__(self):
+    def __init__(self, path = ''):
         print("Loading word2vec model...")
-        self.model = api.load("word2vec-google-news-300.gz")
+        self.model = api.load(path+"word2vec-google-news-300.gz")
 
     def transform(self, text):
         UKN = np.random.randn(300)
@@ -20,13 +20,13 @@ class w2vVectorizer:
             return vector.mean(axis=0)
 
 class text2vec:
-    def __init__(self, padding = None, unknown = 'random'):
+    def __init__(self, padding = None, unknown = 'random', path = ''):
         self.padding = None
         self.unknown = unknown
         if unknown == 'random':
             self.UNK = np.random.normal(0, 1, 300)
         print("Loading word2vec model...")
-        self.model = api.load("word2vec-google-news-300")
+        self.model = api.load(path+"word2vec-google-news-300.gz")
         print("Model Loaded")
 
     def transform(self, text):
