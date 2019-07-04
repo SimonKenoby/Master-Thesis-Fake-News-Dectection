@@ -1,10 +1,11 @@
-import gensim.downloader as api
 import numpy as np
+import gensim
+
 
 class w2vVectorizer:
     def __init__(self, path = ''):
         print("Loading word2vec model...")
-        self.model = api.load(path+"word2vec-google-news-300.gz")
+        self.model = gensim.models.keyedvectors.Word2VecKeyedVectors.load_word2vec_format(path+"word2vec-google-news-300.gz", binary=True)
 
     def transform(self, text):
         UKN = np.random.randn(300)
@@ -26,7 +27,7 @@ class text2vec:
         if unknown == 'random':
             self.UNK = np.random.normal(0, 1, 300)
         print("Loading word2vec model...")
-        self.model = api.load(path+"word2vec-google-news-300.gz")
+        self.model = gensim.models.keyedvectors.Word2VecKeyedVectors.load_word2vec_format(path+"word2vec-google-news-300.gz", binary=True)
         print("Model Loaded")
 
     def transform(self, text):

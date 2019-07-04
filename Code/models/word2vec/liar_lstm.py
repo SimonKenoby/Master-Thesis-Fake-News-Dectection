@@ -15,12 +15,9 @@ Created on Wed May 22 16:02:22 2019
 """
 
 from keras.models import Sequential
-from keras.layers import Dense, Dropout
+from keras.layers import Dense, Dropout, Bidirectional
 from keras.layers import LSTM
-from keras.layers import Embedding
-from keras.layers import TimeDistributed
 from keras.utils import Sequence
-import pandas as pd
 
 from sklearn.preprocessing import LabelBinarizer
 from sklearn.metrics import classification_report
@@ -66,7 +63,7 @@ model = Sequential()
 model.add(LSTM(300, return_sequences=False, input_shape=(None, 300)))
 #model.add(Activation('softmax'))
 #model.add(TimeDistributed(Dense(1)))
-model.add(Dropout(0.2))
+model.add(Dropout(0.6))
 model.add(Dense(1, activation='sigmoid'))
 
 
@@ -76,10 +73,7 @@ model.compile(loss='binary_crossentropy',
 
 model.fit_generator(gen, steps_per_epoch=len(y_train), epochs=10, verbose=1, max_queue_size=16, workers=8, use_multiprocessing=True)
 
-model.save("lstm.h5")
-
-
-data = utils.dbUtils.TokenizedIterator('liar_liar', filters = {'split' : 'test'})
+data = utils.dbUtils.TokenizedIterator('liar_liar', filters = {'split' : 'valid'})
 valid = [value for value in data]
 y_valid = np.array([x for x in data.iterTags()])
 
@@ -96,7 +90,7 @@ client = MongoClient('192.168.178.25', 27017)
 db = client.TFE
 collection = db.results
 
-idx = collection.insert_one({'date' : datetime.datetime.now(), 'corpus' : 'liar_liar', 'experiment_id' : 3})
+idx = collection.insert_one({'date' : datetime.datetime.now(), 'corpus' : 'liar_liar', 'experiment_id' : 8})
 collection.update_one({'_id' : idx.inserted_id},{'$set' : {'model' : 'LSTM', 'classification_report' : clr}})
 collection.update_one({'_id' : idx.inserted_id},{'$set' : {'model_json' : model.to_json()}})
 
