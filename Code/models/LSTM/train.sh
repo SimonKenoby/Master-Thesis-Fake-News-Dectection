@@ -12,5 +12,5 @@ BATCH_SIZE=128
 EPOCHS=250
 
 python buildDictionary.py $train $dictFile
-python mxnet_bil-lstm.py $train $out $word2vec $dictFile $SEQ_LENGTH $EMBEDDING_DIM $HIDDEN $LAYERS $BATCH_SIZE $EPOCHS
+python mxnet_bi-lstm.py $train $out $word2vec $dictFile $SEQ_LENGTH $EMBEDDING_DIM $HIDDEN $LAYERS $BATCH_SIZE $EPOCHS
 rm $dictFile
