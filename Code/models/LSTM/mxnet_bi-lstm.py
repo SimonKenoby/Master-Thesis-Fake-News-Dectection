@@ -2,29 +2,34 @@ import numpy as np
 import mxnet as mx
 import mxnet.ndarray as nd
 import mxnet.gluon as gluon
+import gluonnlp
 from mxnet.io import NDArrayIter
 from mxnet import autograd
 
-import pandas as pd
+import json
 import argparse
 from gensim.corpora import Dictionary
 
-def tokens_to_idx(tokens, ctx = mx.cpu(0)):
-    array = [dct.token2id[token] for token in tokens]
-    if len(array) > SEQ_LENGTH:
-        array = array[0:SEQ_LENGTH]
-    else:
-        array.extend([-1 for i in range(0, SEQ_LENGTH - len(array))])
-    return nd.array(array, ctx = ctx)
-
-def data_to_array(data, ctx = mx.cpu(0)):
-    array = nd.zeros((len(data), SEQ_LENGTH), ctx = ctx)
-    for i, text in enumerate(data['tokenized_text']):
-        array[i] = tokens_to_idx(text)
-    return array
+def load_data(trainFile, ctx = mx.cpu(0)):
+    embed = gluonnlp.embedding.create(embedding_name='word2vec', source="GoogleNews-vectors-negative300")
+    labels = []
+    num_lines = sum(1 for line in open(trainFile))
+    array = nd.ones((num_lines, SEQ_LENGTH, EMBEDDING_DIM), dtype='float32', ctx = ctx)
+    with open(trainFile) as f:
+        for i, line in enumerate(f):
+            l = json.loads(line)
+            text = l['tokenized_text']
+            label = l['type']
+            labels.append(label)
+            if len(text) > SEQ_LENGTH:
+                text = text[0:SEQ_LENGTH]
+            else:
+                text.extend(['<PAD>' for i in range(0, SEQ_LENGTH - len(text))])
+            array[i] = embed[text]
+    return array, label_binarize(labels, ctx)
 
 def label_binarize(labels, ctx = mx.cpu(0)):
-    lab = nd.zeros(len(data), ctx = ctx)
+    lab = nd.zeros(len(labels), ctx = ctx)
     for i, label in enumerate(labels):
         if label == 'fake':
             lab[i] = 1
@@ -35,14 +40,13 @@ class LSTM(gluon.Block):
     def __init__(self, vocab_size, num_embed, num_hidden, num_layers, dropout, **kwargs):
         super(LSTM, self).__init__(**kwargs)
         with self.name_scope():
-            self.encoder = gluon.nn.Embedding(vocab_size, num_embed)
             self.LSTM1 = gluon.rnn.LSTM(num_embed, num_layers, layout = 'NTC', bidirectional = True)
+            self.drop1 = gluon.nn.Dropout(dropout)
             self.fc1 = gluon.nn.Dense(1, activation='sigmoid')
             
     def forward(self, inputs, hidden):
-        emb = self.encoder(inputs)
-        output, hidden = self.LSTM1(emb, hidden)
-        output = self.fc1(output[:,-1])
+        output, hidden = self.LSTM1(inputs, hidden)
+        output = self.fc1(output)
         return output, hidden
     
     def begin_state(self, *args, **kwargs):
@@ -74,17 +78,13 @@ if __name__ == "__main__":
 	EPOCHS = args.EPOCHS
 	ctx = mx.gpu(0)
 
-	data = pd.read_json(trainFile, lines=True)
-	dct = Dictionary.load(dictFile)
+	array, labels = load_data(trainFile)
 
-	array = data_to_array(data, ctx = ctx)
-	labels = label_binarize(data['type'], ctx = ctx)
-
-	net = LSTM(len(dct), EMBEDDING_DIM, HIDDEN, LAYERS, 0.2)
+	net = LSTM(len(array), EMBEDDING_DIM, HIDDEN, LAYERS, 0.2)
 	net.initialize(mx.init.Normal(sigma=1), ctx = ctx)
-	trainer = gluon.Trainer(net.collect_params(), 'rmsprop', {'learning_rate': 0.001})
+	trainer = gluon.Trainer(net.collect_params(), 'rmsprop', {'learning_rate': 0.01})
 	loss = gluon.loss.SigmoidBinaryCrossEntropyLoss(from_sigmoid=True)
-	hidden = net.begin_state(func=mx.nd.zeros, batch_size=BATCH_SIZE, ctx = ctx)
+	hidden = net.begin_state(func=mx.nd.zeros, batch_size=BATCH_SIZE, ctx = mx.cpu(0))
 
 	for epochs in range(0, EPOCHS):
 	    total_L = 0.0
@@ -96,8 +96,8 @@ if __name__ == "__main__":
 	    acc = mx.metric.Accuracy()
 	    for batch in nd_iter:
 	        with autograd.record():
-	            output, hidden = net(batch.data[0], hidden)
-	            L = loss(output, batch.label[0])
+	            output, hidden = net(batch.data[0].copyto(ctx), hidden)
+	            L = loss(output, batch.label[0].copyto(ctx))
 	            L.backward()
 	            acc.update(output, batch.label[0].flatten())
 	        trainer.step(BATCH_SIZE)
