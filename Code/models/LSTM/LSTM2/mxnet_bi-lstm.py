@@ -12,7 +12,8 @@ from tqdm import tqdm
 import json
 import argparse
 from gensim.corpora import Dictionary
-import matplotlib.pyplot as plt
+
+from csvwriter import csvwriter
 
 def load_data(trainFile, ctx = mx.cpu(0)):
 	embed = gluonnlp.embedding.create(embedding_name='word2vec', source="GoogleNews-vectors-negative300")
@@ -43,12 +44,16 @@ def label_binarize(labels, ctx = mx.cpu(0)):
 			lab[i] = 1
 	return lab
 
-def Evaluate(net, X, y, ctx = mx.cpu(0)):
+def Evaluate(net, X, y, ctx = mx.cpu(0), BATCH_SIZE = 32):
 	hidden = net.begin_state(func=mx.nd.zeros, batch_size=BATCH_SIZE, ctx = mx.gpu(0))
-	output, hidden = net(X.copyto(mx.gpu(0)), hidden)
+	nd_iter = NDArrayIter(data={'data':X},
+							  label={'softmax_label':y},
+							  batch_size=BATCH_SIZE)
 	acc = mx.metric.Accuracy()
-	acc.update(output.copyto(mx.cpu(0)), y.flatten())
-	return acc.get()
+	for batch in nd_iter:
+		output, hidden = net(batch.data[0].copyto(mx.gpu(0)), hidden)
+		acc.update(output, batch.label[0].flatten())
+	return acc.get()[1]
 
 
 
@@ -71,7 +76,7 @@ class LSTM(gluon.Block):
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description='Arguments for LSTM model')
 	parser.add_argument('train', type=str, help = "Train set file")
-	parser.add_argument('test', type=str, help = "Validation set file")
+	parser.add_argument('--test', nargs='+', type=str, help = "Validation set file", required=True)
 	parser.add_argument('outmodel', type=str, help = "Output file for model")
 	parser.add_argument('word2vec', type=str, help = "Path to word2vec gz file")
 	parser.add_argument('dictFile', type=str, help = "Path to the dictionary file")
@@ -87,7 +92,7 @@ if __name__ == "__main__":
 
 	dictFile = args.dictFile
 	trainFile = args.train
-	testFile = args.test
+	testFile = args.test[0]
 
 	SEQ_LENGTH = args.SEQ_LENGTH
 	EMBEDDING_DIM = args.EMBEDDING_DIM
@@ -98,13 +103,15 @@ if __name__ == "__main__":
 	LOG = args.log
 	ctx = mx.gpu(0)
 
-	sw = SummaryWriter(logdir=LOG, flush_secs=5)
+	cw = csvwriter(LOG)
+	cw.write(['epoch', 'loss', 'accuracy', 'validation'])
 
 	mx.random.seed(42, ctx = mx.cpu(0))
 	mx.random.seed(42, ctx = mx.gpu(0))
 
 	array, labels = load_data(trainFile)
-	#X_test, y_test = load_data(testFile)
+
+	X_test, y_test = load_data(testFile)
 
 	net = LSTM(len(array), EMBEDDING_DIM, HIDDEN, LAYERS, 0.2)
 	net.initialize(mx.init.Normal(sigma=1), ctx = ctx)
@@ -130,15 +137,13 @@ if __name__ == "__main__":
 				acc.update(output, batch.label[0].flatten())
 			trainer.step(BATCH_SIZE)
 			total_L += mx.nd.sum(L).asscalar()
-		#test.append(Evaluate(net, X_test, y_test))
+		e = Evaluate(net, X_test, y_test, ctx = mx.cpu(0), BATCH_SIZE = BATCH_SIZE)
 		pbar.close() 
 
-		# TODO: Print epoch number
 		# TODO: Evalute on validation set at the same time
 		# TODO: Make plots of training 
-		print("Loss : {}, Accuracy : {}".format(total_L, acc.get()))
-		sw.add_scalar(tag = 'accuracy', value = acc.get()[1], global_step = epochs)
-		sw.add_scalar(tag = 'loss', value = total_L, global_step = epochs)
-	sw.close()
+		print("epoch : {}, Loss : {}, Accuracy : {}, validation : {}".format(epochs, total_L, acc.get()[1], e))
+		cw.write([epochs, total_L, acc.get()[1], e])
 
+	cw.close()
 	net.save_parameters(args.outmodel)

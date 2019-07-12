@@ -14,4 +14,4 @@ BATCH_SIZE=128
 EPOCHS=10
 
 test="$test_dir/test_splitaa"
-python mxnet_bi-lstm.py $train $out $word2vec $dictFile $SEQ_LENGTH $EMBEDDING_DIM $HIDDEN $LAYERS $BATCH_SIZE $EPOCHS $logs --test $test
+python attention_lstm.py $train $out $word2vec $dictFile $SEQ_LENGTH $EMBEDDING_DIM $HIDDEN $LAYERS $BATCH_SIZE $EPOCHS $logs --test $test
