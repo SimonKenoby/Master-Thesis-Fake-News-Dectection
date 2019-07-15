@@ -1,17 +1,13 @@
-import numpy as np
 import mxnet as mx
 import mxnet.ndarray as nd
 import mxnet.gluon as gluon
-import gluonnlp
 from mxnet.io import NDArrayIter
-from mxnet import autograd
-from mxboard import *
-
 from tqdm import tqdm
 
 import json
 import argparse
 import pandas as pd
+import os
 from gensim.corpora import Dictionary
 
 from csvwriter import csvwriter
@@ -34,7 +30,7 @@ def load_data(trainFile, dct, ctx = mx.cpu(0)):
     return array, label_binarize(labels, ctx)
 
 def tokens_to_idx(tokens, dct, ctx = mx.cpu(0)):
-    array = [dct.token2id[token] for token in tokens]
+    array = [dct.token2id[token] if token in dct.token2id else -1 for token in tokens]
     if len(array) > SEQ_LENGTH:
         array = array[0:SEQ_LENGTH]
     else:
@@ -42,12 +38,13 @@ def tokens_to_idx(tokens, dct, ctx = mx.cpu(0)):
     return nd.array(array, ctx = ctx)
 
 def label_binarize(labels, ctx = mx.cpu(0)):
-    lab = nd.zeros(len(labels), ctx = ctx)
+    lab = nd.zeros((len(labels), 2), ctx = ctx)
     for i, label in enumerate(labels):
         if label == 'fake':
-            lab[i] = 1
+            lab[i, 1] = 1
+        else:
+            lab[i, 0] = 1
     return lab
-
 
 class Attention(gluon.Block):
     def __init__(self, seq_length, num_embed, num_hidden, num_layers, dropout, **kwargs):
@@ -75,39 +72,35 @@ class LSTM(gluon.Block):
             self.encoder = gluon.nn.Embedding(vocab_size, num_embed)
             self.LSTM1 = gluon.rnn.LSTM(num_embed, num_layers, layout = 'NTC', bidirectional = True)
             self.attention = Attention(seq_length, num_embed, num_hidden, num_layers, dropout)
-            self.fc1 = gluon.nn.Dense(1)
+            self.fc1 = gluon.nn.Dense(2)
             
     def forward(self, inputs, hidden):
         emb = self.encoder(inputs)
         output, hidden = self.LSTM1(emb, hidden)
         output = self.attention(output)
         output = self.fc1(output)
-        return nd.sigmoid( output ), hidden
+        return nd.softmax( output , axis=1), hidden
     
     def begin_state(self, *args, **kwargs):
         return self.LSTM1.begin_state(*args, **kwargs)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Arguments for LSTM model')
-    parser.add_argument('train', type=str, help = "Train set file")
     parser.add_argument('--test', nargs='+', type=str, help = "Validation set file", required=True)
-    parser.add_argument('outmodel', type=str, help = "Output file for model")
-    parser.add_argument('word2vec', type=str, help = "Path to word2vec gz file")
-    parser.add_argument('dictFile', type=str, help = "Path to the dictionary file")
-    parser.add_argument('SEQ_LENGTH', type = int, help = "Fixed size length to expand or srink text")
-    parser.add_argument('EMBEDDING_DIM', type = int, help = "Size of the embedding dimention")
-    parser.add_argument('HIDDEN', type = int, help = "Size of the hidden layer")
-    parser.add_argument('LAYERS', type = int, help = "Number of hidden layers")
-    parser.add_argument('DROPOUT', type = float, help = "Dropout value")
-    parser.add_argument('BATCH_SIZE', type = int, help = "Batch size")
-    parser.add_argument('EPOCHS', type = int, help = "Number of epochs for training")
-    parser.add_argument('log', type=str, help = "Log Directory")
+    parser.add_argument('--input', type=str, help = "Input directory for the model files")
+    parser.add_argument('--dictFile', type=str, help = "Path to the dictionary file")
+    parser.add_argument('--SEQ_LENGTH', type = int, help = "Fixed size length to expand or srink text")
+    parser.add_argument('--EMBEDDING_DIM', type = int, help = "Size of the embedding dimention")
+    parser.add_argument('--HIDDEN', type = int, help = "Size of the hidden layer")
+    parser.add_argument('--LAYERS', type = int, help = "Number of hidden layers")
+    parser.add_argument('--DROPOUT', type = float, help = "Number of hidden layers")
+    parser.add_argument('--BATCH_SIZE', type = int, help = "Batch size")
+    parser.add_argument('--log', type=str, help = "Log Directory")
 
     args = parser.parse_args()
 
     dictFile = args.dictFile
-    trainFile = args.train
-    testFile = args.test[0]
+    testFiles = args.test
 
     SEQ_LENGTH = args.SEQ_LENGTH
     EMBEDDING_DIM = args.EMBEDDING_DIM
@@ -115,50 +108,40 @@ if __name__ == "__main__":
     LAYERS = args.LAYERS
     DROPOUT = args.DROPOUT
     BATCH_SIZE = args.BATCH_SIZE
-    EPOCHS = args.EPOCHS
     LOG = args.log
     ctx = mx.gpu(0)
 
     cw = csvwriter(LOG)
-    cw.write(['epoch', 'loss', 'accuracy'])
+    cw.write(['accuracy'])
 
-    #mx.random.seed(42, ctx = mx.cpu(0))
-    #mx.random.seed(42, ctx = mx.gpu(0))
+    files = []
+    # r=root, d=directories, f = files
+    for r, d, f in os.walk(args.input):
+        for file in f:
+            files.append(os.path.join(r, file))
+    files.sort()
 
     dct = Dictionary.load(dictFile)
-    array, labels = load_data(trainFile, dct)
-
-    net = LSTM(len(dct), SEQ_LENGTH, EMBEDDING_DIM, HIDDEN, LAYERS, 0.2)
-    net.initialize(mx.init.Normal(sigma=1), ctx = ctx)
-    trainer = gluon.Trainer(net.collect_params(), 'sgd', {'learning_rate': 0.05, 'wd' : 0.00001})
-    loss = gluon.loss.SigmoidBinaryCrossEntropyLoss(from_sigmoid=True)
-    hidden = net.begin_state(func=mx.nd.zeros, batch_size=BATCH_SIZE, ctx = mx.cpu(0))
-
-    for epochs in range(0, EPOCHS):
-        pbar = tqdm(total = len(array) // BATCH_SIZE)
-        total_L = 0.0
+    pbar = tqdm(len(testFiles))
+    for test_file in testFiles:
+        array, labels = load_data(test_file, dct)
+        acc = mx.metric.Accuracy()
         accuracy = []
-        hidden = net.begin_state(func=mx.nd.zeros, batch_size=BATCH_SIZE, ctx = ctx)
-        nd_iter = NDArrayIter(data={'data':array},
+        for model in files:
+            net = LSTM(len(dct), SEQ_LENGTH, EMBEDDING_DIM, HIDDEN, LAYERS, DROPOUT)
+            net.load_parameters(model, ctx=ctx)
+            hidden = net.begin_state(func=mx.nd.zeros, batch_size=BATCH_SIZE, ctx = ctx)
+            nd_iter = NDArrayIter(data={'data':array},
                               label={'softmax_label':labels},
                               batch_size=BATCH_SIZE)
-        acc = mx.metric.Accuracy()
-        for batch in nd_iter:
-            pbar.update(1)
-            with autograd.record():
+            for batch in nd_iter:
                 output, _ = net(batch.data[0].copyto(ctx), hidden)
-                L = loss(output, batch.label[0].copyto(ctx))
-                L.backward()
-                pred = output > 0.5
-                acc.update(batch.label[0].flatten(), pred)
-            trainer.step(BATCH_SIZE)
-            total_L += mx.nd.sum(L).asscalar()
-        pbar.close() 
-
-        # TODO: Evalute on validation set at the same time
-        # TODO: Make plots of training 
-        print("epoch : {}, Loss : {}, Accuracy : {}".format(epochs, total_L, acc.get()[1]))
-        cw.write([epochs, total_L, acc.get()[1]])
-        net.save_parameters(args.outmodel+"_{:04d}.params".format(epochs))
-
+                pred = output.argmax(axis=1)
+                y = batch.label[0].argmax(axis=1)
+                acc.update(y, pred)
+            accuracy.append(acc.get()[1])
+        cw.write(accuracy)
+        pbar.update(1)
+    pbar.close()    
     cw.close()
+        

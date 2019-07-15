@@ -39,13 +39,15 @@ def tokens_to_idx(tokens, dct, ctx = mx.cpu(0)):
         array = array[0:SEQ_LENGTH]
     else:
         array.extend([-1 for i in range(0, SEQ_LENGTH - len(array))])
-    return nd.array(array, ctx = ctx)
+    return nd.array(array, ctx = ctx,  dtype='int32')
 
 def label_binarize(labels, ctx = mx.cpu(0)):
-    lab = nd.zeros(len(labels), ctx = ctx)
+    lab = nd.zeros((len(labels), 2), ctx = ctx)
     for i, label in enumerate(labels):
         if label == 'fake':
-            lab[i] = 1
+            lab[i, 1] = 1
+        else:
+            lab[i, 0] = 1
     return lab
 
 
@@ -75,14 +77,14 @@ class LSTM(gluon.Block):
             self.encoder = gluon.nn.Embedding(vocab_size, num_embed)
             self.LSTM1 = gluon.rnn.LSTM(num_embed, num_layers, layout = 'NTC', bidirectional = True)
             self.attention = Attention(seq_length, num_embed, num_hidden, num_layers, dropout)
-            self.fc1 = gluon.nn.Dense(1)
+            self.fc1 = gluon.nn.Dense(2)
             
     def forward(self, inputs, hidden):
         emb = self.encoder(inputs)
         output, hidden = self.LSTM1(emb, hidden)
         output = self.attention(output)
         output = self.fc1(output)
-        return nd.sigmoid( output ), hidden
+        return nd.softmax( output , axis=1), hidden
     
     def begin_state(self, *args, **kwargs):
         return self.LSTM1.begin_state(*args, **kwargs)
@@ -131,7 +133,7 @@ if __name__ == "__main__":
     net = LSTM(len(dct), SEQ_LENGTH, EMBEDDING_DIM, HIDDEN, LAYERS, 0.2)
     net.initialize(mx.init.Normal(sigma=1), ctx = ctx)
     trainer = gluon.Trainer(net.collect_params(), 'sgd', {'learning_rate': 0.05, 'wd' : 0.00001})
-    loss = gluon.loss.SigmoidBinaryCrossEntropyLoss(from_sigmoid=True)
+    loss = gluon.loss.SigmoidBinaryCrossEntropyLoss(from_sigmoid=False)
     hidden = net.begin_state(func=mx.nd.zeros, batch_size=BATCH_SIZE, ctx = mx.cpu(0))
 
     for epochs in range(0, EPOCHS):
@@ -149,8 +151,9 @@ if __name__ == "__main__":
                 output, _ = net(batch.data[0].copyto(ctx), hidden)
                 L = loss(output, batch.label[0].copyto(ctx))
                 L.backward()
-                pred = output > 0.5
-                acc.update(batch.label[0].flatten(), pred)
+                pred = output.argmax(axis=1)
+                y = batch.label[0].argmax(axis=1)
+                acc.update(y, pred)
             trainer.step(BATCH_SIZE)
             total_L += mx.nd.sum(L).asscalar()
         pbar.close() 
