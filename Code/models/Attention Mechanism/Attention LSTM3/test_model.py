@@ -8,7 +8,11 @@ import json
 import argparse
 import pandas as pd
 import os
+import sys
+import numpy as np
 from gensim.corpora import Dictionary
+from sklearn.metrics import recall_score
+
 
 from csvwriter import csvwriter
 
@@ -45,6 +49,12 @@ def label_binarize(labels, ctx = mx.cpu(0)):
         else:
             lab[i, 0] = 1
     return lab
+
+def recall(y, y_hat):
+    y = y.asnumpy()
+    y_hat = y_hat.asnumpy()
+    return recall_score(y, y_hat)
+
 
 class Attention(gluon.Block):
     def __init__(self, seq_length, num_embed, num_hidden, num_layers, dropout, **kwargs):
@@ -96,8 +106,18 @@ if __name__ == "__main__":
     parser.add_argument('--DROPOUT', type = float, help = "Number of hidden layers")
     parser.add_argument('--BATCH_SIZE', type = int, help = "Batch size")
     parser.add_argument('--log', type=str, help = "Log Directory")
+    parser.add_argument('--experiment', type=int, help = "Experiment id for registration")
+    parser.add_argument('--utils', type=str, help = "Helper directory")
+    parser.add_argument('--db', type=str, help = "DB name", required=True)
+    parser.add_argument('--collection', type=str, help = "DB collection")
+    parser.add_argument('--host', type=str, help = "DB host")
+    parser.add_argument('--port', type=int, help = "Port number of db")
 
     args = parser.parse_args()
+
+    sys.path.append(args.utils)
+
+    from register_experiment import Register
 
     dictFile = args.dictFile
     testFiles = args.test
@@ -121,13 +141,16 @@ if __name__ == "__main__":
             files.append(os.path.join(r, file))
     files.sort()
 
+    r = Register(args.host, args.port, args.db, args.collection)
+
     dct = Dictionary.load(dictFile)
     pbar = tqdm(len(testFiles))
-    for test_file in testFiles:
+    for i, test_file in enumerate(testFiles):
         array, labels = load_data(test_file, dct)
         acc = mx.metric.Accuracy()
         accuracy = []
-        for model in files:
+        for j, model in enumerate(files):
+            recall_list = []
             net = LSTM(len(dct), SEQ_LENGTH, EMBEDDING_DIM, HIDDEN, LAYERS, DROPOUT)
             net.load_parameters(model, ctx=ctx)
             hidden = net.begin_state(func=mx.nd.zeros, batch_size=BATCH_SIZE, ctx = ctx)
@@ -139,7 +162,9 @@ if __name__ == "__main__":
                 pred = output.argmax(axis=1)
                 y = batch.label[0].argmax(axis=1)
                 acc.update(y, pred)
+                recall_list.append(recall(y, pred))
             accuracy.append(acc.get()[1])
+            r.addEpochs(j, {'accuracy' : acc.get()[1], 'recall' : np.mean(recall_list)}, args.experiment, 'valid')
         cw.write(accuracy)
         pbar.update(1)
     pbar.close()    

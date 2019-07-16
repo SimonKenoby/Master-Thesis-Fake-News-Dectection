@@ -12,9 +12,13 @@ from tqdm import tqdm
 import json
 import argparse
 import pandas as pd
+import numpy as np
 from gensim.corpora import Dictionary
+from sklearn.metrics import recall_score
 
 from csvwriter import csvwriter
+
+import sys
 
 def load_data(trainFile, dct, ctx = mx.cpu(0)):
     labels = []
@@ -49,6 +53,12 @@ def label_binarize(labels, ctx = mx.cpu(0)):
         else:
             lab[i, 0] = 1
     return lab
+
+def recall(y, y_hat):
+    y = y.asnumpy()
+    y_hat = y_hat.asnumpy()
+    return recall_score(y, y_hat)
+
 
 
 class Attention(gluon.Block):
@@ -94,7 +104,6 @@ if __name__ == "__main__":
     parser.add_argument('train', type=str, help = "Train set file")
     parser.add_argument('--test', nargs='+', type=str, help = "Validation set file", required=True)
     parser.add_argument('outmodel', type=str, help = "Output file for model")
-    parser.add_argument('word2vec', type=str, help = "Path to word2vec gz file")
     parser.add_argument('dictFile', type=str, help = "Path to the dictionary file")
     parser.add_argument('SEQ_LENGTH', type = int, help = "Fixed size length to expand or srink text")
     parser.add_argument('EMBEDDING_DIM', type = int, help = "Size of the embedding dimention")
@@ -104,8 +113,22 @@ if __name__ == "__main__":
     parser.add_argument('BATCH_SIZE', type = int, help = "Batch size")
     parser.add_argument('EPOCHS', type = int, help = "Number of epochs for training")
     parser.add_argument('log', type=str, help = "Log Directory")
+    parser.add_argument('--experiment', type=int, help = "Experiment id for registration")
+    parser.add_argument('--utils', type=str, help = "Helper directory")
+    parser.add_argument('--db', type=str, help = "DB name", required=True)
+    parser.add_argument('--collection', type=str, help = "DB collection")
+    parser.add_argument('--host', type=str, help = "DB host")
+    parser.add_argument('--port', type=int, help = "Port number of db")
+
 
     args = parser.parse_args()
+
+    sys.path.append(args.utils)
+
+    from register_experiment import Register
+
+    r = Register(args.host, args.port, args.db, args.collection)
+    r.newExperiment(args.experiment, 'Attention LSTM')
 
     dictFile = args.dictFile
     trainFile = args.train
@@ -132,7 +155,7 @@ if __name__ == "__main__":
 
     net = LSTM(len(dct), SEQ_LENGTH, EMBEDDING_DIM, HIDDEN, LAYERS, 0.2)
     net.initialize(mx.init.Normal(sigma=1), ctx = ctx)
-    trainer = gluon.Trainer(net.collect_params(), 'sgd', {'learning_rate': 0.05, 'wd' : 0.00001})
+    trainer = gluon.Trainer(net.collect_params(), 'sgd', {'learning_rate': 0.1, 'wd' : 0.00001})
     loss = gluon.loss.SigmoidBinaryCrossEntropyLoss(from_sigmoid=False)
     hidden = net.begin_state(func=mx.nd.zeros, batch_size=BATCH_SIZE, ctx = mx.cpu(0))
 
@@ -144,6 +167,7 @@ if __name__ == "__main__":
         nd_iter = NDArrayIter(data={'data':array},
                               label={'softmax_label':labels},
                               batch_size=BATCH_SIZE)
+        recall_list = []
         acc = mx.metric.Accuracy()
         for batch in nd_iter:
             pbar.update(1)
@@ -154,14 +178,16 @@ if __name__ == "__main__":
                 pred = output.argmax(axis=1)
                 y = batch.label[0].argmax(axis=1)
                 acc.update(y, pred)
+                recall_list.append(recall(y, pred))
             trainer.step(BATCH_SIZE)
             total_L += mx.nd.sum(L).asscalar()
         pbar.close() 
 
         # TODO: Evalute on validation set at the same time
         # TODO: Make plots of training 
-        print("epoch : {}, Loss : {}, Accuracy : {}".format(epochs, total_L, acc.get()[1]))
+        print("epoch : {}, Loss : {}, Accuracy : {}, recall : {}".format(epochs, total_L, acc.get()[1], np.mean(recall_list)))
+        r.addResult({'epoch' : epochs, 'train' : {'accuracy' : acc.get()[1], 'loss' : total_L, 'recall' : np.mean(recall_list)}}, args.experiment)
         cw.write([epochs, total_L, acc.get()[1]])
         net.save_parameters(args.outmodel+"_{:04d}.params".format(epochs))
-
+    r.addParams({'SEQ_LENGTH' : SEQ_LENGTH, 'EMBEDDING_DIM': EMBEDDING_DIM, 'HIDDEN': HIDDEN, 'LAYERS' : LAYERS, 'DROPOUT' : DROPOUT, 'BATCH_SIZE' : BATCH_SIZE, 'EPOCHS' : EPOCHS}, args.experiment)
     cw.close()
