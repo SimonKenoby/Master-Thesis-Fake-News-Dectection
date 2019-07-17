@@ -11,7 +11,7 @@ import os
 import sys
 import numpy as np
 from gensim.corpora import Dictionary
-from sklearn.metrics import recall_score
+from sklearn.metrics import recall_score, confusion_matrix
 
 
 from csvwriter import csvwriter
@@ -53,7 +53,7 @@ def label_binarize(labels, ctx = mx.cpu(0)):
 def recall(y, y_hat):
     y = y.asnumpy()
     y_hat = y_hat.asnumpy()
-    return recall_score(y, y_hat)
+    return recall_score(y, y_hat), confusion_matrix(y, y_hat).ravel()
 
 
 class Attention(gluon.Block):
@@ -80,7 +80,7 @@ class LSTM(gluon.Block):
         self.seq_length = seq_length
         with self.name_scope():
             self.encoder = gluon.nn.Embedding(vocab_size, num_embed)
-            self.LSTM1 = gluon.rnn.LSTM(num_embed, num_layers, layout = 'NTC', bidirectional = True)
+            self.LSTM1 = gluon.rnn.LSTM(num_hidden, num_layers, layout = 'NTC', bidirectional = True)
             self.attention = Attention(seq_length, num_embed, num_hidden, num_layers, dropout)
             self.fc1 = gluon.nn.Dense(2)
             
@@ -142,6 +142,7 @@ if __name__ == "__main__":
     files.sort()
 
     r = Register(args.host, args.port, args.db, args.collection)
+    print(r.getLastExperiment())
 
     dct = Dictionary.load(dictFile)
     pbar = tqdm(len(testFiles))
@@ -149,6 +150,7 @@ if __name__ == "__main__":
         array, labels = load_data(test_file, dct)
         acc = mx.metric.Accuracy()
         accuracy = []
+        cfMatrix = []
         for j, model in enumerate(files):
             recall_list = []
             net = LSTM(len(dct), SEQ_LENGTH, EMBEDDING_DIM, HIDDEN, LAYERS, DROPOUT)
@@ -162,11 +164,14 @@ if __name__ == "__main__":
                 pred = output.argmax(axis=1)
                 y = batch.label[0].argmax(axis=1)
                 acc.update(y, pred)
-                recall_list.append(recall(y, pred))
+                rec, mat = recall(y, pred)
+                recall_list.append(rec)
+                cfMatrix.append(mat)
             accuracy.append(acc.get()[1])
-            r.addEpochs(j, {'accuracy' : acc.get()[1], 'recall' : np.mean(recall_list)}, args.experiment, 'valid')
+            r.addEpochs(j, {'accuracy' : acc.get()[1], 'recall' : np.mean(recall_list), 'Confusion Matrix' : 'Confusion Matrix' : list(map(int, sum(cfMatrix)))}, r.getLastExperiment() + 1, 'valid')
         cw.write(accuracy)
         pbar.update(1)
-    pbar.close()    
+    pbar.close()
+    r.closeExperiment(r.getLastExperiment() + 1)
     cw.close()
         

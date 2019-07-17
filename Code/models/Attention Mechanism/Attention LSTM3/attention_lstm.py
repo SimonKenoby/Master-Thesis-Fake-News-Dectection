@@ -14,7 +14,7 @@ import argparse
 import pandas as pd
 import numpy as np
 from gensim.corpora import Dictionary
-from sklearn.metrics import recall_score
+from sklearn.metrics import recall_score, confusion_matrix
 
 from csvwriter import csvwriter
 
@@ -57,7 +57,7 @@ def label_binarize(labels, ctx = mx.cpu(0)):
 def recall(y, y_hat):
     y = y.asnumpy()
     y_hat = y_hat.asnumpy()
-    return recall_score(y, y_hat)
+    return recall_score(y, y_hat), confusion_matrix(y, y_hat).ravel()
 
 
 
@@ -85,7 +85,7 @@ class LSTM(gluon.Block):
         self.seq_length = seq_length
         with self.name_scope():
             self.encoder = gluon.nn.Embedding(vocab_size, num_embed)
-            self.LSTM1 = gluon.rnn.LSTM(num_embed, num_layers, layout = 'NTC', bidirectional = True)
+            self.LSTM1 = gluon.rnn.LSTM(num_hidden, num_layers, layout = 'NTC', bidirectional = True)
             self.attention = Attention(seq_length, num_embed, num_hidden, num_layers, dropout)
             self.fc1 = gluon.nn.Dense(2)
             
@@ -128,7 +128,9 @@ if __name__ == "__main__":
     from register_experiment import Register
 
     r = Register(args.host, args.port, args.db, args.collection)
-    r.newExperiment(args.experiment, 'Attention LSTM')
+    r.newExperiment(r.getLastExperiment() + 1, 'Attention LSTM 3')
+
+    args.experiment = r.getLastExperiment()
 
     dictFile = args.dictFile
     trainFile = args.train
@@ -168,6 +170,7 @@ if __name__ == "__main__":
                               label={'softmax_label':labels},
                               batch_size=BATCH_SIZE)
         recall_list = []
+        cfMatrix = []
         acc = mx.metric.Accuracy()
         for batch in nd_iter:
             pbar.update(1)
@@ -178,7 +181,9 @@ if __name__ == "__main__":
                 pred = output.argmax(axis=1)
                 y = batch.label[0].argmax(axis=1)
                 acc.update(y, pred)
-                recall_list.append(recall(y, pred))
+                rec, mat = recall(y, pred)
+                recall_list.append(rec)
+                cfMatrix.append(mat)
             trainer.step(BATCH_SIZE)
             total_L += mx.nd.sum(L).asscalar()
         pbar.close() 
@@ -186,8 +191,8 @@ if __name__ == "__main__":
         # TODO: Evalute on validation set at the same time
         # TODO: Make plots of training 
         print("epoch : {}, Loss : {}, Accuracy : {}, recall : {}".format(epochs, total_L, acc.get()[1], np.mean(recall_list)))
-        r.addResult({'epoch' : epochs, 'train' : {'accuracy' : acc.get()[1], 'loss' : total_L, 'recall' : np.mean(recall_list)}}, args.experiment)
+        r.addResult({'epoch' : epochs, 'train' : {'accuracy' : acc.get()[1], 'loss' : total_L, 'recall' : np.mean(recall_list), 'Confusion Matrix' : list(map(int, sum(cfMatrix)))}}, r.getLastExperiment() + 1)
         cw.write([epochs, total_L, acc.get()[1]])
         net.save_parameters(args.outmodel+"_{:04d}.params".format(epochs))
-    r.addParams({'SEQ_LENGTH' : SEQ_LENGTH, 'EMBEDDING_DIM': EMBEDDING_DIM, 'HIDDEN': HIDDEN, 'LAYERS' : LAYERS, 'DROPOUT' : DROPOUT, 'BATCH_SIZE' : BATCH_SIZE, 'EPOCHS' : EPOCHS}, args.experiment)
+    r.addParams({'SEQ_LENGTH' : SEQ_LENGTH, 'EMBEDDING_DIM': EMBEDDING_DIM, 'HIDDEN': HIDDEN, 'LAYERS' : LAYERS, 'DROPOUT' : DROPOUT, 'BATCH_SIZE' : BATCH_SIZE, 'EPOCHS' : EPOCHS}, r.getLastExperiment() + 1)
     cw.close()
