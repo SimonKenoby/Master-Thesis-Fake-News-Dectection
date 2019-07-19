@@ -47,6 +47,46 @@ William~Yang Wang.
 \newblock "liar, liar pants on fire": A new benchmark dataset for fake news
   detection.
 
+\bibitem{Reis2019}
+Julio~CS Reis, Andr{\'e} Correia, Fabr{\'\i}cio Murai, Adriano Veloso,
+  Fabr{\'\i}cio Benevenuto, and Erik Cambria.
+\newblock Supervised learning for fake news detection.
+\newblock {\em IEEE Intelligent Systems}, 34(2):76--81, 2019.
+
+\bibitem{Perez-Rosas2017}
+Verónica Pérez-Rosas, Bennett Kleinberg, Alexandra Lefevre, and Rada
+  Mihalcea.
+\newblock Automatic detection of fake news.
+
+\bibitem{Pennebaker2001}
+James~W Pennebaker, Martha~E Francis, and Roger~J Booth.
+\newblock Linguistic inquiry and word count: Liwc 2001.
+\newblock {\em Mahway: Lawrence Erlbaum Associates}, 71(2001):2001, 2001.
+
+\bibitem{Hochreiter1997LongSM}
+Sepp Hochreiter and J{\"u}rgen Schmidhuber.
+\newblock Long short-term memory.
+\newblock {\em Neural Computation}, 9:1735--1780, 1997.
+
+\bibitem{Vaswani2017AttentionIA}
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
+  Aidan~N. Gomez, Lukasz Kaiser, and Illia Polosukhin.
+\newblock Attention is all you need.
+\newblock In {\em NIPS}, 2017.
+
+\bibitem{Li2018}
+Shuai Li, Wanqing Li, Chris Cook, Ce~Zhu, and Yanbo Gao.
+\newblock Independently recurrent neural network (indrnn): Building a longer
+  and deeper rnn.
+
+\bibitem{zhou-etal-2016-attention}
+Peng Zhou, Wei Shi, Jun Tian, Zhenyu Qi, Bingchen Li, Hongwei Hao, and Bo~Xu.
+\newblock Attention-based bidirectional long short-term memory networks for
+  relation classification.
+\newblock In {\em Proceedings of the 54th Annual Meeting of the Association for
+  Computational Linguistics (Volume 2: Short Papers)}, pages 207--212, Berlin,
+  Germany, August 2016. Association for Computational Linguistics.
+
 \bibitem{rehurek_lrec}
 Radim {\v R}eh{\r u}{\v r}ek and Petr Sojka.
 \newblock {Software Framework for Topic Modelling with Large Corpora}.

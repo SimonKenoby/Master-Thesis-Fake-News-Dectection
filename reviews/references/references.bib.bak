@@ -95,16 +95,15 @@
 }
 
 @Article{Wang2017,
-  author        = {William Yang Wang},
-  title         = {"Liar, Liar Pants on Fire": A New Benchmark Dataset for Fake News Detection},
-  __markedentry = {[simon:6]},
-  abstract      = {Automatic fake news detection is a challenging problem in deception detection, and it has tremendous real-world political and social impacts. However, statistical approaches to combating fake news has been dramatically limited by the lack of labeled benchmark datasets. In this paper, we present liar: a new, publicly available dataset for fake news detection. We collected a decade-long, 12.8K manually labeled short statements in various contexts from PolitiFact.com, which provides detailed analysis report and links to source documents for each case. This dataset can be used for fact-checking research as well. Notably, this new dataset is an order of magnitude larger than previously largest public fake news datasets of similar type. Empirically, we investigate automatic fake news detection based on surface-level linguistic patterns. We have designed a novel, hybrid convolutional neural network to integrate meta-data with text. We show that this hybrid approach can improve a text-only deep learning model.},
-  date          = {2017-05-01},
-  eprint        = {http://arxiv.org/abs/1705.00648v1},
-  eprintclass   = {cs.CL},
-  eprinttype    = {arXiv},
-  file          = {:http\://arxiv.org/pdf/1705.00648v1:PDF},
-  keywords      = {cs.CL, cs.CY},
+  author      = {William Yang Wang},
+  title       = {"Liar, Liar Pants on Fire": A New Benchmark Dataset for Fake News Detection},
+  abstract    = {Automatic fake news detection is a challenging problem in deception detection, and it has tremendous real-world political and social impacts. However, statistical approaches to combating fake news has been dramatically limited by the lack of labeled benchmark datasets. In this paper, we present liar: a new, publicly available dataset for fake news detection. We collected a decade-long, 12.8K manually labeled short statements in various contexts from PolitiFact.com, which provides detailed analysis report and links to source documents for each case. This dataset can be used for fact-checking research as well. Notably, this new dataset is an order of magnitude larger than previously largest public fake news datasets of similar type. Empirically, we investigate automatic fake news detection based on surface-level linguistic patterns. We have designed a novel, hybrid convolutional neural network to integrate meta-data with text. We show that this hybrid approach can improve a text-only deep learning model.},
+  date        = {2017-05-01},
+  eprint      = {http://arxiv.org/abs/1705.00648v1},
+  eprintclass = {cs.CL},
+  eprinttype  = {arXiv},
+  file        = {:http\://arxiv.org/pdf/1705.00648v1:PDF},
+  keywords    = {cs.CL, cs.CY},
 }
 
 @Article{blei2003latent,
@@ -122,6 +121,96 @@
   publisher = {O'Reilly Media},
   year      = {2009},
   author    = {Steven Bird and Ewan Klein and Edward Loper},
+}
+
+@InProceedings{rehurek_lrec,
+  author    = {Radim {\v R}eh{\r u}{\v r}ek and Petr Sojka},
+  title     = {{Software Framework for Topic Modelling with Large Corpora}},
+  booktitle = {{Proceedings of the LREC 2010 Workshop on New Challenges for NLP Frameworks}},
+  year      = {2010},
+  pages     = {45--50},
+  address   = {Valletta, Malta},
+  month     = May,
+  publisher = {ELRA},
+  note      = {\url{http://is.muni.cz/publication/884893/en}},
+  day       = {22},
+  language  = {English},
+}
+
+@Article{Perez-Rosas2017,
+  author      = {Verónica Pérez-Rosas and Bennett Kleinberg and Alexandra Lefevre and Rada Mihalcea},
+  title       = {Automatic Detection of Fake News},
+  abstract    = {The proliferation of misleading information in everyday access media outlets such as social media feeds, news blogs, and online newspapers have made it challenging to identify trustworthy news sources, thus increasing the need for computational tools able to provide insights into the reliability of online content. In this paper, we focus on the automatic identification of fake content in online news. Our contribution is twofold. First, we introduce two novel datasets for the task of fake news detection, covering seven different news domains. We describe the collection, annotation, and validation process in detail and present several exploratory analysis on the identification of linguistic differences in fake and legitimate news content. Second, we conduct a set of learning experiments to build accurate fake news detectors. In addition, we provide comparative analyses of the automatic and manual identification of fake news.},
+  date        = {2017-08-23},
+  eprint      = {1708.07104v1},
+  eprintclass = {cs.CL},
+  eprinttype  = {arXiv},
+  file        = {online:http\://arxiv.org/pdf/1708.07104v1:PDF},
+  keywords    = {cs.CL},
+}
+
+@Article{Reis2019,
+  author    = {Reis, Julio CS and Correia, Andr{\'e} and Murai, Fabr{\'\i}cio and Veloso, Adriano and Benevenuto, Fabr{\'\i}cio and Cambria, Erik},
+  title     = {Supervised Learning for Fake News Detection},
+  journal   = {IEEE Intelligent Systems},
+  year      = {2019},
+  volume    = {34},
+  number    = {2},
+  pages     = {76--81},
+  publisher = {IEEE},
+}
+
+@Article{Pennebaker2001,
+  author        = {Pennebaker, James W and Francis, Martha E and Booth, Roger J},
+  title         = {Linguistic inquiry and word count: LIWC 2001},
+  journal       = {Mahway: Lawrence Erlbaum Associates},
+  year          = {2001},
+  volume        = {71},
+  number        = {2001},
+  pages         = {2001},
+  __markedentry = {[simon:]},
+}
+
+@Article{Hochreiter1997LongSM,
+  author  = {Sepp Hochreiter and J{\"u}rgen Schmidhuber},
+  title   = {Long Short-Term Memory},
+  journal = {Neural Computation},
+  year    = {1997},
+  volume  = {9},
+  pages   = {1735-1780},
+}
+
+@InProceedings{Vaswani2017AttentionIA,
+  author    = {Ashish Vaswani and Noam Shazeer and Niki Parmar and Jakob Uszkoreit and Llion Jones and Aidan N. Gomez and Lukasz Kaiser and Illia Polosukhin},
+  title     = {Attention Is All You Need},
+  booktitle = {NIPS},
+  year      = {2017},
+}
+
+@Article{Li2018,
+  author        = {Shuai Li and Wanqing Li and Chris Cook and Ce Zhu and Yanbo Gao},
+  title         = {Independently Recurrent Neural Network (IndRNN): Building A Longer and Deeper RNN},
+  __markedentry = {[simon:6]},
+  abstract      = {Recurrent neural networks (RNNs) have been widely used for processing sequential data. However, RNNs are commonly difficult to train due to the well-known gradient vanishing and exploding problems and hard to learn long-term patterns. Long short-term memory (LSTM) and gated recurrent unit (GRU) were developed to address these problems, but the use of hyperbolic tangent and the sigmoid action functions results in gradient decay over layers. Consequently, construction of an efficiently trainable deep network is challenging. In addition, all the neurons in an RNN layer are entangled together and their behaviour is hard to interpret. To address these problems, a new type of RNN, referred to as independently recurrent neural network (IndRNN), is proposed in this paper, where neurons in the same layer are independent of each other and they are connected across layers. We have shown that an IndRNN can be easily regulated to prevent the gradient exploding and vanishing problems while allowing the network to learn long-term dependencies. Moreover, an IndRNN can work with non-saturated activation functions such as relu (rectified linear unit) and be still trained robustly. Multiple IndRNNs can be stacked to construct a network that is deeper than the existing RNNs. Experimental results have shown that the proposed IndRNN is able to process very long sequences (over 5000 time steps), can be used to construct very deep networks (21 layers used in the experiment) and still be trained robustly. Better performances have been achieved on various tasks by using IndRNNs compared with the traditional RNN and LSTM. The code is available at https://github.com/Sunnydreamrain/IndRNN_Theano_Lasagne.},
+  date          = {2018-03-13},
+  eprint        = {1803.04831v3},
+  eprintclass   = {cs.CV},
+  eprinttype    = {arXiv},
+  file          = {online:http\://arxiv.org/pdf/1803.04831v3:PDF},
+  keywords      = {cs.CV},
+}
+
+@InProceedings{zhou-etal-2016-attention,
+  author    = {Zhou, Peng and Shi, Wei and Tian, Jun and Qi, Zhenyu and Li, Bingchen and Hao, Hongwei and Xu, Bo},
+  title     = {Attention-Based Bidirectional Long Short-Term Memory Networks for Relation Classification},
+  booktitle = {Proceedings of the 54th Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)},
+  year      = {2016},
+  pages     = {207--212},
+  address   = {Berlin, Germany},
+  month     = aug,
+  publisher = {Association for Computational Linguistics},
+  doi       = {10.18653/v1/P16-2034},
+  url       = {https://www.aclweb.org/anthology/P16-2034},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}

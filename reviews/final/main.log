@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2019.3.21)  30 JUN 2019 10:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2019.3.21)  19 JUL 2019 12:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -553,7 +553,7 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 8.
 
-<chapter/images/introduction/characterization.png, id=132, 1442.38875pt x 441.6
+<chapter/images/introduction/characterization.png, id=137, 1442.38875pt x 441.6
 5pt>
 File: chapter/images/introduction/characterization.png Graphic file (type png)
  <use chapter/images/introduction/characterization.png>
@@ -567,7 +567,7 @@ on input line 23.
 
 ]
 <chapter/images/introduction/fake-news-photos-viral-photoshop-8-5c6fe61f88240__
-700.jpg, id=151, 702.625pt x 978.65625pt>
+700.jpg, id=156, 702.625pt x 978.65625pt>
 File: chapter/images/introduction/fake-news-photos-viral-photoshop-8-5c6fe61f88
 240__700.jpg Graphic file (type jpg)
 
@@ -578,16 +578,17 @@ toshop-8-5c6fe61f88240__700.jpg used on input line 54.
 (pdftex.def)             Requested size: 364.19667pt x 507.29141pt.
  [5 </home/simon/Documents/TFE/reviews/final/chapter/images/introduction/charac
 terization.png>] [6 </home/simon/Documents/TFE/reviews/final/chapter/images/int
-roduction/fake-news-photos-viral-photoshop-8-5c6fe61f88240__700.jpg>] [7] [8]
-<chapter/images/introduction/features.png, id=203, 759.83875pt x 401.5pt>
+roduction/fake-news-photos-viral-photoshop-8-5c6fe61f88240__700.jpg>] [7] [8] [
+9]
+<chapter/images/introduction/features.png, id=233, 759.83875pt x 401.5pt>
 File: chapter/images/introduction/features.png Graphic file (type png)
 
 <use chapter/images/introduction/features.png>
 Package pdftex.def Info: chapter/images/introduction/features.png used on input
- line 135.
+ line 138.
 (pdftex.def)             Requested size: 364.19667pt x 192.44824pt.
-) [9] [10 </home/simon/Documents/TFE/reviews/final/chapter/images/introduction/
-features.png>]
+) [10 </home/simon/Documents/TFE/reviews/final/chapter/images/introduction/feat
+ures.png>]
 \openout2 = `chapter/data_exploration.aux'.
 
 
@@ -601,7 +602,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 
 ]
-<chapter/images/data_exploration/plot1.pdf, id=233, 252.19218pt x 297.36093pt>
+<chapter/images/data_exploration/plot1.pdf, id=254, 252.19218pt x 297.36093pt>
 File: chapter/images/data_exploration/plot1.pdf Graphic file (type pdf)
 
 <use chapter/images/data_exploration/plot1.pdf>
@@ -610,11 +611,11 @@ t line 45.
 (pdftex.def)             Requested size: 227.62206pt x 268.3937pt.
 Package epstopdf Info: Source file: <chapter/images/data_exploration/boxplot_av
 gSentLen.eps>
-(epstopdf)                    date: 2019-06-29 14:08:51
+(epstopdf)                    date: 2019-06-30 14:45:49
 (epstopdf)                    size: 70356 bytes
 (epstopdf)             Output file: <chapter/images/data_exploration/boxplot_av
 gSentLen-eps-converted-to.pdf>
-(epstopdf)                    date: 2019-06-29 14:15:23
+(epstopdf)                    date: 2019-06-30 14:45:49
 (epstopdf)                    size: 64143 bytes
 (epstopdf)             Command: <repstopdf --outfile=chapter/images/data_explor
 ation/boxplot_avgSentLen-eps-converted-to.pdf chapter/images/data_exploration/b
@@ -627,8 +628,8 @@ pdfTeX warning: pdflatex (file /home/simon/Documents/TFE/reviews/final/chapter/
 images/data_exploration/boxplot_avgSentLen-eps-converted-to.pdf): PDF inclusion
 : found PDF version <1.7>, but at most version <1.5> allowed
 
-<chapter/images/data_exploration/boxplot_avgSentLen-eps-converted-to.pdf, id=23
-5, 206.7725pt x 283.0575pt>
+<chapter/images/data_exploration/boxplot_avgSentLen-eps-converted-to.pdf, id=25
+6, 206.7725pt x 283.0575pt>
 File: chapter/images/data_exploration/boxplot_avgSentLen-eps-converted-to.pdf G
 raphic file (type pdf)
 
@@ -643,11 +644,11 @@ Overfull \hbox (24.67712pt too wide) in paragraph at lines 55--56
 
 Package epstopdf Info: Source file: <chapter/images/data_exploration/boxplot_fu
 ll_numSentences.eps>
-(epstopdf)                    date: 2019-06-29 14:08:51
+(epstopdf)                    date: 2019-06-30 14:45:49
 (epstopdf)                    size: 75093 bytes
 (epstopdf)             Output file: <chapter/images/data_exploration/boxplot_fu
 ll_numSentences-eps-converted-to.pdf>
-(epstopdf)                    date: 2019-06-29 14:15:24
+(epstopdf)                    date: 2019-06-30 14:45:49
 (epstopdf)                    size: 68989 bytes
 (epstopdf)             Command: <repstopdf --outfile=chapter/images/data_explor
 ation/boxplot_full_numSentences-eps-converted-to.pdf chapter/images/data_explor
@@ -661,7 +662,7 @@ images/data_exploration/boxplot_full_numSentences-eps-converted-to.pdf): PDF in
 clusion: found PDF version <1.7>, but at most version <1.5> allowed
 
 <chapter/images/data_exploration/boxplot_full_numSentences-eps-converted-to.pdf
-, id=236, 206.7725pt x 286.06876pt>
+, id=257, 206.7725pt x 286.06876pt>
 File: chapter/images/data_exploration/boxplot_full_numSentences-eps-converted-t
 o.pdf Graphic file (type pdf)
 
@@ -682,11 +683,11 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 ot1.pdf>]
 Package epstopdf Info: Source file: <chapter/images/data_exploration/clickbait.
 eps>
-(epstopdf)                    date: 2019-06-28 16:02:33
+(epstopdf)                    date: 2019-06-30 14:45:49
 (epstopdf)                    size: 37701 bytes
 (epstopdf)             Output file: <chapter/images/data_exploration/clickbait-
 eps-converted-to.pdf>
-(epstopdf)                    date: 2019-06-28 16:12:43
+(epstopdf)                    date: 2019-06-30 14:45:49
 (epstopdf)                    size: 16613 bytes
 (epstopdf)             Command: <repstopdf --outfile=chapter/images/data_explor
 ation/clickbait-eps-converted-to.pdf chapter/images/data_exploration/clickbait.
@@ -699,7 +700,7 @@ pdfTeX warning: pdflatex (file /home/simon/Documents/TFE/reviews/final/chapter/
 images/data_exploration/clickbait-eps-converted-to.pdf): PDF inclusion: found P
 DF version <1.7>, but at most version <1.5> allowed
 
-<chapter/images/data_exploration/clickbait-eps-converted-to.pdf, id=264, 341.27
+<chapter/images/data_exploration/clickbait-eps-converted-to.pdf, id=286, 341.27
 5pt x 322.20375pt>
 File: chapter/images/data_exploration/clickbait-eps-converted-to.pdf Graphic fi
 le (type pdf)
@@ -709,11 +710,11 @@ Package pdftex.def Info: chapter/images/data_exploration/clickbait-eps-converte
 d-to.pdf used on input line 73.
 (pdftex.def)             Requested size: 136.57527pt x 210.84589pt.
 Package epstopdf Info: Source file: <chapter/images/data_exploration/hate.eps>
-(epstopdf)                    date: 2019-06-28 16:02:34
+(epstopdf)                    date: 2019-06-30 14:45:49
 (epstopdf)                    size: 41903 bytes
 (epstopdf)             Output file: <chapter/images/data_exploration/hate-eps-c
 onverted-to.pdf>
-(epstopdf)                    date: 2019-06-28 16:12:43
+(epstopdf)                    date: 2019-06-30 14:45:49
 (epstopdf)                    size: 16765 bytes
 (epstopdf)             Command: <repstopdf --outfile=chapter/images/data_explor
 ation/hate-eps-converted-to.pdf chapter/images/data_exploration/hate.eps>
@@ -725,7 +726,7 @@ pdfTeX warning: pdflatex (file /home/simon/Documents/TFE/reviews/final/chapter/
 images/data_exploration/hate-eps-converted-to.pdf): PDF inclusion: found PDF ve
 rsion <1.7>, but at most version <1.5> allowed
 
-<chapter/images/data_exploration/hate-eps-converted-to.pdf, id=265, 278.03876pt
+<chapter/images/data_exploration/hate-eps-converted-to.pdf, id=287, 278.03876pt
  x 386.44376pt>
 File: chapter/images/data_exploration/hate-eps-converted-to.pdf Graphic file (t
 ype pdf)
@@ -736,11 +737,11 @@ pdf used on input line 79.
 (pdftex.def)             Requested size: 136.57533pt x 210.83469pt.
 Package epstopdf Info: Source file: <chapter/images/data_exploration/junksci.ep
 s>
-(epstopdf)                    date: 2019-06-28 16:02:34
+(epstopdf)                    date: 2019-06-30 14:45:49
 (epstopdf)                    size: 37165 bytes
 (epstopdf)             Output file: <chapter/images/data_exploration/junksci-ep
 s-converted-to.pdf>
-(epstopdf)                    date: 2019-06-28 16:12:43
+(epstopdf)                    date: 2019-06-30 14:45:49
 (epstopdf)                    size: 16427 bytes
 (epstopdf)             Command: <repstopdf --outfile=chapter/images/data_explor
 ation/junksci-eps-converted-to.pdf chapter/images/data_exploration/junksci.eps>
@@ -753,7 +754,7 @@ pdfTeX warning: pdflatex (file /home/simon/Documents/TFE/reviews/final/chapter/
 images/data_exploration/junksci-eps-converted-to.pdf): PDF inclusion: found PDF
  version <1.7>, but at most version <1.5> allowed
 
-<chapter/images/data_exploration/junksci-eps-converted-to.pdf, id=266, 404.5112
+<chapter/images/data_exploration/junksci-eps-converted-to.pdf, id=288, 404.5112
 5pt x 334.24875pt>
 File: chapter/images/data_exploration/junksci-eps-converted-to.pdf Graphic file
  (type pdf)
@@ -763,11 +764,11 @@ Package pdftex.def Info: chapter/images/data_exploration/junksci-eps-converted-
 to.pdf used on input line 85.
 (pdftex.def)             Requested size: 136.57529pt x 210.84303pt.
 Package epstopdf Info: Source file: <chapter/images/data_exploration/fake.eps>
-(epstopdf)                    date: 2019-06-28 16:02:33
+(epstopdf)                    date: 2019-06-30 14:45:49
 (epstopdf)                    size: 55771 bytes
 (epstopdf)             Output file: <chapter/images/data_exploration/fake-eps-c
 onverted-to.pdf>
-(epstopdf)                    date: 2019-06-28 16:16:49
+(epstopdf)                    date: 2019-06-30 14:45:49
 (epstopdf)                    size: 20176 bytes
 (epstopdf)             Command: <repstopdf --outfile=chapter/images/data_explor
 ation/fake-eps-converted-to.pdf chapter/images/data_exploration/fake.eps>
@@ -779,7 +780,7 @@ pdfTeX warning: pdflatex (file /home/simon/Documents/TFE/reviews/final/chapter/
 images/data_exploration/fake-eps-converted-to.pdf): PDF inclusion: found PDF ve
 rsion <1.7>, but at most version <1.5> allowed
 
-<chapter/images/data_exploration/fake-eps-converted-to.pdf, id=267, 1610.015pt 
+<chapter/images/data_exploration/fake-eps-converted-to.pdf, id=289, 1610.015pt 
 x 347.2975pt>
 File: chapter/images/data_exploration/fake-eps-converted-to.pdf Graphic file (t
 ype pdf)
@@ -789,11 +790,11 @@ pdf used on input line 91.
 (pdftex.def)             Requested size: 455.24411pt x 98.1965pt.
 Package epstopdf Info: Source file: <chapter/images/data_exploration/reliable.e
 ps>
-(epstopdf)                    date: 2019-06-28 16:02:35
+(epstopdf)                    date: 2019-06-30 14:45:49
 (epstopdf)                    size: 54238 bytes
 (epstopdf)             Output file: <chapter/images/data_exploration/reliable-e
 ps-converted-to.pdf>
-(epstopdf)                    date: 2019-06-28 16:17:42
+(epstopdf)                    date: 2019-06-30 14:45:49
 (epstopdf)                    size: 19837 bytes
 (epstopdf)             Command: <repstopdf --outfile=chapter/images/data_explor
 ation/reliable-eps-converted-to.pdf chapter/images/data_exploration/reliable.ep
@@ -806,7 +807,7 @@ pdfTeX warning: pdflatex (file /home/simon/Documents/TFE/reviews/final/chapter/
 images/data_exploration/reliable-eps-converted-to.pdf): PDF inclusion: found PD
 F version <1.7>, but at most version <1.5> allowed
 
-<chapter/images/data_exploration/reliable-eps-converted-to.pdf, id=268, 1315.91
+<chapter/images/data_exploration/reliable-eps-converted-to.pdf, id=290, 1315.91
 624pt x 337.26pt>
 File: chapter/images/data_exploration/reliable-eps-converted-to.pdf Graphic fil
 e (type pdf)
@@ -821,11 +822,11 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 Package epstopdf Info: Source file: <chapter/images/data_exploration/political.
 eps>
-(epstopdf)                    date: 2019-06-28 16:02:34
+(epstopdf)                    date: 2019-06-30 14:45:49
 (epstopdf)                    size: 48916 bytes
 (epstopdf)             Output file: <chapter/images/data_exploration/political-
 eps-converted-to.pdf>
-(epstopdf)                    date: 2019-06-28 16:17:42
+(epstopdf)                    date: 2019-06-30 14:45:49
 (epstopdf)                    size: 18507 bytes
 (epstopdf)             Command: <repstopdf --outfile=chapter/images/data_explor
 ation/political-eps-converted-to.pdf chapter/images/data_exploration/political.
@@ -838,7 +839,7 @@ pdfTeX warning: pdflatex (file /home/simon/Documents/TFE/reviews/final/chapter/
 images/data_exploration/political-eps-converted-to.pdf): PDF inclusion: found P
 DF version <1.7>, but at most version <1.5> allowed
 
-<chapter/images/data_exploration/political-eps-converted-to.pdf, id=269, 914.41
+<chapter/images/data_exploration/political-eps-converted-to.pdf, id=291, 914.41
 624pt x 367.3725pt>
 File: chapter/images/data_exploration/political-eps-converted-to.pdf Graphic fi
 le (type pdf)
@@ -849,11 +850,11 @@ d-to.pdf used on input line 104.
 (pdftex.def)             Requested size: 455.24411pt x 182.89539pt.
 Package epstopdf Info: Source file: <chapter/images/data_exploration/satire.eps
 >
-(epstopdf)                    date: 2019-06-28 16:02:35
+(epstopdf)                    date: 2019-06-30 14:45:49
 (epstopdf)                    size: 51677 bytes
 (epstopdf)             Output file: <chapter/images/data_exploration/satire-eps
 -converted-to.pdf>
-(epstopdf)                    date: 2019-06-28 16:17:42
+(epstopdf)                    date: 2019-06-30 14:45:49
 (epstopdf)                    size: 19184 bytes
 (epstopdf)             Command: <repstopdf --outfile=chapter/images/data_explor
 ation/satire-eps-converted-to.pdf chapter/images/data_exploration/satire.eps>
@@ -865,7 +866,7 @@ pdfTeX warning: pdflatex (file /home/simon/Documents/TFE/reviews/final/chapter/
 images/data_exploration/satire-eps-converted-to.pdf): PDF inclusion: found PDF 
 version <1.7>, but at most version <1.5> allowed
 
-<chapter/images/data_exploration/satire-eps-converted-to.pdf, id=270, 1273.7587
+<chapter/images/data_exploration/satire-eps-converted-to.pdf, id=292, 1273.7587
 4pt x 361.35pt>
 File: chapter/images/data_exploration/satire-eps-converted-to.pdf Graphic file 
 (type pdf)
@@ -876,11 +877,11 @@ o.pdf used on input line 110.
 (pdftex.def)             Requested size: 455.24411pt x 129.14305pt.
 Package epstopdf Info: Source file: <chapter/images/data_exploration/unknown.ep
 s>
-(epstopdf)                    date: 2019-06-28 16:02:35
+(epstopdf)                    date: 2019-06-30 14:45:49
 (epstopdf)                    size: 50523 bytes
 (epstopdf)             Output file: <chapter/images/data_exploration/unknown-ep
 s-converted-to.pdf>
-(epstopdf)                    date: 2019-06-28 16:17:43
+(epstopdf)                    date: 2019-06-30 14:45:49
 (epstopdf)                    size: 19038 bytes
 (epstopdf)             Command: <repstopdf --outfile=chapter/images/data_explor
 ation/unknown-eps-converted-to.pdf chapter/images/data_exploration/unknown.eps>
@@ -893,7 +894,7 @@ pdfTeX warning: pdflatex (file /home/simon/Documents/TFE/reviews/final/chapter/
 images/data_exploration/unknown-eps-converted-to.pdf): PDF inclusion: found PDF
  version <1.7>, but at most version <1.5> allowed
 
-<chapter/images/data_exploration/unknown-eps-converted-to.pdf, id=271, 1036.873
+<chapter/images/data_exploration/unknown-eps-converted-to.pdf, id=293, 1036.873
 75pt x 353.32pt>
 File: chapter/images/data_exploration/unknown-eps-converted-to.pdf Graphic file
  (type pdf)
@@ -902,126 +903,89 @@ File: chapter/images/data_exploration/unknown-eps-converted-to.pdf Graphic file
 Package pdftex.def Info: chapter/images/data_exploration/unknown-eps-converted-
 to.pdf used on input line 116.
 (pdftex.def)             Requested size: 455.24411pt x 155.12701pt.
-Package epstopdf Info: Source file: <chapter/images/data_exploration/notdown_hi
-st.eps>
-(epstopdf)                    date: 2019-06-30 09:13:54
-(epstopdf)                    size: 25716 bytes
-(epstopdf)             Output file: <chapter/images/data_exploration/notdown_hi
-st-eps-converted-to.pdf>
-(epstopdf)                    date: 2019-06-30 09:17:12
-(epstopdf)                    size: 12503 bytes
-(epstopdf)             Command: <repstopdf --outfile=chapter/images/data_explor
-ation/notdown_hist-eps-converted-to.pdf chapter/images/data_exploration/notdown
-_hist.eps>
-(epstopdf)             \includegraphics on input line 132.
-Package epstopdf Info: Output file is already uptodate.
-
-
-pdfTeX warning: pdflatex (file /home/simon/Documents/TFE/reviews/final/chapter/
-images/data_exploration/notdown_hist-eps-converted-to.pdf): PDF inclusion: foun
-d PDF version <1.7>, but at most version <1.5> allowed
-
-<chapter/images/data_exploration/notdown_hist-eps-converted-to.pdf, id=274, 83.
-31125pt x 273.02pt>
-File: chapter/images/data_exploration/notdown_hist-eps-converted-to.pdf Graphic
- file (type pdf)
-
-<use chapter/images/data_exploration/notdown_hist-eps-converted-to.pdf>
-Package pdftex.def Info: chapter/images/data_exploration/notdown_hist-eps-conve
-rted-to.pdf used on input line 132.
-(pdftex.def)             Requested size: 83.31104pt x 273.01933pt.
-Package epstopdf Info: Source file: <chapter/images/data_exploration/downsample
-d_news_count.eps>
-(epstopdf)                    date: 2019-06-30 09:13:54
-(epstopdf)                    size: 24849 bytes
-(epstopdf)             Output file: <chapter/images/data_exploration/downsample
-d_news_count-eps-converted-to.pdf>
-(epstopdf)                    date: 2019-06-30 09:17:13
-(epstopdf)                    size: 12275 bytes
-(epstopdf)             Command: <repstopdf --outfile=chapter/images/data_explor
-ation/downsampled_news_count-eps-converted-to.pdf chapter/images/data_explorati
-on/downsampled_news_count.eps>
-(epstopdf)             \includegraphics on input line 139.
-Package epstopdf Info: Output file is already uptodate.
-
-
-pdfTeX warning: pdflatex (file /home/simon/Documents/TFE/reviews/final/chapter/
-images/data_exploration/downsampled_news_count-eps-converted-to.pdf): PDF inclu
-sion: found PDF version <1.7>, but at most version <1.5> allowed
-
-<chapter/images/data_exploration/downsampled_news_count-eps-converted-to.pdf, i
-d=275, 76.285pt x 273.02pt>
-File: chapter/images/data_exploration/downsampled_news_count-eps-converted-to.p
-df Graphic file (type pdf)
-
-<use chapter/images/data_exploration/downsampled_news_count-eps-converted-to.pd
-f>
-Package pdftex.def Info: chapter/images/data_exploration/downsampled_news_count
--eps-converted-to.pdf used on input line 139.
-(pdftex.def)             Requested size: 76.2848pt x 273.01933pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
 Package epstopdf Info: Source file: <chapter/images/data_exploration/not_downsa
 mpled.eps>
-(epstopdf)                    date: 2019-06-30 10:48:08
+(epstopdf)                    date: 2019-06-30 14:45:49
 (epstopdf)                    size: 113209 bytes
 (epstopdf)             Output file: <chapter/images/data_exploration/not_downsa
 mpled-eps-converted-to.pdf>
-(epstopdf)                    date: 2019-06-30 10:50:07
-(epstopdf)                    size: 95371 bytes
+(epstopdf)                    date: 2019-06-30 14:45:57
+(epstopdf)                    size: 95362 bytes
 (epstopdf)             Command: <repstopdf --outfile=chapter/images/data_explor
 ation/not_downsampled-eps-converted-to.pdf chapter/images/data_exploration/not_
 downsampled.eps>
-(epstopdf)             \includegraphics on input line 150.
+(epstopdf)             \includegraphics on input line 130.
 Package epstopdf Info: Output file is already uptodate.
 
-
-pdfTeX warning: pdflatex (file /home/simon/Documents/TFE/reviews/final/chapter/
-images/data_exploration/not_downsampled-eps-converted-to.pdf): PDF inclusion: f
-ound PDF version <1.7>, but at most version <1.5> allowed
-
-<chapter/images/data_exploration/not_downsampled-eps-converted-to.pdf, id=280, 
+<chapter/images/data_exploration/not_downsampled-eps-converted-to.pdf, id=296, 
 227.85126pt x 273.02pt>
 File: chapter/images/data_exploration/not_downsampled-eps-converted-to.pdf Grap
 hic file (type pdf)
 
 <use chapter/images/data_exploration/not_downsampled-eps-converted-to.pdf>
 Package pdftex.def Info: chapter/images/data_exploration/not_downsampled-eps-co
-nverted-to.pdf used on input line 150.
+nverted-to.pdf used on input line 130.
 (pdftex.def)             Requested size: 227.8507pt x 273.01933pt.
-)
-[13 </home/simon/Documents/TFE/reviews/final/chapter/images/data_exploration/bo
-xplot_avgSentLen-eps-converted-to.pdf> </home/simon/Documents/TFE/reviews/final
-/chapter/images/data_exploration/boxplot_full_numSentences-eps-converted-to.pdf
->] [14 </home/simon/Documents/TFE/reviews/final/chapter/images/data_exploration
-/clickbait-eps-converted-to.pdf> </home/simon/Documents/TFE/reviews/final/chapt
-er/images/data_exploration/hate-eps-converted-to.pdf> </home/simon/Documents/TF
-E/reviews/final/chapter/images/data_exploration/junksci-eps-converted-to.pdf> <
-/home/simon/Documents/TFE/reviews/final/chapter/images/data_exploration/fake-ep
-s-converted-to.pdf> </home/simon/Documents/TFE/reviews/final/chapter/images/dat
-a_exploration/reliable-eps-converted-to.pdf>] [15 </home/simon/Documents/TFE/re
-views/final/chapter/images/data_exploration/political-eps-converted-to.pdf> </h
-ome/simon/Documents/TFE/reviews/final/chapter/images/data_exploration/satire-ep
-s-converted-to.pdf> </home/simon/Documents/TFE/reviews/final/chapter/images/dat
-a_exploration/unknown-eps-converted-to.pdf>] [16 </home/simon/Documents/TFE/rev
-iews/final/chapter/images/data_exploration/notdown_hist-eps-converted-to.pdf> <
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+Package epstopdf Info: Source file: <chapter/images/data_exploration/downsample
+d.eps>
+(epstopdf)                    date: 2019-06-30 14:45:49
+(epstopdf)                    size: 104885 bytes
+(epstopdf)             Output file: <chapter/images/data_exploration/downsample
+d-eps-converted-to.pdf>
+(epstopdf)                    date: 2019-06-30 14:53:00
+(epstopdf)                    size: 87943 bytes
+(epstopdf)             Command: <repstopdf --outfile=chapter/images/data_explor
+ation/downsampled-eps-converted-to.pdf chapter/images/data_exploration/downsamp
+led.eps>
+(epstopdf)             \includegraphics on input line 137.
+Package epstopdf Info: Output file is already uptodate.
+
+<chapter/images/data_exploration/downsampled-eps-converted-to.pdf, id=297, 220.
+825pt x 273.02pt>
+File: chapter/images/data_exploration/downsampled-eps-converted-to.pdf Graphic 
+file (type pdf)
+
+<use chapter/images/data_exploration/downsampled-eps-converted-to.pdf>
+Package pdftex.def Info: chapter/images/data_exploration/downsampled-eps-conver
+ted-to.pdf used on input line 137.
+(pdftex.def)             Requested size: 220.82445pt x 273.01933pt.
+ [13 </home/simon/Documents/TFE/reviews/final/chapter/images/data_exploration/b
+oxplot_avgSentLen-eps-converted-to.pdf> </home/simon/Documents/TFE/reviews/fina
+l/chapter/images/data_exploration/boxplot_full_numSentences-eps-converted-to.pd
+f>])
+[14 </home/simon/Documents/TFE/reviews/final/chapter/images/data_exploration/cl
+ickbait-eps-converted-to.pdf> </home/simon/Documents/TFE/reviews/final/chapter/
+images/data_exploration/hate-eps-converted-to.pdf> </home/simon/Documents/TFE/r
+eviews/final/chapter/images/data_exploration/junksci-eps-converted-to.pdf> </ho
+me/simon/Documents/TFE/reviews/final/chapter/images/data_exploration/fake-eps-c
+onverted-to.pdf> </home/simon/Documents/TFE/reviews/final/chapter/images/data_e
+xploration/reliable-eps-converted-to.pdf>] [15 </home/simon/Documents/TFE/revie
+ws/final/chapter/images/data_exploration/political-eps-converted-to.pdf> </home
+/simon/Documents/TFE/reviews/final/chapter/images/data_exploration/satire-eps-c
+onverted-to.pdf> </home/simon/Documents/TFE/reviews/final/chapter/images/data_e
+xploration/unknown-eps-converted-to.pdf>] [16 </home/simon/Documents/TFE/review
+s/final/chapter/images/data_exploration/not_downsampled-eps-converted-to.pdf> <
 /home/simon/Documents/TFE/reviews/final/chapter/images/data_exploration/downsam
-pled_news_count-eps-converted-to.pdf> </home/simon/Documents/TFE/reviews/final/
-chapter/images/data_exploration/not_downsampled-eps-converted-to.pdf>]
-(/home/simon/Documents/TFE/reviews/final/main.bbl
+pled-eps-converted-to.pdf>] (/home/simon/Documents/TFE/reviews/final/main.bbl
 Underfull \hbox (badness 2213) in paragraph at lines 29--33
 []\OT1/cmr/m/n/12 Maciej Sz-pakowski.  Fake news cor-pus.  []$\OT1/cmtt/m/n/12 
 https : / / github . com / several27 /
  []
 
-)
+Missing character: There is no Ã in font cmr12!
+Missing character: There is no ³ in font cmr12!
+Missing character: There is no Ã in font cmr12!
+Missing character: There is no © in font cmr12!
+[17
+
+
+])
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 23.
- [17
-
-
-]
+ [18]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 23.
  (/home/simon/Documents/TFE/reviews/final/main.aux
 (/home/simon/Documents/TFE/reviews/final/chapter/acknowledgement.aux)
@@ -1031,17 +995,17 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 23.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 23.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 23.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: C115F98889BBC59E0F0034887D8B21EA;1383.
+(rerunfilecheck)             Checksum: CF128B71D93B121B81AE4A138295A763;1453.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 23.
  ) 
 Here is how much of TeX's memory you used:
- 9268 strings out of 493013
- 143783 string characters out of 6135682
- 241538 words of memory out of 5000000
- 12524 multiletter control sequences out of 15000+600000
+ 9283 strings out of 493013
+ 143742 string characters out of 6135682
+ 241870 words of memory out of 5000000
+ 12529 multiletter control sequences out of 15000+600000
  14484 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 49i,9n,44p,1150b,480s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 49i,9n,44p,1150b,478s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texli
@@ -1050,11 +1014,11 @@ f-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist
 /fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts
 /type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1
 /public/amsfonts/cm/cmtt12.pfb>
-Output written on /home/simon/Documents/TFE/reviews/final/main.pdf (18 pages, 1
-118456 bytes).
+Output written on /home/simon/Documents/TFE/reviews/final/main.pdf (19 pages, 1
+190767 bytes).
 PDF statistics:
- 505 PDF objects out of 1000 (max. 8388607)
- 389 compressed objects within 4 object streams
- 92 named destinations out of 1000 (max. 500000)
- 254 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 522 PDF objects out of 1000 (max. 8388607)
+ 410 compressed objects within 5 object streams
+ 103 named destinations out of 1000 (max. 500000)
+ 257 words of extra memory for PDF output out of 10000 (max. 10000000)
 

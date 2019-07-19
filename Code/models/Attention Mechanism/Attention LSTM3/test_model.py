@@ -150,9 +150,9 @@ if __name__ == "__main__":
         array, labels = load_data(test_file, dct)
         acc = mx.metric.Accuracy()
         accuracy = []
-        cfMatrix = []
         for j, model in enumerate(files):
             recall_list = []
+            cfMatrix = []
             net = LSTM(len(dct), SEQ_LENGTH, EMBEDDING_DIM, HIDDEN, LAYERS, DROPOUT)
             net.load_parameters(model, ctx=ctx)
             hidden = net.begin_state(func=mx.nd.zeros, batch_size=BATCH_SIZE, ctx = ctx)
@@ -168,7 +168,7 @@ if __name__ == "__main__":
                 recall_list.append(rec)
                 cfMatrix.append(mat)
             accuracy.append(acc.get()[1])
-            r.addEpochs(j, {'accuracy' : acc.get()[1], 'recall' : np.mean(recall_list), 'Confusion Matrix' : 'Confusion Matrix' : list(map(int, sum(cfMatrix)))}, r.getLastExperiment() + 1, 'valid')
+            r.addEpochs(j, {'accuracy' : acc.get()[1], 'recall' : np.mean(recall_list), 'Confusion Matrix' : list(map(int, sum(cfMatrix)))}, r.getLastExperiment() + 1, 'valid')
         cw.write(accuracy)
         pbar.update(1)
     pbar.close()

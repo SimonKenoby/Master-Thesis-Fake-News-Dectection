@@ -16,11 +16,16 @@ def filtering(x):
     else:
         return 'fake'
 
+table = str.maketrans('', '', string.punctuation)
+CUSTOM_FILTERS = [lambda x: x.lower(), strip_tags, strip_punctuation, strip_numeric, 
+                    remove_stopwords, strip_multiple_whitespaces, strip_non_alphanum, strip_punctuation2,
+                    lambda x: re.sub('\s+', ' ', x), lambda x: re.sub("\'", "", x), lambda x: x.translate(table), strip_short]
+
 def averageSentence(text):
     sentences = tokenize.sent_tokenize(text)
     length = []
     for sentence in sentences:
-        words = tokenize.word_tokenize(sentence.translate(str.maketrans('','',string.punctuation)))
+        words = preprocess_string(sentence, CUSTOM_FILTERS)
         length.append(len(words))
     return np.mean(length), len(sentences)
 

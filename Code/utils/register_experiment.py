@@ -30,7 +30,7 @@ class Register():
 			out = self.collection.find({'experiment_id' : {"$exists" : True}, 'finish' : True}, {'experiment_id' : 1}).sort('experiment_id', -1).limit(1)
 			return out[0]['experiment_id']
 		except:
-			return 1
+			return 0
 
 	def closeExperiment(self, experiment_id):
 		self.collection.update_one({'experiment_id' : experiment_id}, {"$set" : {'finish' : True}})
