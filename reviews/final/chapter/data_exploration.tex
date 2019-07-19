@@ -1,3 +1,4 @@
+\externaldocument{introduction}
 
 \chapter{Data Exploration}
 \section{Introduction}
@@ -142,3 +143,10 @@ Before counting the number of words and sentences, the texts are preprocessed us
 Comparing \textbf{Figure \ref{fig:data_explo:summary1}} and \textbf{Figure \ref{fig:data_explo:summary2}} shows that even by removing \textit{nytimes.com} and \textit{beforeitsnews.com} news from the dataset still leave enought texts to train the different models without the risk of learning something unwanted such as only separating these two sources. But one drawback is that the ratio between fake news and reliable news is going from around one half to around one fourth. 
 
 \subsection{Liar-Liar corpus}
+\paragraph{} As said in \textbf{Chapter \ref{section:intro}}, this dataset is made of small text of one or two sentences at most. Which means that they are smaller than than the ones in \textit{fake news corpus}. The distribution of words length can be seen at \textbf{Figure \ref{fig:data_explo:summary3}}. In addition, this dataset is not unbalanced as the other corpus is, which means that precautions does not have to be taken. 
+\begin{figure*}[h]
+  \centering
+  \includegraphics[width=\textwidth]{chapter/images/data_exploration/liar_liar_summary.pdf}
+  \caption{Number of words distributions for liar-liar dataset. On the first and the third plots, a few outliers with length greater than 50 have been removed in order to make the plots more readables.}
+  \label{fig:data_explo:summary3}
+\end{figure*}

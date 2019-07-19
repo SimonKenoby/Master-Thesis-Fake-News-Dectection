@@ -213,4 +213,48 @@
   url       = {https://www.aclweb.org/anthology/P16-2034},
 }
 
+@Article{kim_convolutional_2014,
+  author   = {Kim, Yoon},
+  title    = {Convolutional {Neural} {Networks} for {Sentence} {Classification}},
+  journal  = {arXiv:1408.5882 [cs]},
+  year     = {2014},
+  month    = aug,
+  note     = {arXiv: 1408.5882},
+  abstract = {We report on a series of experiments with convolutional neural networks (CNN) trained on top of pre-trained word vectors for sentence-level classification tasks. We show that a simple CNN with little hyperparameter tuning and static vectors achieves excellent results on multiple benchmarks. Learning task-specific vectors through fine-tuning offers further gains in performance. We additionally propose a simple modification to the architecture to allow for the use of both task-specific and static vectors. The CNN models discussed herein improve upon the state of the art on 4 out of 7 tasks, which include sentiment analysis and question classification.},
+  file     = {arXiv\:1408.5882 PDF:/home/simon/Zotero/storage/9E97T5N2/Kim - 2014 - Convolutional Neural Networks for Sentence Classif.pdf:application/pdf;arXiv.org Snapshot:/home/simon/Zotero/storage/Y5UBBVXU/1408.html:text/html},
+  keywords = {Computer Science - Computation and Language, Computer Science - Neural and Evolutionary Computing},
+  url      = {http://arxiv.org/abs/1408.5882},
+  urldate  = {2019-07-19},
+}
+
+@InProceedings{yang_hierarchical_2016,
+  author    = {Yang, Zichao and Yang, Diyi and Dyer, Chris and He, Xiaodong and Smola, Alex and Hovy, Eduard},
+  title     = {Hierarchical {Attention} {Networks} for {Document} {Classification}},
+  booktitle = {Proceedings of the 2016 {Conference} of the {North} {American} {Chapter} of the {Association} for {Computational} {Linguistics}: {Human} {Language} {Technologies}},
+  year      = {2016},
+  pages     = {1480--1489},
+  address   = {San Diego, California},
+  publisher = {Association for Computational Linguistics},
+  abstract  = {We propose a hierarchical attention network for document classiﬁcation. Our model has two distinctive characteristics: (i) it has a hierarchical structure that mirrors the hierarchical structure of documents; (ii) it has two levels of attention mechanisms applied at the wordand sentence-level, enabling it to attend differentially to more and less important content when constructing the document representation. Experiments conducted on six large scale text classiﬁcation tasks demonstrate that the proposed architecture outperform previous methods by a substantial margin. Visualization of the attention layers illustrates that the model selects qualitatively informative words and sentences.},
+  doi       = {10.18653/v1/N16-1174},
+  file      = {Yang et al. - 2016 - Hierarchical Attention Networks for Document Class.pdf:/home/simon/Zotero/storage/7W5GMMXJ/Yang et al. - 2016 - Hierarchical Attention Networks for Document Class.pdf:application/pdf},
+  language  = {en},
+  url       = {http://aclweb.org/anthology/N16-1174},
+  urldate   = {2019-07-19},
+}
+
+@Article{miyato_adversarial_2016,
+  author   = {Miyato, Takeru and Dai, Andrew M. and Goodfellow, Ian},
+  title    = {Adversarial {Training} {Methods} for {Semi}-{Supervised} {Text} {Classification}},
+  journal  = {arXiv:1605.07725 [cs, stat]},
+  year     = {2016},
+  month    = may,
+  note     = {arXiv: 1605.07725},
+  abstract = {Adversarial training provides a means of regularizing supervised learning algorithms while virtual adversarial training is able to extend supervised learning algorithms to the semi-supervised setting. However, both methods require making small perturbations to numerous entries of the input vector, which is inappropriate for sparse high-dimensional inputs such as one-hot word representations. We extend adversarial and virtual adversarial training to the text domain by applying perturbations to the word embeddings in a recurrent neural network rather than to the original input itself. The proposed method achieves state of the art results on multiple benchmark semi-supervised and purely supervised tasks. We provide visualizations and analysis showing that the learned word embeddings have improved in quality and that while training, the model is less prone to overfitting.},
+  file     = {arXiv\:1605.07725 PDF:/home/simon/Zotero/storage/CFZ3AD3L/Miyato et al. - 2016 - Adversarial Training Methods for Semi-Supervised T.pdf:application/pdf;arXiv.org Snapshot:/home/simon/Zotero/storage/XFTY2GNE/1605.html:text/html},
+  keywords = {Computer Science - Machine Learning, Statistics - Machine Learning},
+  url      = {http://arxiv.org/abs/1605.07725},
+  urldate  = {2019-07-19},
+}
+
 @Comment{jabref-meta: databaseType:bibtex;}

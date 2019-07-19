@@ -102,6 +102,8 @@ INPUT /usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifvtex.sty
 INPUT /usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifvtex.sty
 INPUT /usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty
 INPUT /usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/hyperref/xr-hyper.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/hyperref/xr-hyper.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
 INPUT /usr/share/texlive/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
@@ -330,6 +332,9 @@ INPUT /home/simon/Documents/TFE/reviews/final/chapter/images/data_exploration/do
 INPUT /home/simon/Documents/TFE/reviews/final/chapter/images/data_exploration/downsampled-eps-converted-to.pdf
 INPUT /home/simon/Documents/TFE/reviews/final/chapter/images/data_exploration/downsampled-eps-converted-to.pdf
 INPUT /home/simon/Documents/TFE/reviews/final/chapter/images/data_exploration/downsampled-eps-converted-to.pdf
+INPUT /home/simon/Documents/TFE/reviews/final/chapter/images/data_exploration/liar_liar_summary.pdf
+INPUT /home/simon/Documents/TFE/reviews/final/chapter/images/data_exploration/liar_liar_summary.pdf
+INPUT /home/simon/Documents/TFE/reviews/final/chapter/images/data_exploration/liar_liar_summary.pdf
 INPUT /home/simon/Documents/TFE/reviews/final/main.bbl
 INPUT /home/simon/Documents/TFE/reviews/final/main.bbl
 INPUT /home/simon/Documents/TFE/reviews/final/main.aux

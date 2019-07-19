@@ -87,6 +87,35 @@ Peng Zhou, Wei Shi, Jun Tian, Zhenyu Qi, Bingchen Li, Hongwei Hao, and Bo~Xu.
   Computational Linguistics (Volume 2: Short Papers)}, pages 207--212, Berlin,
   Germany, August 2016. Association for Computational Linguistics.
 
+\bibitem{yang_hierarchical_2016}
+Zichao Yang, Diyi Yang, Chris Dyer, Xiaodong He, Alex Smola, and Eduard Hovy.
+\newblock Hierarchical {Attention} {Networks} for {Document} {Classification}.
+\newblock In {\em Proceedings of the 2016 {Conference} of the {North}
+  {American} {Chapter} of the {Association} for {Computational} {Linguistics}:
+  {Human} {Language} {Technologies}}, pages 1480--1489, San Diego, California,
+  2016. Association for Computational Linguistics.
+
+\bibitem{miyato_adversarial_2016}
+Takeru Miyato, Andrew~M. Dai, and Ian Goodfellow.
+\newblock Adversarial {Training} {Methods} for {Semi}-{Supervised} {Text}
+  {Classification}.
+\newblock {\em arXiv:1605.07725 [cs, stat]}, May 2016.
+\newblock arXiv: 1605.07725.
+
+\bibitem{kim_convolutional_2014}
+Yoon Kim.
+\newblock Convolutional {Neural} {Networks} for {Sentence} {Classification}.
+\newblock {\em arXiv:1408.5882 [cs]}, August 2014.
+\newblock arXiv: 1408.5882.
+
+\bibitem{kowsari_rmdl:_2018}
+Kamran Kowsari, Mojtaba Heidarysafa, Donald~E. Brown, Kiana~Jafari Meimandi,
+  and Laura~E. Barnes.
+\newblock {RMDL}: {Random} {Multimodel} {Deep} {Learning} for {Classification}.
+\newblock {\em Proceedings of the 2nd International Conference on Information
+  System and Data Mining - ICISDM '18}, pages 19--28, 2018.
+\newblock arXiv: 1805.01890.
+
 \bibitem{rehurek_lrec}
 Radim {\v R}eh{\r u}{\v r}ek and Petr Sojka.
 \newblock {Software Framework for Topic Modelling with Large Corpora}.
