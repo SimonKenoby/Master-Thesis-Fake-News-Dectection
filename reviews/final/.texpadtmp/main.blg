@@ -10,45 +10,49 @@ Database file #1: ../../references/references.bib.bib
 Warning--can't use both volume and number fields in Allcott2017
 Warning--empty journal in Wang2017
 Warning--empty year in Wang2017
-You've used 11 entries,
+Warning--empty journal in Perez-Rosas2017
+Warning--empty year in Perez-Rosas2017
+Warning--empty journal in Li2018
+Warning--empty year in Li2018
+You've used 22 entries,
             1791 wiz_defined-function locations,
-            513 strings with 5497 characters,
-and the built_in function-call counts, 2180 in all, are:
-= -- 182
-> -- 107
-< -- 2
-+ -- 40
-- -- 29
-* -- 125
-:= -- 361
-add.period$ -- 35
-call.type$ -- 11
-change.case$ -- 9
+            580 strings with 7964 characters,
+and the built_in function-call counts, 5067 in all, are:
+= -- 423
+> -- 278
+< -- 5
++ -- 101
+- -- 79
+* -- 331
+:= -- 823
+add.period$ -- 71
+call.type$ -- 22
+change.case$ -- 20
 chr.to.int$ -- 0
-cite$ -- 14
-duplicate$ -- 106
-empty$ -- 218
-format.name$ -- 29
-if$ -- 484
+cite$ -- 29
+duplicate$ -- 237
+empty$ -- 468
+format.name$ -- 79
+if$ -- 1125
 int.to.chr$ -- 0
-int.to.str$ -- 11
-missing$ -- 12
-newline$ -- 59
-num.names$ -- 11
-pop$ -- 45
+int.to.str$ -- 22
+missing$ -- 23
+newline$ -- 115
+num.names$ -- 22
+pop$ -- 83
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 43
+skip$ -- 111
 stack$ -- 0
-substring$ -- 71
-swap$ -- 20
-text.length$ -- 2
+substring$ -- 225
+swap$ -- 57
+text.length$ -- 5
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 3
-while$ -- 18
-width$ -- 13
-write$ -- 119
-(There were 3 warnings)
+warning$ -- 7
+while$ -- 42
+width$ -- 24
+write$ -- 239
+(There were 7 warnings)

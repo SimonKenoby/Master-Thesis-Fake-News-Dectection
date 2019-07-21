@@ -33,19 +33,25 @@
 \contentsline {paragraph}{}{9}{section*.21}
 \contentsline {paragraph}{}{9}{section*.22}
 \contentsline {section}{\numberline {1.6}State of the Art}{9}{section.1.6}
-\contentsline {section}{\numberline {1.7}Conclusion}{9}{section.1.7}
 \contentsline {paragraph}{}{9}{section*.23}
 \contentsline {paragraph}{}{9}{section*.24}
+\contentsline {section}{\numberline {1.7}Conclusion}{9}{section.1.7}
+\contentsline {paragraph}{}{9}{section*.25}
+\contentsline {paragraph}{}{10}{section*.26}
 \contentsline {chapter}{\numberline {2}Data Exploration}{11}{chapter.2}
 \contentsline {section}{\numberline {2.1}Introduction}{11}{section.2.1}
-\contentsline {paragraph}{}{11}{section*.26}
+\contentsline {paragraph}{}{11}{section*.28}
 \contentsline {section}{\numberline {2.2}Dataset statistics}{11}{section.2.2}
 \contentsline {subsection}{\numberline {2.2.1}Fake News Corpus}{11}{subsection.2.2.1}
-\contentsline {subsubsection}{General Analysis}{11}{section*.27}
-\contentsline {paragraph}{}{11}{section*.28}
-\contentsline {paragraph}{}{11}{section*.29}
-\contentsline {paragraph}{}{12}{section*.31}
-\contentsline {paragraph}{}{13}{section*.36}
-\contentsline {subsubsection}{Fake News analysis}{13}{section*.37}
+\contentsline {subsubsection}{General Analysis}{11}{section*.29}
+\contentsline {paragraph}{}{11}{section*.30}
+\contentsline {paragraph}{}{11}{section*.31}
+\contentsline {paragraph}{}{12}{section*.33}
 \contentsline {paragraph}{}{13}{section*.38}
+\contentsline {subsubsection}{Fake News analysis}{13}{section*.39}
+\contentsline {paragraph}{}{13}{section*.40}
 \contentsline {subsection}{\numberline {2.2.2}Liar-Liar corpus}{14}{subsection.2.2.2}
+\contentsline {paragraph}{}{14}{section*.43}
+\contentsline {subsubsection}{Visualisation with t-SNE}{14}{section*.45}
+\contentsline {paragraph}{}{14}{section*.46}
+\contentsline {paragraph}{What is t-SNE?}{16}{section*.47}

@@ -14,45 +14,46 @@ Warning--empty journal in Perez-Rosas2017
 Warning--empty year in Perez-Rosas2017
 Warning--empty journal in Li2018
 Warning--empty year in Li2018
-You've used 22 entries,
+Warning--there's a number but no volume in Maaten2008
+You've used 24 entries,
             1791 wiz_defined-function locations,
-            580 strings with 7857 characters,
-and the built_in function-call counts, 5067 in all, are:
-= -- 423
-> -- 278
+            593 strings with 8329 characters,
+and the built_in function-call counts, 5752 in all, are:
+= -- 472
+> -- 336
 < -- 5
-+ -- 101
-- -- 79
-* -- 331
-:= -- 823
-add.period$ -- 71
-call.type$ -- 22
-change.case$ -- 20
++ -- 121
+- -- 97
+* -- 399
+:= -- 942
+add.period$ -- 77
+call.type$ -- 24
+change.case$ -- 22
 chr.to.int$ -- 0
-cite$ -- 29
-duplicate$ -- 237
-empty$ -- 468
-format.name$ -- 79
-if$ -- 1125
+cite$ -- 32
+duplicate$ -- 255
+empty$ -- 519
+format.name$ -- 97
+if$ -- 1264
 int.to.chr$ -- 0
-int.to.str$ -- 22
-missing$ -- 23
-newline$ -- 115
-num.names$ -- 22
-pop$ -- 83
+int.to.str$ -- 24
+missing$ -- 25
+newline$ -- 125
+num.names$ -- 24
+pop$ -- 86
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 111
+skip$ -- 116
 stack$ -- 0
-substring$ -- 225
-swap$ -- 57
+substring$ -- 283
+swap$ -- 59
 text.length$ -- 5
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 7
-while$ -- 42
-width$ -- 24
-write$ -- 239
-(There were 7 warnings)
+warning$ -- 8
+while$ -- 47
+width$ -- 26
+write$ -- 261
+(There were 8 warnings)

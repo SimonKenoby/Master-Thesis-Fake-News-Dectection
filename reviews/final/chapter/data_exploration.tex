@@ -133,7 +133,7 @@ Before counting the number of words and sentences, the texts are preprocessed us
   \label{fig:data_explo:summary1}
 \end{figure}
 
-\begin{figure*}
+\begin{figure*}[h]
 	\centering
 	\includegraphics{chapter/images/data_exploration/downsampled.eps}
 	\caption{Summary statistics for downsampled dataset on fake and reliable news}
@@ -150,3 +150,42 @@ Comparing \textbf{Figure \ref{fig:data_explo:summary1}} and \textbf{Figure \ref{
   \caption{Number of words distributions for liar-liar dataset. On the first and the third plots, a few outliers with length greater than 50 have been removed in order to make the plots more readables.}
   \label{fig:data_explo:summary3}
 \end{figure*}
+
+\subsubsection{Visualisation with t-SNE\cite{Maaten2008}}
+\paragraph{} In order to visualize the data it is needed to transform text in a numerical way and eventualy reduce the dimension in order to to allow it to be plotted on a 2D or 3D plot. Here TF-IDF (term frequency, inverse document frequency) is used. How it works will be details later on. This produce a sparse matrix with each document being represented as an array, each value of the array being a value for one term. That is, the more term in the corpus, the longer the array becomes. For example, a corpus of 10.000 text with 20.000 uniques words would be represented as a $10000 \times 20000$ sparse matrix. As said before, plotting in 20000 dimension is not possible. In order to do so, the number of dimension needs to be reduced. Here, principal component analysis on t-SNE will be used together. 
+
+\paragraph{What is t-SNE?} It stands for \textbf{t-distributed stochastic neighbor embedding}. The goal of this method is that two points to are closed in $\mathcal{R}^{Q}$ should be close in $\mathcal{R}^{S}, S \ll Q$. In order to do so, the algorithm starts by fitting a probability distribution on the input points. It starts by computing
+\begin{equation*}
+	p_{i|j} = \frac{\frac{exp(-||x_i - x_j||^2)}{2 \sigma_i^2}}{\sum_{k \neq i} \frac{exp(-||x_i - x_k||^2)}{2 \sigma_i^2}}\\
+\end{equation*}
+Each of the $y_i, i \in 0 \dots N$ being a point of dimension $Q$.\\
+Then 
+
+\begin{equation*}
+	p_{ij} = \frac{p_{i|j} + p_{j|i} }{2N}
+\end{equation*}
+is computed. \\
+
+The probability distribution for the low density map is given by 
+\begin{equation*}
+	q_{ij} = \frac{(1 + ||y_i - y_j||^2)^{-1}}{\sum_{k \neq l} (1 +||y_k - x_l||^2)^{-1}}\\
+\end{equation*}
+
+And in order to have a low dimension probability distribution as close as possible to the high dimension one, it minimize the Kullback–Leibler divergence of the two distributions. 
+
+\begin{equation*}
+	KL(P||Q) = \sum_{i \neq j} p_{ij} * \log(\frac{p_{ij}}{q_{ij}})
+\end{equation*}
+
+The minimization of KL divergence is acheived by gradient descent. 
+
+The documentation of the module of scikit-learn\cite{scikit-learn} used for computing this value recomand to apply PCA first in order to reduce the original dimension and speed-up computation. The result of these computation can be seen at \textbf{Figure \ref{fig:data_explo:tsne1}}. These 500 firsts PCA components explains around $47\%$ of the total variance. The figure shows that there is no clear clustering of the classes. 
+
+\begin{figure*}[h]
+  \centering
+  \makebox[\textwidth][c]{\includegraphics[width=1.4\textwidth]{chapter/images/data_exploration/liar-liar-tsne_tfidf_500pca.pdf}}
+  \caption{t-SNE plot for liar-liar dataset.}
+  \label{fig:data_explo:tsne1}
+\end{figure*}
+
+Increasing the number of PCA components to 1000 gives the results at \textbf{Figure \ref} and does not shows more clustering, even if it explains $62\%$ of the variance. 

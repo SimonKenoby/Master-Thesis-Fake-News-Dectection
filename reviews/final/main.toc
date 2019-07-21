@@ -52,3 +52,6 @@
 \contentsline {paragraph}{}{13}{section*.40}
 \contentsline {subsection}{\numberline {2.2.2}Liar-Liar corpus}{14}{subsection.2.2.2}
 \contentsline {paragraph}{}{14}{section*.43}
+\contentsline {subsubsection}{Visualisation with t-SNE\cite {Maaten2008}}{14}{section*.45}
+\contentsline {paragraph}{}{14}{section*.46}
+\contentsline {paragraph}{What is t-SNE?}{16}{section*.47}
