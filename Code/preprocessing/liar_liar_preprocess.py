@@ -9,7 +9,7 @@ from nltk import tokenize
 import re
 
 
-test = pd.read_csv("../../Data/liar_dataset/valid.tsv", sep = '\t', header = None, usecols = [1, 2], names = ['full_type', 'content'])
+test = pd.read_csv("../../Data/liar_dataset/test.tsv", sep = '\t', header = None, usecols = [1, 2], names = ['full_type', 'content'])
 def filtering(x):
     if x in set(['true', 'mostly-true', 'half-true']):
         return 'reliable'
@@ -30,7 +30,7 @@ def averageSentence(text):
     return np.mean(length), len(sentences)
 
 test['type'] = test['full_type'].apply(lambda x: filtering(x))
-test['split'] = 'valid'
+test['split'] = 'test'
 
 client = MongoClient('localhost', 27017)
 db = client.TFE

@@ -74,11 +74,13 @@ class LSTM(gluon.Block):
         self.seq_length = seq_length
         with self.name_scope():
             self.LSTM1 = gluon.rnn.LSTM(num_hidden, num_layers, layout = 'NTC', bidirectional = True)
+            self.dropout = gluon.nn.Dropout(dropout)
             self.attention = Attention(seq_length, num_embed, num_hidden, num_layers, dropout)
             self.fc1 = gluon.nn.Dense(1)
             
     def forward(self, inputs, hidden):
         output, hidden = self.LSTM1(inputs, hidden)
+        output = self.dropout(output)
         output = self.attention(output)
         output = self.fc1(output)
         return nd.sigmoid( output ), hidden
@@ -113,7 +115,7 @@ if __name__ == "__main__":
     BATCH_SIZE = args.BATCH_SIZE
     EPOCHS = args.EPOCHS
     DROPOUT = args.DROPOUT
-    ctx = mx.gpu(1)
+    ctx = mx.gpu()
 
     #mx.random.seed(42, ctx = mx.cpu(0))
     #mx.random.seed(42, ctx = mx.gpu(0))
@@ -123,7 +125,7 @@ if __name__ == "__main__":
     from register_experiment import Register
 
     r = Register(args.host, args.port, args.db, args.collection)
-    r.newExperiment(r.getLastExperiment() + 1, 'Attention LSTM 1')
+    r.newExperiment(r.getLastExperiment() + 1, 'Attention LSTM 1.2')
 
     array, labels = load_data(trainFile)
 

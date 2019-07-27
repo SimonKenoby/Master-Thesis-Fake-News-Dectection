@@ -13,7 +13,6 @@ from sklearn.metrics import classification_report, confusion_matrix
 from pymongo import MongoClient
 
 import datetime
-import argparse
 
 import sys
 sys.path.append('../..')
@@ -21,50 +20,125 @@ sys.path.append('../..')
 import utils.dbUtils
 import utils.gensimUtils
 
-client = MongoClient('192.168.178.25', 27017)
+client = MongoClient('localhost', 27017)
 db = client.TFE
 collection = db.results
 
-def train_test(X_train, X_test, y_train, y_test, max_features = None, experiment = None):
-    idx = collection.insert_one({'date' : datetime.datetime.now(), 'experiment_id' : experiment, 'corpus' : 'liar-liar', 'max_features' : max_features})
+def train_and_test(experiment_id, max_features = None):
+    print("Using max features : {}".format(max_features))
+    idx = collection.insert_one({'date' : datetime.datetime.now(), 'corpus' : 'liar_liar', 'max_features' : max_features, 'experiment_id' : experiment_id})
 
-
-    vectorizer = TfidfVectorizer(max_features = max_features)		
-    X_train = vectorizer.fit_transform(X_train)	
-    X_test = vectorizer.transform(X_test)
-
-    model = LinearSVC()
-    model.fit(X_train, y_train)
-    crp = classification_report(y_test, model.predict(X_test), labels=['fake', 'reliable'], output_dict = True)
-
-    collection.update_one({'_id' : idx.inserted_id}, {'$push' : {'report' : {'model' : 'LinearSVC', 'classification_report' : crp, 'train_accuracy' : model.score(X_train, y_train), 'test_accuracy' : model.score(X_test, y_test)}}})
-    
-    model = MultinomialNB()
-    model.fit(X_train, y_train)
-    crp = classification_report(y_test, model.predict(X_test), labels=['fake', 'reliable'], output_dict = True)
-    collection.update_one({'_id' : idx.inserted_id}, {'$push' : {'report' : {'model' : 'MultinomialNB', 'classification_report' : crp, 'train_accuracy' : model.score(X_train, y_train), 'test_accuracy' : model.score(X_test, y_test)}}})
-
-    model = DecisionTreeClassifier()
-    model.fit(X_train, y_train)
-    crp = classification_report(y_test, model.predict(X_test), labels=['fake', 'reliable'], output_dict = True)
-    collection.update_one({'_id' : idx.inserted_id}, {'$push' : {'report' : {'model' : 'DecisionTreeClassifier', 'classification_report' : crp, 'train_accuracy' : model.score(X_train, y_train), 'test_accuracy' : model.score(X_test, y_test)}}})
-
-    model = RidgeClassifier()
-    model.fit(X_train, y_train)
-    crp = classification_report(y_test, model.predict(X_test), labels=['fake', 'reliable'], output_dict = True)
-    collection.update_one({'_id' : idx.inserted_id}, {'$push' : {'report' : {'model' : 'RidgeClassifier', 'classification_report' : crp, 'train_accuracy' : model.score(X_train, y_train), 'test_accuracy' : model.score(X_test, y_test)}}})
-
-if __name__ == "__main__":
-    max_features = [10000, 50000, 100000, 250000, 500000, 1000000]
+    print("Making dataset")
 
     train = utils.dbUtils.TokenizedIterator('liar_liar', filters = {'split' : 'train'})
     y_train = np.array([x for x in train.iterTags()])
-    train = [' '.join(news) for news in train]
 
     test = utils.dbUtils.TokenizedIterator('liar_liar', filters = {'split' : 'valid'})
     y_test = np.array([x for x in test.iterTags()])
-    test = [' '.join(news) for news in test]
+
+    print("Fiting tf-idf")
+
+    vectorizer = TfidfVectorizer(max_features = max_features)		
+    X_train = vectorizer.fit_transform([' '.join(news) for news in train])	
+    X_test = vectorizer.transform([' '.join(news) for news in test])
+
+    print("Fiting linearSVC")
+
+    model = LinearSVC()
+    model.fit(X_train, y_train)
+
+    crp = classification_report(y_test, model.predict(X_test), labels=['fake', 'reliable'], output_dict = True)
+
+    collection.update_one({'_id' : idx.inserted_id}, 
+        {
+        '$push' : 
+            {'report' : 
+                {'model' : 'LinearSVC', 
+                'classification_report' : crp, 
+                'train_accuracy' : model.score(X_train, y_train), 
+                'test_accuracy' : model.score(X_test, y_test),
+                'confusion matrix' : 
+                    {
+                    'train' : list(map(int, confusion_matrix(y_train, model.predict(X_train), labels=['fake', 'reliable']).ravel())),
+                    'test' : list(map(int, confusion_matrix(y_test, model.predict(X_test), labels=['fake', 'reliable']).ravel()))
+                    }
+                }
+            }
+        })
+
+    print("MultinomialNB")
+
+    model = MultinomialNB()
+    model.fit(X_train, y_train)
+
+    crp = classification_report(y_test, model.predict(X_test), labels=['fake', 'reliable'], output_dict = True)
+
+    collection.update_one({'_id' : idx.inserted_id}, 
+        {
+        '$push' : 
+            {'report' : 
+                {'model' : 'MultinomialNB', 
+                'classification_report' : crp, 
+                'train_accuracy' : model.score(X_train, y_train), 
+                'test_accuracy' : model.score(X_test, y_test),
+                'confusion matrix' : 
+                    {
+                    'train' : list(map(int, confusion_matrix(y_train, model.predict(X_train), labels=['fake', 'reliable']).ravel())),
+                    'test' : list(map(int, confusion_matrix(y_test, model.predict(X_test), labels=['fake', 'reliable']).ravel()))
+                    }
+                }
+            }
+        })
+
+    print("DecisionTreeClassifier")
+
+    model = DecisionTreeClassifier()
+    model.fit(X_train, y_train)
+
+    crp = classification_report(y_test, model.predict(X_test), labels=['fake', 'reliable'], output_dict = True)
+
+    collection.update_one({'_id' : idx.inserted_id}, 
+        {
+        '$push' : 
+            {'report' : 
+                {'model' : 'DecisionTreeClassifier', 
+                'classification_report' : crp, 
+                'train_accuracy' : model.score(X_train, y_train), 
+                'test_accuracy' : model.score(X_test, y_test),
+                'confusion matrix' : 
+                    {
+                    'train' : list(map(int, confusion_matrix(y_train, model.predict(X_train), labels=['fake', 'reliable']).ravel())),
+                    'test' : list(map(int, confusion_matrix(y_test, model.predict(X_test), labels=['fake', 'reliable']).ravel()))
+                    }
+                }
+            }
+        })
+    print("RidgeClassifier")
+
+    model = RidgeClassifier()
+    model.fit(X_train, y_train)
+
+    crp = classification_report(y_test, model.predict(X_test), labels=['fake', 'reliable'], output_dict = True)
+
+    collection.update_one({'_id' : idx.inserted_id}, 
+        {
+        '$push' : 
+            {'report' : 
+                {'model' : 'RidgeClassifier', 
+                'classification_report' : crp, 
+                'train_accuracy' : model.score(X_train, y_train), 
+                'test_accuracy' : model.score(X_test, y_test),
+                'confusion matrix' : 
+                    {
+                    'train' : list(map(int, confusion_matrix(y_train, model.predict(X_train), labels=['fake', 'reliable']).ravel())),
+                    'test' : list(map(int, confusion_matrix(y_test, model.predict(X_test), labels=['fake', 'reliable']).ravel()))
+                    }
+                }
+            }
+        })
 
 
+if __name__ == "__main__":
+    max_features = [10000, 50000, 100000, 250000, 500000, 1000000]
     for features in max_features:
-        train_test(train, test, y_train, y_test, features, experiment = 5)
+        train_and_test(12, features)

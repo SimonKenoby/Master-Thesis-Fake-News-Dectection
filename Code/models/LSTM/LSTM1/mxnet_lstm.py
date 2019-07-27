@@ -2,68 +2,98 @@ import numpy as np
 import mxnet as mx
 import mxnet.ndarray as nd
 import mxnet.gluon as gluon
+import gluonnlp
 from mxnet.io import NDArrayIter
 from mxnet import autograd
+from mxboard import *
 
-import pandas as pd
+from tqdm import tqdm
+
+import json
 import argparse
+import pandas as pd
+import numpy as np
 from gensim.corpora import Dictionary
+from sklearn.metrics import recall_score, confusion_matrix
 
-def tokens_to_idx(tokens, ctx = mx.cpu(0)):
-    array = [dct.token2id[token] for token in tokens]
+import sys
+
+def load_data(trainFile, dct, ctx = mx.cpu(0)):
+    labels = []
+    num_lines = sum(1 for line in open(trainFile))
+    array = nd.ones((num_lines, SEQ_LENGTH), dtype='float32', ctx = ctx)
+    print("Loading data: ")
+    pbar = tqdm(total = num_lines)
+    with open(trainFile) as f:
+        for i, line in enumerate(f):
+            l = json.loads(line)
+            text = l['tokenized_text']
+            label = l['type']
+            labels.append(label)
+            array[i] = tokens_to_idx(text, dct)
+            pbar.update(1)
+    pbar.close()
+    return array, label_binarize(labels, ctx)
+
+def tokens_to_idx(tokens, dct, ctx = mx.cpu(0)):
+    array = [dct.token2id[token] if token in dct.token2id else -1 for token in tokens]
     if len(array) > SEQ_LENGTH:
         array = array[0:SEQ_LENGTH]
     else:
         array.extend([-1 for i in range(0, SEQ_LENGTH - len(array))])
     return nd.array(array, ctx = ctx)
 
-def data_to_array(data, ctx = mx.cpu(0)):
-    array = nd.zeros((len(data), SEQ_LENGTH), ctx = ctx)
-    for i, text in enumerate(data['tokenized_text']):
-        array[i] = tokens_to_idx(text)
-    return array
-
 def label_binarize(labels, ctx = mx.cpu(0)):
-    lab = nd.zeros(len(data), ctx = ctx)
-    for i, label in enumerate(labels):
-        if label == 'fake':
-            lab[i] = 1
-    return lab
+	lab = nd.zeros(len(labels), ctx = ctx)
+	for i, label in enumerate(labels):
+		if label == 'fake':
+			lab[i] = 1
+	return lab
+
+def recall(y, y_hat):
+    y = y.asnumpy()
+    y_hat = y_hat.asnumpy()
+    return recall_score(y, y_hat), confusion_matrix(y, y_hat).ravel()
 
 
 class LSTM(gluon.Block):
-    def __init__(self, vocab_size, num_embed, num_hidden, num_layers, dropout, **kwargs):
-        super(LSTM, self).__init__(**kwargs)
-        with self.name_scope():
-            self.encoder = gluon.nn.Embedding(vocab_size, num_embed)
-            self.LSTM1 = gluon.rnn.LSTM(num_embed, num_layers, layout = 'NTC', bidirectional = True)
-            self.fc1 = gluon.nn.Dense(1, activation='sigmoid')
-            
-    def forward(self, inputs, hidden):
-        emb = self.encoder(inputs)
-        output, hidden = self.LSTM1(emb, hidden)
-        output = self.fc1(output[:,-1])
-        return output, hidden
-    
-    def begin_state(self, *args, **kwargs):
-        return self.LSTM1.begin_state(*args, **kwargs)
+	def __init__(self, vocab_size, num_embed, num_hidden, num_layers, dropout, **kwargs):
+		super(LSTM, self).__init__(**kwargs)
+		with self.name_scope():
+			self.encoder = gluon.nn.Embedding(vocab_size, num_embed)
+			self.LSTM1 = gluon.rnn.LSTM(num_embed, num_layers, layout = 'NTC', bidirectional = True)
+			self.dropout = gluon.nn.Dropout(dropout)
+			self.fc1 = gluon.nn.Dense(1, activation='sigmoid')
+			
+	def forward(self, inputs, hidden):
+		emb = self.encoder(inputs)
+		output, hidden = self.LSTM1(emb, hidden)
+		output = self.dropout(output)
+		output = self.fc1(output)
+		return output, hidden
+	
+	def begin_state(self, *args, **kwargs):
+		return self.LSTM1.begin_state(*args, **kwargs)
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description='Arguments for LSTM model')
-	parser.add_argument('train', type=str, help = "Train set dir")
-	parser.add_argument('outmodel', type=str, help = "Output file for model")
-	parser.add_argument('word2vec', type=str, help = "Path to word2vec gz file")
-	parser.add_argument('dictFile', type=str, help = "Path to the dictionary file")
-	parser.add_argument('SEQ_LENGTH', type = int, help = "Fixed size length to expand or srink text")
-	parser.add_argument('EMBEDDING_DIM', type = int, help = "Size of the embedding dimention")
-	parser.add_argument('HIDDEN', type = int, help = "Size of the hidden layer")
-	parser.add_argument('LAYERS', type = int, help = "Number of hidden layers")
-	parser.add_argument('BATCH_SIZE', type = int, help = "Batch size")
-	parser.add_argument('EPOCHS', type = int, help = "Number of epochs for training")
-
+	parser.add_argument('--train', type=str, help = "Train set file")
+	parser.add_argument('--outmodel', type=str, help = "Output file for model")
+	parser.add_argument('--dictFile', type=str, help = "Path to the dictionary file")
+	parser.add_argument('--SEQ_LENGTH', type = int, help = "Fixed size length to expand or srink text")
+	parser.add_argument('--EMBEDDING_DIM', type = int, help = "Size of the embedding dimention")
+	parser.add_argument('--HIDDEN', type = int, help = "Size of the hidden layer")
+	parser.add_argument('--LAYERS', type = int, help = "Number of hidden layers")
+	parser.add_argument('--DROPOUT', type = float, help = "Dropout value")
+	parser.add_argument('--BATCH_SIZE', type = int, help = "Batch size")
+	parser.add_argument('--EPOCHS', type = int, help = "Number of epochs for training")
+	parser.add_argument('--utils', type=str, help = "Helper directory")
+	parser.add_argument('--db', type=str, help = "DB name", required=True)
+	parser.add_argument('--collection', type=str, help = "DB collection")
+	parser.add_argument('--host', type=str, help = "DB host")
+	parser.add_argument('--port', type=int, help = "Port number of db")
 	args = parser.parse_args()
 
-	dictFile = args.dictFile
 	trainFile = args.train
 
 	SEQ_LENGTH = args.SEQ_LENGTH
@@ -72,37 +102,56 @@ if __name__ == "__main__":
 	LAYERS = args.LAYERS
 	BATCH_SIZE = args.BATCH_SIZE
 	EPOCHS = args.EPOCHS
-	ctx = mx.gpu(0)
+	DROPOUT = args.DROPOUT
+	ctx = mx.gpu(1)
 
-	data = pd.read_json(trainFile, lines=True)
-	dct = Dictionary.load(dictFile)
+	#mx.random.seed(42, ctx = mx.cpu(0))
+	#mx.random.seed(42, ctx = mx.gpu(0))
 
-	array = data_to_array(data, ctx = ctx)
-	labels = label_binarize(data['type'], ctx = ctx)
+	sys.path.append(args.utils)
 
-	net = LSTM(len(dct), EMBEDDING_DIM, HIDDEN, LAYERS, 0.2)
+	from register_experiment import Register
+
+	r = Register(args.host, args.port, args.db, args.collection)
+	r.newExperiment(r.getLastExperiment() + 1, 'LSTM 1')
+
+	dct = Dictionary.load(args.dictFile)
+	array, labels = load_data(trainFile, dct)
+
+	net = LSTM(len(dct), EMBEDDING_DIM, HIDDEN, LAYERS, DROPOUT)
 	net.initialize(mx.init.Normal(sigma=1), ctx = ctx)
-	trainer = gluon.Trainer(net.collect_params(), 'rmsprop', {'learning_rate': 0.001})
+	trainer = gluon.Trainer(net.collect_params(), 'adam', {'learning_rate': 0.01, 'wd' : 0.00001})
 	loss = gluon.loss.SigmoidBinaryCrossEntropyLoss(from_sigmoid=True)
-	hidden = net.begin_state(func=mx.nd.zeros, batch_size=BATCH_SIZE, ctx = ctx)
+	hidden = net.begin_state(func=mx.nd.zeros, batch_size=BATCH_SIZE, ctx = mx.cpu(0))
 
 	for epochs in range(0, EPOCHS):
-	    total_L = 0.0
-	    accuracy = []
-	    hidden = net.begin_state(func=mx.nd.zeros, batch_size=BATCH_SIZE, ctx = ctx)
-	    nd_iter = NDArrayIter(data={'data':array},
-	                          label={'softmax_label':labels},
-	                          batch_size=BATCH_SIZE)
-	    acc = mx.metric.Accuracy()
-	    for batch in nd_iter:
-	        with autograd.record():
-	            output, hidden = net(batch.data[0], hidden)
-	            L = loss(output, batch.label[0])
-	            L.backward()
-	            acc.update(output, batch.label[0].flatten())
-	        trainer.step(BATCH_SIZE)
-	        total_L += mx.nd.sum(L).asscalar()
-	        
-	    print("Loss : {}, Accuracy : {}".format(total_L, acc.get()))
+		pbar = tqdm(total = len(array) // BATCH_SIZE)
+		total_L = 0.0
+		accuracy = []
+		hidden = net.begin_state(func=mx.nd.zeros, batch_size=BATCH_SIZE, ctx = ctx)
+		nd_iter = NDArrayIter(data={'data':array},
+							  label={'softmax_label':labels},
+							  batch_size=BATCH_SIZE)
+		recall_list = []
+		cfMatrix = []
+		acc = mx.metric.Accuracy()
+		for batch in nd_iter:
+			pbar.update(1)
+			with autograd.record():
+				output, hidden = net(batch.data[0].copyto(ctx), hidden)
+				pred = output > 0.5
+				L = loss(output, batch.label[0].copyto(ctx))
+				L.backward()
+				acc.update(batch.label[0].flatten(), pred)
+				y = batch.label[0]
+				rec, mat = recall(y, pred)
+				recall_list.append(rec)
+				cfMatrix.append(mat)
+			trainer.step(BATCH_SIZE)
+			total_L += mx.nd.sum(L).asscalar()
+		pbar.close() 
 
-	net.save_parameters(args.outmodel)
+		print("epoch : {}, Loss : {}, Accuracy : {}, recall : {}".format(epochs, total_L, acc.get()[1], np.mean(recall_list)))
+		r.addResult({'epoch' : epochs, 'train' : {'accuracy' : acc.get()[1], 'loss' : total_L, 'recall' : np.mean(recall_list), 'Confusion Matrix' : list(map(int, sum(cfMatrix)))}}, r.getLastExperiment() + 1)
+		net.save_parameters(args.outmodel+"_{:04d}.params".format(epochs))
+	r.addParams({'SEQ_LENGTH' : SEQ_LENGTH, 'EMBEDDING_DIM': EMBEDDING_DIM, 'HIDDEN': HIDDEN, 'LAYERS' : LAYERS, 'DROPOUT' : DROPOUT, 'BATCH_SIZE' : BATCH_SIZE, 'EPOCHS' : EPOCHS}, r.getLastExperiment() + 1)

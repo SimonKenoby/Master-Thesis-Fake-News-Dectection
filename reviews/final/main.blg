@@ -5,6 +5,7 @@ A level-1 auxiliary file: chapter/acknowledgement.aux
 A level-1 auxiliary file: chapter/abstract.aux
 A level-1 auxiliary file: chapter/introduction.aux
 A level-1 auxiliary file: chapter/data_exploration.aux
+A level-1 auxiliary file: chapter/chapter3.aux
 The style file: unsrt.bst
 Database file #1: ../references/references.bib.bib
 Warning--can't use both volume and number fields in Allcott2017
@@ -15,45 +16,45 @@ Warning--empty year in Perez-Rosas2017
 Warning--empty journal in Li2018
 Warning--empty year in Li2018
 Warning--there's a number but no volume in Maaten2008
-You've used 24 entries,
+You've used 26 entries,
             1791 wiz_defined-function locations,
-            593 strings with 8329 characters,
-and the built_in function-call counts, 5752 in all, are:
-= -- 472
-> -- 336
+            605 strings with 8649 characters,
+and the built_in function-call counts, 5999 in all, are:
+= -- 491
+> -- 344
 < -- 5
-+ -- 121
-- -- 97
-* -- 399
-:= -- 942
-add.period$ -- 77
-call.type$ -- 24
-change.case$ -- 22
++ -- 125
+- -- 99
+* -- 403
+:= -- 983
+add.period$ -- 82
+call.type$ -- 26
+change.case$ -- 24
 chr.to.int$ -- 0
-cite$ -- 32
-duplicate$ -- 255
-empty$ -- 519
-format.name$ -- 97
-if$ -- 1264
+cite$ -- 34
+duplicate$ -- 268
+empty$ -- 551
+format.name$ -- 99
+if$ -- 1320
 int.to.chr$ -- 0
-int.to.str$ -- 24
-missing$ -- 25
-newline$ -- 125
-num.names$ -- 24
-pop$ -- 86
+int.to.str$ -- 26
+missing$ -- 26
+newline$ -- 134
+num.names$ -- 26
+pop$ -- 96
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 116
+skip$ -- 123
 stack$ -- 0
 substring$ -- 283
-swap$ -- 59
+swap$ -- 61
 text.length$ -- 5
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 8
-while$ -- 47
-width$ -- 26
-write$ -- 261
+while$ -- 49
+width$ -- 28
+write$ -- 279
 (There were 8 warnings)

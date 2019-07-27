@@ -128,6 +128,17 @@ Steven Bird, Ewan Klein, and Edward Loper.
 \newblock {\em {Natural Language Processing with Python}}.
 \newblock O'Reilly Media, 2009.
 
+\bibitem{Robertson2004}
+Stephen Robertson.
+\newblock Understanding inverse document frequency: On theoretical arguments
+  for idf, 2004.
+
+\bibitem{Jones2004}
+Karen~Sp{\"a}rck Jones.
+\newblock A statistical interpretation of term specificity and its application
+  in retrieval.
+\newblock {\em Journal of documentation}, 2004.
+
 \bibitem{Maaten2008}
 Laurens van~der Maaten and Geoffrey Hinton.
 \newblock Visualizing data using t-sne.

@@ -131,6 +131,8 @@ INPUT /home/simon/Documents/TFE/reviews/final/chapter/introduction.aux
 INPUT /home/simon/Documents/TFE/reviews/final/chapter/introduction.aux
 INPUT /home/simon/Documents/TFE/reviews/final/chapter/data_exploration.aux
 INPUT /home/simon/Documents/TFE/reviews/final/chapter/data_exploration.aux
+INPUT /home/simon/Documents/TFE/reviews/final/chapter/chapter3.aux
+INPUT /home/simon/Documents/TFE/reviews/final/chapter/chapter3.aux
 OUTPUT /home/simon/Documents/TFE/reviews/final/main.aux
 INPUT /usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 INPUT /usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
@@ -338,6 +340,15 @@ INPUT /home/simon/Documents/TFE/reviews/final/chapter/images/data_exploration/li
 INPUT /home/simon/Documents/TFE/reviews/final/chapter/images/data_exploration/liar-liar-tsne_tfidf_500pca.pdf
 INPUT /home/simon/Documents/TFE/reviews/final/chapter/images/data_exploration/liar-liar-tsne_tfidf_500pca.pdf
 INPUT /home/simon/Documents/TFE/reviews/final/chapter/images/data_exploration/liar-liar-tsne_tfidf_500pca.pdf
+INPUT /home/simon/Documents/TFE/reviews/final/chapter/images/data_exploration/liar-liar-tsne_tfidf_1750pca.pdf
+INPUT /home/simon/Documents/TFE/reviews/final/chapter/images/data_exploration/liar-liar-tsne_tfidf_1750pca.pdf
+INPUT /home/simon/Documents/TFE/reviews/final/chapter/images/data_exploration/liar-liar-tsne_tfidf_1750pca.pdf
+INPUT /home/simon/Documents/TFE/reviews/final/chapter/images/data_exploration/fake_corpus_LSA+tfidf.png
+INPUT /home/simon/Documents/TFE/reviews/final/chapter/images/data_exploration/fake_corpus_LSA+tfidf.png
+INPUT /home/simon/Documents/TFE/reviews/final/chapter/images/data_exploration/fake_corpus_LSA+tfidf.png
+OUTPUT /home/simon/Documents/TFE/reviews/final/chapter/chapter3.aux
+INPUT /home/simon/Documents/TFE/reviews/final/chapter/chapter3.tex
+INPUT /home/simon/Documents/TFE/reviews/final/chapter/chapter3.tex
 INPUT /home/simon/Documents/TFE/reviews/final/main.bbl
 INPUT /home/simon/Documents/TFE/reviews/final/main.bbl
 INPUT /home/simon/Documents/TFE/reviews/final/main.aux
@@ -349,6 +360,8 @@ INPUT /home/simon/Documents/TFE/reviews/final/chapter/introduction.aux
 INPUT /home/simon/Documents/TFE/reviews/final/chapter/introduction.aux
 INPUT /home/simon/Documents/TFE/reviews/final/chapter/data_exploration.aux
 INPUT /home/simon/Documents/TFE/reviews/final/chapter/data_exploration.aux
+INPUT /home/simon/Documents/TFE/reviews/final/chapter/chapter3.aux
+INPUT /home/simon/Documents/TFE/reviews/final/chapter/chapter3.aux
 INPUT /home/simon/Documents/TFE/reviews/final/main.out
 INPUT /home/simon/Documents/TFE/reviews/final/main.out
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
