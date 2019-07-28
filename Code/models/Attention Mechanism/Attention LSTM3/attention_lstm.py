@@ -86,12 +86,14 @@ class LSTM(gluon.Block):
         with self.name_scope():
             self.encoder = gluon.nn.Embedding(vocab_size, num_embed)
             self.LSTM1 = gluon.rnn.LSTM(num_hidden, num_layers, layout = 'NTC', bidirectional = True)
+            self.dropout = gluon.nn.Dropout(dropout)
             self.attention = Attention(seq_length, num_embed, num_hidden, num_layers, dropout)
             self.fc1 = gluon.nn.Dense(2)
             
     def forward(self, inputs, hidden):
         emb = self.encoder(inputs)
         output, hidden = self.LSTM1(emb, hidden)
+        output = self.dropout(output)
         output = self.attention(output)
         output = self.fc1(output)
         return nd.softmax( output , axis=1), hidden
@@ -128,7 +130,7 @@ if __name__ == "__main__":
     from register_experiment import Register
 
     r = Register(args.host, args.port, args.db, args.collection)
-    r.newExperiment(r.getLastExperiment() + 1, 'Attention LSTM 3')
+    r.newExperiment(r.getLastExperiment() + 1, 'Attention LSTM 3.1')
 
     args.experiment = r.getLastExperiment()
 
@@ -155,7 +157,7 @@ if __name__ == "__main__":
     dct = Dictionary.load(dictFile)
     array, labels = load_data(trainFile, dct)
 
-    net = LSTM(len(dct), SEQ_LENGTH, EMBEDDING_DIM, HIDDEN, LAYERS, 0.2)
+    net = LSTM(len(dct), SEQ_LENGTH, EMBEDDING_DIM, HIDDEN, LAYERS, DROPOUT)
     net.initialize(mx.init.Normal(sigma=1), ctx = ctx)
     trainer = gluon.Trainer(net.collect_params(), 'sgd', {'learning_rate': 0.1, 'wd' : 0.00001})
     loss = gluon.loss.SigmoidBinaryCrossEntropyLoss(from_sigmoid=False)

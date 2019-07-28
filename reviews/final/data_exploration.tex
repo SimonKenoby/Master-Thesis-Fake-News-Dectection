@@ -41,24 +41,24 @@ In addition to the numbers provided at \textbf{Table \ref{tab:explo:count1}}, th
 
 \paragraph{} To have a better view of the distribution of categories, an histogram is provided at \textbf{Figure \ref{fig:chap1:hist1}}.
 
-\begin{figure*}[h]
+\begin{figure*}[!ht]
 	\centering
-	\includegraphics[width=0.5\textwidth]{chapter/images/data_exploration/plot1}
+	\includegraphics[width=0.5\textwidth]{images/data_exploration/plot1}
 	\caption{Histogram of text distribution along their categories on the computed numbers. }
 	\label{fig:chap1:hist1}
 \end{figure*}
 
 In addition, the number of words per text and the average number of words per sentences have been computed for each text categories. \textbf{Figure \ref{fig:data_explo:stats1}} shows the boxplots for these values. It can be seen that there is no significative difference that might be used in order to make class prediction. 
 
-\begin{figure}[h]
+\begin{figure}[!ht]
   \centering
   \begin{subfigure}[b]{0.4\textwidth}
-    \includegraphics{chapter/images/data_exploration/boxplot_avgSentLen.eps}
+    \includegraphics{images/data_exploration/boxplot_avgSentLen.eps}
     \caption{Boxplot of average sentence length for each category.}
   \end{subfigure}
   \hfill
   \begin{subfigure}[b]{0.4\textwidth}
-    \includegraphics{chapter/images/data_exploration/boxplot_full_numSentences.eps}
+    \includegraphics{images/data_exploration/boxplot_full_numSentences.eps}
     \caption{Boxplot of number of sentences for each category.}
   \end{subfigure}
   \caption{Summary statistics}
@@ -67,54 +67,54 @@ In addition, the number of words per text and the average number of words per se
 
 Before counting the number of words and sentences, the texts are preprocessed using gensim\cite{rehurek_lrec} and NLTK\cite{BirdKleinLoper09}. The first step consist of spliting text into an array of sentences on stop punctuation such as dots or questions mark, but not on commas. The second step consist on filttering words that are contained in these sentences, to do so, stopwords (words such as 'a', 'an', 'the'), punctuation, words or size less or equal to tree, non alpha-numeric words, numeric values and tags (such as html tags) are removed. Finnaly, the number of word still present is used. 
 
-\begin{figure}[h]
+\begin{figure}[!ht]
      \centering
      \begin{subfigure}[b]{0.3\textwidth}
          \centering
-         \includegraphics[width=\textwidth, height=0.3\textheight]{chapter/images/data_exploration/clickbait.eps}
+         \includegraphics[width=\textwidth, height=0.3\textheight]{images/data_exploration/clickbait.eps}
          \caption{Clickbaits}
      \end{subfigure}
      \hfill
      \begin{subfigure}[b]{0.3\textwidth}
          \centering
-         \includegraphics[width=\textwidth,height=0.3\textheight]{chapter/images/data_exploration/hate.eps}
+         \includegraphics[width=\textwidth,height=0.3\textheight]{images/data_exploration/hate.eps}
          \caption{Hate}
      \end{subfigure}
      \hfill
      \begin{subfigure}[b]{0.3\textwidth}
          \centering
-         \includegraphics[width=\textwidth,height=0.3\textheight]{chapter/images/data_exploration/junksci.eps}
+         \includegraphics[width=\textwidth,height=0.3\textheight]{images/data_exploration/junksci.eps}
          \caption{Junk sience}
      \end{subfigure}
      \vfill
      \begin{subfigure}[b]{1\textwidth}
          \centering
-         \includegraphics[width=\textwidth]{chapter/images/data_exploration/fake.eps}
+         \includegraphics[width=\textwidth]{images/data_exploration/fake.eps}
          \caption{Fake}
      \end{subfigure}
      \vfill
      \begin{subfigure}[b]{1\textwidth}
          \centering
-         \includegraphics[width=\textwidth]{chapter/images/data_exploration/reliable.eps}
+         \includegraphics[width=\textwidth]{images/data_exploration/reliable.eps}
          \caption{Reliable}
      \end{subfigure}
 \end{figure}
 \begin{figure}\ContinuedFloat
     \begin{subfigure}[b]{1\textwidth}
          \centering
-         \includegraphics[width=\textwidth]{chapter/images/data_exploration/political.eps}
+         \includegraphics[width=\textwidth]{images/data_exploration/political.eps}
          \caption{Political}
      \end{subfigure}
      \vfill
      \begin{subfigure}[b]{1\textwidth}
          \centering
-         \includegraphics[width=\textwidth]{chapter/images/data_exploration/satire.eps}
+         \includegraphics[width=\textwidth]{images/data_exploration/satire.eps}
          \caption{Satire}
      \end{subfigure}
      \vfill
      \begin{subfigure}[b]{1\textwidth}
          \centering
-         \includegraphics[width=\textwidth]{chapter/images/data_exploration/unknown.eps}
+         \includegraphics[width=\textwidth]{images/data_exploration/unknown.eps}
          \caption{Unknown}
      \end{subfigure}
         \caption{Histogram of news origin for each categories.}
@@ -123,30 +123,41 @@ Before counting the number of words and sentences, the texts are preprocessed us
 
 \paragraph{} An interesting features to look at is the distrubtion of news sources with respect to their categories. It shows that in some case some source a predominant. For instance, looking at \textbf{Figure \ref{fig:data_explo:source}} shows that most of the reliable news are from \textit{nytimes.com} and in the same way, most of the fake news are coming from \textit{beforeitsnews.com}. That have to be taken into account when training and testing models as the goal is not to distinguish between these two sources but between fake news and reliable news. 
 
+\paragraph{} An other import feature to look at is the distribution of the number of words in the text. Indded, at some point it will be needed to fix a constant length for the texts and using to small length would mean a lot of cutting and using too long size would mean too much padding. It is thus needed to investigate the length of the texts in order to choose the right one. It can be seen at \textbf{Figure \ref{fig:data_explo:fake_corps_summary1}} that reliable news have slightly more words than fake news, but the difference is minimal. 
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=\textwidth]{images/data_exploration/fake_corpus_summary1.pdf}
+  \caption{Distribution of the number of words per text}
+  \label{fig:data_explo:fake_corps_summary1}
+\end{figure}
+
+
 \subsubsection{Fake News analysis}
 \paragraph{} In this section, the analysis will focus on fake news and reliable news. Because of what shows \textbf{Figure \ref{fig:data_explo:source}}, that is, some categories are almost all from the same source, an analysis of what happens when dropping these sources. First, lets compare the number of news while and while not taking into account majors sources. 
 
 \begin{figure}[h]
   \centering
-  \includegraphics[]{chapter/images/data_exploration/not_downsampled.eps}
+  \includegraphics[]{images/data_exploration/not_downsampled.eps}
   \caption{Summary statistics for not downsampled fake and reliable news.}
   \label{fig:data_explo:summary1}
 \end{figure}
 
 \begin{figure*}[h]
 	\centering
-	\includegraphics{chapter/images/data_exploration/downsampled.eps}
+	\includegraphics{images/data_exploration/downsampled.eps}
 	\caption{Summary statistics for downsampled dataset on fake and reliable news}
 	\label{fig:data_explo:summary2}
 \end{figure*}
 
 Comparing \textbf{Figure \ref{fig:data_explo:summary1}} and \textbf{Figure \ref{fig:data_explo:summary2}} shows that even by removing \textit{nytimes.com} and \textit{beforeitsnews.com} news from the dataset still leave enought texts to train the different models without the risk of learning something unwanted such as only separating these two sources. But one drawback is that the ratio between fake news and reliable news is going from around one half to around one fourth. 
 
+
 \subsection{Liar-Liar corpus}
 \paragraph{} As said in \textbf{Chapter \ref{section:intro}}, this dataset is made of small text of one or two sentences at most. Which means that they are smaller than than the ones in \textit{fake news corpus}. The distribution of words length can be seen at \textbf{Figure \ref{fig:data_explo:summary3}}. In addition, this dataset is not unbalanced as the other corpus is, which means that precautions does not have to be taken. 
 \begin{figure*}[h]
   \centering
-  \includegraphics[width=\textwidth]{chapter/images/data_exploration/liar_liar_summary.pdf}
+  \includegraphics[width=\textwidth]{images/data_exploration/liar_liar_summary.pdf}
   \caption{Number of words distributions for liar-liar dataset. On the first and the third plots, a few outliers with length greater than 50 have been removed in order to make the plots more readables.}
   \label{fig:data_explo:summary3}
 \end{figure*}
@@ -183,7 +194,7 @@ The documentation of the module of scikit-learn\cite{scikit-learn} used for comp
 
 \begin{figure*}[h]
   \centering
-  \makebox[\textwidth][c]{\includegraphics[width=1.2\textwidth]{chapter/images/data_exploration/liar-liar-tsne_tfidf_500pca.pdf}}
+  \makebox[\textwidth][c]{\includegraphics[width=1.2\textwidth]{images/data_exploration/liar-liar-tsne_tfidf_500pca.pdf}}
   \caption{t-SNE plot for liar-liar dataset.}
   \label{fig:data_explo:tsne1}
 \end{figure*}
@@ -192,7 +203,7 @@ Increasing the number of PCA components to 1750 gives the results at \textbf{Fig
 
 \begin{figure*}[h]
   \centering
-  \makebox[\textwidth][c]{\includegraphics[width=1.2\textwidth]{chapter/images/data_exploration/liar-liar-tsne_tfidf_1750pca.pdf}}
+  \makebox[\textwidth][c]{\includegraphics[width=1.2\textwidth]{images/data_exploration/liar-liar-tsne_tfidf_1750pca.pdf}}
   \caption{t-SNE plot for liar-liar dataset.}
   \label{fig:data_explo:tsne2}
 \end{figure*}
@@ -201,7 +212,7 @@ Increasing the number of PCA components to 1750 gives the results at \textbf{Fig
 
 \begin{figure*}[h]
   \centering
-  \makebox[\textwidth][c]{\includegraphics[width=1.2\textwidth]{chapter/images/data_exploration/fake_corpus_LSA+tfidf.png}}
+  \makebox[\textwidth][c]{\includegraphics[width=1.2\textwidth]{images/data_exploration/fake_corpus_LSA+tfidf.png}}
   \caption{First two LSA compnoents for fake news corpus}
   \label{fig:data_explo:LSA1}
 \end{figure*}

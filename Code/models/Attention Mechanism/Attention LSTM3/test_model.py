@@ -81,12 +81,14 @@ class LSTM(gluon.Block):
         with self.name_scope():
             self.encoder = gluon.nn.Embedding(vocab_size, num_embed)
             self.LSTM1 = gluon.rnn.LSTM(num_hidden, num_layers, layout = 'NTC', bidirectional = True)
+            self.dropout = gluon.nn.Dropout(dropout)
             self.attention = Attention(seq_length, num_embed, num_hidden, num_layers, dropout)
             self.fc1 = gluon.nn.Dense(2)
             
     def forward(self, inputs, hidden):
         emb = self.encoder(inputs)
         output, hidden = self.LSTM1(emb, hidden)
+        output = self.dropout(output)
         output = self.attention(output)
         output = self.fc1(output)
         return nd.softmax( output , axis=1), hidden

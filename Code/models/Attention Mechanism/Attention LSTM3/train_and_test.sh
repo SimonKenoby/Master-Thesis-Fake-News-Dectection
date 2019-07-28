@@ -7,10 +7,10 @@ out_prefix="model"
 utils="/home/simon/Documents/TFE/Code/utils"
 logs="train.log"
 dictFile='Dictionary.dct'
-SEQ_LENGTH_A=(2 5 10 15 20)
+SEQ_LENGTH_A=(10 15 20)
 EMBEDDING_DIM_A=(5 10 25 50 100 200 300)
-HIDDEN_A=(5 10 25 50 100 200 300)
-LAYERS_A=(1 3)
+HIDDEN_A=(5 10 25 50 100 200)
+LAYERS_A=(1)
 DROPOUT_A=(0 0.25 0.50 0.75)
 BATCH_SIZE=128
 EPOCHS=200
@@ -31,7 +31,7 @@ for SEQ_LENGTH in ${SEQ_LENGTH_A[@]}; do
 		for HIDDEN in ${HIDDEN_A[@]}; do
 			for LAYERS in ${LAYERS_A[@]}; do
 				for DROPOUT in ${DROPOUT_A[@]}; do
-					python $utils/check_params.py --SEQ_LENGTH $SEQ_LENGTH --EMBEDDING_DIM $EMBEDDING_DIM --HIDDEN $HIDDEN --LAYERS $LAYERS --DROPOUT $DROPOUT --EPOCHS $EPOCHS --Name 'Attention LSTM 3' --db TFE --collection results --host localhost --port 27017;
+					python $utils/check_params.py --SEQ_LENGTH $SEQ_LENGTH --EMBEDDING_DIM $EMBEDDING_DIM --HIDDEN $HIDDEN --LAYERS $LAYERS --DROPOUT $DROPOUT --EPOCHS $EPOCHS --Name 'Attention LSTM 3.1' --db TFE --collection results --host localhost --port 27017;
 					check=$?
 					if [ $check -eq 0 ]
 					then
