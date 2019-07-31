@@ -14,30 +14,27 @@ import numpy as np
 from gensim.corpora import Dictionary
 from sklearn.metrics import recall_score, confusion_matrix
 
-def load_data(trainFile, dct, ctx = mx.cpu(0)):
-    labels = []
-    num_lines = sum(1 for line in open(trainFile))
-    array = nd.ones((num_lines, SEQ_LENGTH), dtype='float32', ctx = ctx)
-    print("Loading data: ")
-    pbar = tqdm(total = num_lines)
-    with open(trainFile) as f:
-        for i, line in enumerate(f):
-            l = json.loads(line)
-            text = l['tokenized_text']
-            label = l['type']
-            labels.append(label)
-            array[i] = tokens_to_idx(text, dct)
-            pbar.update(1)
-    pbar.close()
-    return array, label_binarize(labels, ctx)
-
-def tokens_to_idx(tokens, dct, ctx = mx.cpu(0)):
-    array = [dct.token2id[token] if token in dct.token2id else -1 for token in tokens]
-    if len(array) > SEQ_LENGTH:
-        array = array[0:SEQ_LENGTH]
-    else:
-        array.extend([-1 for i in range(0, SEQ_LENGTH - len(array))])
-    return nd.array(array, ctx = ctx)
+def load_data(trainFile, ctx = mx.cpu(0)):
+	embed = gluonnlp.embedding.create(embedding_name='word2vec', source="GoogleNews-vectors-negative300")
+	labels = []
+	num_lines = sum(1 for line in open(trainFile))
+	array = nd.ones((num_lines, SEQ_LENGTH, EMBEDDING_DIM), dtype='float32', ctx = ctx)
+	print("Loading data: ")
+	pbar = tqdm(total = num_lines)
+	with open(trainFile) as f:
+		for i, line in enumerate(f):
+			l = json.loads(line)
+			text = l['tokenized_text']
+			label = l['type']
+			labels.append(label)
+			if len(text) > SEQ_LENGTH:
+				text = text[0:SEQ_LENGTH]
+			else:
+				text.extend(['<PAD>' for i in range(0, SEQ_LENGTH - len(text))])
+			array[i] = embed[text]
+			pbar.update(1)
+	pbar.close()
+	return array, label_binarize(labels, ctx)
 
 def label_binarize(labels, ctx = mx.cpu(0)):
 	lab = nd.zeros(len(labels), ctx = ctx)
@@ -50,6 +47,7 @@ def recall(y, y_hat):
 	y = y.asnumpy()
 	y_hat = y_hat.asnumpy()
 	return recall_score(y, y_hat), confusion_matrix(y, y_hat).ravel()
+
 
 class LSTM(gluon.Block):
 	def __init__(self, vocab_size, num_embed, num_hidden, num_layers, dropout, **kwargs):

@@ -68,79 +68,81 @@ class LSTM(gluon.Block):
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description='Arguments for LSTM model')
-	parser.add_argument('--train', type=str, help = "Train set file")
-	parser.add_argument('--outmodel', type=str, help = "Output file for model")
-	parser.add_argument('--SEQ_LENGTH', type = int, help = "Fixed size length to expand or srink text")
-	parser.add_argument('--EMBEDDING_DIM', type = int, help = "Size of the embedding dimention")
-	parser.add_argument('--HIDDEN', type = int, help = "Size of the hidden layer")
-	parser.add_argument('--LAYERS', type = int, help = "Number of hidden layers")
-	parser.add_argument('--DROPOUT', type = float, help = "Dropout value")
-	parser.add_argument('--BATCH_SIZE', type = int, help = "Batch size")
-	parser.add_argument('--EPOCHS', type = int, help = "Number of epochs for training")
-	parser.add_argument('--utils', type=str, help = "Helper directory")
-	parser.add_argument('--db', type=str, help = "DB name", required=True)
-	parser.add_argument('--collection', type=str, help = "DB collection")
-	parser.add_argument('--host', type=str, help = "DB host")
-	parser.add_argument('--port', type=int, help = "Port number of db")
-	args = parser.parse_args()
+    parser.add_argument('--train', type=str, help = "Train set file")
+    parser.add_argument('--outmodel', type=str, help = "Output file for model")
+    parser.add_argument('--SEQ_LENGTH', type = int, help = "Fixed size length to expand or srink text")
+    parser.add_argument('--EMBEDDING_DIM', type = int, help = "Size of the embedding dimention")
+    parser.add_argument('--HIDDEN', type = int, help = "Size of the hidden layer")
+    parser.add_argument('--LAYERS', type = int, help = "Number of hidden layers")
+    parser.add_argument('--DROPOUT', type = float, help = "Dropout value")
+    parser.add_argument('--BATCH_SIZE', type = int, help = "Batch size")
+    parser.add_argument('--EPOCHS', type = int, help = "Number of epochs for training")
+    parser.add_argument('--utils', type=str, help = "Helper directory")
+    parser.add_argument('--db', type=str, help = "DB name", required=True)
+    parser.add_argument('--collection', type=str, help = "DB collection")
+    parser.add_argument('--host', type=str, help = "DB host")
+    parser.add_argument('--port', type=int, help = "Port number of db")
+    args = parser.parse_args()
 
-	trainFile = args.train
+    trainFile = args.train
 
-	SEQ_LENGTH = args.SEQ_LENGTH
-	EMBEDDING_DIM = args.EMBEDDING_DIM
-	HIDDEN = args.HIDDEN
-	LAYERS = args.LAYERS
-	BATCH_SIZE = args.BATCH_SIZE
-	EPOCHS = args.EPOCHS
-	DROPOUT = args.DROPOUT
-	ctx = mx.gpu(1)
+    SEQ_LENGTH = args.SEQ_LENGTH
+    EMBEDDING_DIM = args.EMBEDDING_DIM
+    HIDDEN = args.HIDDEN
+    LAYERS = args.LAYERS
+    BATCH_SIZE = args.BATCH_SIZE
+    EPOCHS = args.EPOCHS
+    DROPOUT = args.DROPOUT
+    ctx = mx.gpu()
 
-	#mx.random.seed(42, ctx = mx.cpu(0))
-	#mx.random.seed(42, ctx = mx.gpu(0))
+    #mx.random.seed(42, ctx = mx.cpu(0))
+    #mx.random.seed(42, ctx = mx.gpu(0))
 
-	sys.path.append(args.utils)
+    sys.path.append(args.utils)
 
-	from register_experiment import Register
+    from register_experiment import Register
 
-	r = Register(args.host, args.port, args.db, args.collection)
-	r.newExperiment(r.getLastExperiment() + 1, 'LSTM 2')
+    r = Register(args.host, args.port, args.db, args.collection)
+    r.newExperiment(r.getLastExperiment() + 1, 'LSTM 2')
 
-	array, labels = load_data(trainFile)
+    array, labels = load_data(trainFile)
 
-	net = LSTM(SEQ_LENGTH, EMBEDDING_DIM, HIDDEN, LAYERS, DROPOUT)
-	net.initialize(mx.init.Normal(sigma=1), ctx = ctx)
-	trainer = gluon.Trainer(net.collect_params(), 'adam', {'learning_rate': 0.01, 'wd' : 0.00001})
-	loss = gluon.loss.SigmoidBinaryCrossEntropyLoss(from_sigmoid=True)
-	hidden = net.begin_state(func=mx.nd.zeros, batch_size=BATCH_SIZE, ctx = mx.cpu(0))
+    net = LSTM(SEQ_LENGTH, EMBEDDING_DIM, HIDDEN, LAYERS, DROPOUT)
+    net.initialize(mx.init.Normal(sigma=1), ctx = ctx)
+    trainer = gluon.Trainer(net.collect_params(), 'adam', {'learning_rate': 0.01, 'wd' : 0.00001})
+    loss = gluon.loss.SigmoidBinaryCrossEntropyLoss(from_sigmoid=True)
+    hidden = net.begin_state(func=mx.nd.zeros, batch_size=BATCH_SIZE, ctx = mx.cpu(0))
 
-	for epochs in range(0, EPOCHS):
-		pbar = tqdm(total = len(array) // BATCH_SIZE)
-		total_L = 0.0
-		accuracy = []
-		hidden = net.begin_state(func=mx.nd.zeros, batch_size=BATCH_SIZE, ctx = ctx)
-		nd_iter = NDArrayIter(data={'data':array},
-							  label={'softmax_label':labels},
-							  batch_size=BATCH_SIZE)
-		recall_list = []
-		cfMatrix = []
-		acc = mx.metric.Accuracy()
-		for batch in nd_iter:
-			pbar.update(1)
-			with autograd.record():
-				output, hidden = net(batch.data[0].copyto(ctx), hidden)
-				pred = output > 0.5
-				L = loss(output, batch.label[0].copyto(ctx))
-				L.backward()
-				acc.update(batch.label[0].flatten(), pred)
-				y = batch.label[0]
-				rec, mat = recall(y, pred)
-				recall_list.append(rec)
-				cfMatrix.append(mat)
-			trainer.step(BATCH_SIZE)
-			total_L += mx.nd.sum(L).asscalar()
-		pbar.close() 
+    for epochs in range(0, EPOCHS):
+        pbar = tqdm(total = len(array) // BATCH_SIZE)
+        total_L = 0.0
+        accuracy = []
+        hidden = net.begin_state(func=mx.nd.zeros, batch_size=BATCH_SIZE, ctx = ctx)
+        nd_iter = NDArrayIter(data={'data':array},
+                              label={'softmax_label':labels},
+                              batch_size=BATCH_SIZE)
+        recall_list = []
+        cfMatrix = []
+        acc = mx.metric.Accuracy()
+        for batch in nd_iter:
+            pbar.update(1)
+            with autograd.record():
+                output, hidden = net(batch.data[0].copyto(ctx), hidden)
+                pred = output > 0.5
+                L = loss(output, batch.label[0].copyto(ctx))
+                L.backward()
+                acc.update(batch.label[0].flatten(), pred)
+                y = batch.label[0]
+                rec, mat = recall(y, pred)
+                recall_list.append(rec)
+                cfMatrix.append(mat)
+            trainer.step(BATCH_SIZE)
+            total_L += mx.nd.sum(L).asscalar()
+        pbar.close() 
 
-		print("epoch : {}, Loss : {}, Accuracy : {}, recall : {}".format(epochs, total_L, acc.get()[1], np.mean(recall_list)))
-		r.addResult({'epoch' : epochs, 'train' : {'accuracy' : acc.get()[1], 'loss' : total_L, 'recall' : np.mean(recall_list), 'Confusion Matrix' : list(map(int, sum(cfMatrix)))}}, r.getLastExperiment() + 1)
-		net.save_parameters(args.outmodel+"_{:04d}.params".format(epochs))
-	r.addParams({'SEQ_LENGTH' : SEQ_LENGTH, 'EMBEDDING_DIM': EMBEDDING_DIM, 'HIDDEN': HIDDEN, 'LAYERS' : LAYERS, 'DROPOUT' : DROPOUT, 'BATCH_SIZE' : BATCH_SIZE, 'EPOCHS' : EPOCHS}, r.getLastExperiment() + 1)
+        # TODO: Evalute on validation set at the same time
+        # TODO: Make plots of training 
+        print("epoch : {}, Loss : {}, Accuracy : {}, recall : {}".format(epochs, total_L, acc.get()[1], np.mean(recall_list)))
+        r.addResult({'epoch' : epochs, 'train' : {'accuracy' : acc.get()[1], 'loss' : total_L, 'recall' : np.mean(recall_list), 'Confusion Matrix' : list(map(int, sum(cfMatrix)))}}, r.getLastExperiment() + 1)
+        net.save_parameters(args.outmodel+"_{:04d}.params".format(epochs))
+    r.addParams({'SEQ_LENGTH' : SEQ_LENGTH, 'EMBEDDING_DIM': EMBEDDING_DIM, 'HIDDEN': HIDDEN, 'LAYERS' : LAYERS, 'DROPOUT' : DROPOUT, 'BATCH_SIZE' : BATCH_SIZE, 'EPOCHS' : EPOCHS}, r.getLastExperiment() + 1)
