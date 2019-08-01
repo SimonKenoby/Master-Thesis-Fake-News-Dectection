@@ -38,3 +38,6 @@ Code/models/LSTM/crawl-300d-2M-subword\.vec
 Code/models/LSTM/crawl-300d-2M-subword\.zip
 
 Code/models/word2vec/lstm\.h5
+/.vscode/
+/Code/.ipynb_checkpoints/
+/reviews/final/.texpadtmp/
