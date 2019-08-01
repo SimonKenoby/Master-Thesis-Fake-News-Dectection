@@ -22,7 +22,7 @@ import utils.gensimUtils
 
 client = MongoClient('localhost', 27017)
 db = client.TFE
-collection = db.results
+collection = db.results5
 
 def train_and_test(experiment_id, max_features = None):
     print("Using max features : {}".format(max_features))

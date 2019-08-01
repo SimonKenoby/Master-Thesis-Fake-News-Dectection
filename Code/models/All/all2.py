@@ -1,13 +1,10 @@
 import numpy as np
-import os
 
-import sklearn
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 from sklearn.svm import LinearSVC
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.linear_model import RidgeClassifier
-from sklearn.model_selection import train_test_split, KFold
 from sklearn.metrics import classification_report, confusion_matrix
 
 from pymongo import MongoClient
@@ -139,6 +136,6 @@ def train_and_test(experiment_id, max_features = None):
 
 
 if __name__ == "__main__":
-    max_features = [50000, 100000, 250000, 500000, 1000000]
+    max_features = [10000, 50000, 100000, 250000, 500000, 1000000]
     for features in max_features:
         train_and_test(13, features)
