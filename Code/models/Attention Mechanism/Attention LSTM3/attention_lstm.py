@@ -130,7 +130,7 @@ if __name__ == "__main__":
     from register_experiment import Register
 
     r = Register(args.host, args.port, args.db, args.collection)
-    r.newExperiment(r.getLastExperiment() + 1, 'Attention LSTM 3.1')
+    r.newExperiment(r.getLastExperiment() + 1, 'Attention LSTM 3.2')
 
     args.experiment = r.getLastExperiment()
 
@@ -159,7 +159,7 @@ if __name__ == "__main__":
 
     net = LSTM(len(dct), SEQ_LENGTH, EMBEDDING_DIM, HIDDEN, LAYERS, DROPOUT)
     net.initialize(mx.init.Normal(sigma=1), ctx = ctx)
-    trainer = gluon.Trainer(net.collect_params(), 'sgd', {'learning_rate': 0.1, 'wd' : 0.00001})
+    trainer = gluon.Trainer(net.collect_params(), 'adam', {'learning_rate': 0.001, 'wd' : 0.0001})
     loss = gluon.loss.SigmoidBinaryCrossEntropyLoss(from_sigmoid=False)
     hidden = net.begin_state(func=mx.nd.zeros, batch_size=BATCH_SIZE, ctx = mx.cpu(0))
 

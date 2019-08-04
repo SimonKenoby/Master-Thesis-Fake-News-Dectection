@@ -25,7 +25,7 @@ def train_test1(X_train, X_test, y_train, y_test, db_idx):
     db = client.TFE
     collection = db.results
 
-    Cs = [0.01, 0.05, 0.1, 0.25, 0.5, 1, 2, 4, 5]
+    Cs = [0.0001, 0.001, 0.01, 0.05, 0.1, 0.25, 0.5, 1, 2, 4, 5]
     for C in Cs:
         print("Training with C = {}".format(C))
         model = LinearSVC(C = C)
@@ -44,19 +44,28 @@ if __name__ == "__main__":
     collection = db.results
 
     print("Creating corpus")
-    corpus = utils.dbUtils.TokenizedIterator('news_cleaned', filters = {'type' : {'$in' : ['fake', 'reliable']}})
-    y = np.array([x for x in corpus.iterTags()])
+    train = utils.dbUtils.TokenizedIterator('liar_liar', filters = {'split' : 'train'})
+    y_train = np.array([x for x in train.iterTags()])
 
-    idx = collection.insert_one({'model' : 'linear_svc', 'date' : datetime.datetime.now(), 'downsampling' : False, 'smote' : False, 'corpus' : 'news_cleaned', 'penality' : 'l2'})
+    test = utils.dbUtils.TokenizedIterator('liar_liar', filters = {'split' : 'valid'})
+    y_test = np.array([x for x in test.iterTags()])
+
+    idx = collection.insert_one({'model' : 'LinearSVC', 
+        'date' : datetime.datetime.now(), 
+        'downsampling' : True, 
+        'smote' : False, 
+        'corpus' : 'liar-liar', 
+        'penality' : 'l2', 
+        'experiment_id' : 18,
+        'description' : 'Testing linearSVC with multiple parameters on liar_liar with train and validation set'})
 
 
-    train_accuracy = []
-    test_accuracy = []
-    kf = KFold(n_splits=3, shuffle = True)
-    for i, (train_index, test_index) in enumerate(kf.split(y)):
-        vectorizer = TfidfVectorizer()
-        X_train = vectorizer.fit_transform([' '.join(corpus[i]) for i in train_index])
-        X_test = vectorizer.transform([' '.join(corpus[i]) for i in test_index])
-        y_train = y[train_index]
-        y_test = y[test_index]
-        train_test1(X_train, X_test, y_train, y_test, idx)
+    vectorizer = TfidfVectorizer()
+    X_train = vectorizer.fit_transform([' '.join(text) for text in train])
+    X_test = vectorizer.transform([' '.join(text) for text in test])
+    train_test1(X_train, X_test, y_train, y_test, idx)
+
+
+
+
+

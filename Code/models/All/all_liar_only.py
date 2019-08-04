@@ -26,7 +26,6 @@ collection = db.results
 
 def train_and_test(experiment_id, max_features = None):
     print("Using max features : {}".format(max_features))
-    idx = collection.insert_one({'date' : datetime.datetime.now(), 'corpus' : 'liar_liar', 'max_features' : max_features, 'experiment_id' : experiment_id})
 
     print("Making dataset")
 
@@ -41,6 +40,10 @@ def train_and_test(experiment_id, max_features = None):
     vectorizer = TfidfVectorizer(max_features = max_features)		
     X_train = vectorizer.fit_transform([' '.join(news) for news in train])	
     X_test = vectorizer.transform([' '.join(news) for news in test])
+
+    if max_features == None:
+        max_features = X_train.shape[1]
+    idx = collection.insert_one({'date' : datetime.datetime.now(), 'corpus' : 'liar_liar', 'max_features' : max_features, 'experiment_id' : experiment_id})
 
     print("Fiting linearSVC")
 
@@ -139,6 +142,6 @@ def train_and_test(experiment_id, max_features = None):
 
 
 if __name__ == "__main__":
-    max_features = [10000, 50000, 100000, 250000, 500000, 1000000]
+    max_features = [10, 100, 250, 1000, 2500, 5000, 10000, None]
     for features in max_features:
         train_and_test(12, features)

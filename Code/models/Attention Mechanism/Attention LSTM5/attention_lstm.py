@@ -104,13 +104,13 @@ if __name__ == "__main__":
     from register_experiment import Register
 
     r = Register(args.host, args.port, args.db, args.collection)
-    r.newExperiment(r.getLastExperiment() + 1, 'Attention LSTM 1.2')
+    r.newExperiment(r.getLastExperiment() + 1, 'Attention LSTM 5')
 
     ds = train('train', SEQ_LENGTH, EMBEDDING_DIM, '/home/simon/Documents/TFE/Code/utils')
 
     net = LSTM(SEQ_LENGTH, EMBEDDING_DIM, HIDDEN, LAYERS, DROPOUT)
     net.initialize(mx.init.Normal(sigma=0.01), ctx = ctx)
-    schedule = mx.lr_scheduler.PolyScheduler(max_update=15275, base_lr=0.001, pwr=2)
+    schedule = mx.lr_scheduler.PolyScheduler(max_update=(len(ds) // BATCH_SIZE) * EPOCHS, base_lr=0.01, pwr=2)
     trainer = gluon.Trainer(net.collect_params(), 'adam', {'learning_rate': 0.00001, 'wd' : 0.0001, 'lr_scheduler' : schedule})
     loss = gluon.loss.SigmoidBinaryCrossEntropyLoss(from_sigmoid=True)
     hidden = net.begin_state(func=mx.nd.zeros, batch_size=BATCH_SIZE, ctx = mx.cpu(0))
@@ -120,7 +120,7 @@ if __name__ == "__main__":
     for epochs in range(0, EPOCHS):
         total_L = 0.0
         accuracy = []
-        dl = DataLoader(ds, batch_size = BATCH_SIZE, last_batch = 'discard', num_workers=CPU_COUNT)
+        dl = DataLoader(ds, batch_size = BATCH_SIZE, last_batch = 'discard', num_workers=CPU_COUNT // 2)
         hidden = net.begin_state(func=mx.nd.zeros, batch_size=BATCH_SIZE, ctx = ctx)
         recall_list = []
         cfMatrix = []

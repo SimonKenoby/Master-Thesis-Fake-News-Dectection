@@ -140,7 +140,7 @@ if __name__ == "__main__":
         cfMatrix = []
         net = LSTM(SEQ_LENGTH, EMBEDDING_DIM, HIDDEN, LAYERS, DROPOUT)
         net.load_parameters(model, ctx=ctx)
-        dl = DataLoader(ds, batch_size=BATCH_SIZE, last_batch='discard', num_workers=CPU_COUNT)
+        dl = DataLoader(ds, batch_size=BATCH_SIZE, last_batch='keep', num_workers=CPU_COUNT // 4)
         pbar = tqdm(total = len(dl))
         for batch, labels in dl:
             hidden = net.begin_state(func=mx.nd.zeros, batch_size=len(batch), ctx = ctx)

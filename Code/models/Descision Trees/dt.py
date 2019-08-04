@@ -6,6 +6,8 @@ from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split, KFold
 from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.naive_bayes import MultinomialNB
+
 
 from pymongo import MongoClient
 
@@ -17,74 +19,54 @@ sys.path.append('../..')
 import utils.dbUtils
 import utils.gensimUtils
 
-client = MongoClient('localhost', 27017)
-db = client.TFE
-collection = db.results
+def train_test1(X_train, X_test, y_train, y_test, db_idx):
 
-idx = collection.insert_one({'model' : 'DecisionTreeClassifier', 'date' : datetime.datetime.now(), 'downsampling' : False, 'smote' : False, 'corpus' : 'news_cleaned'})
+    client = MongoClient('localhost', 27017)
+    db = client.TFE
+    collection = db.results
 
-print('Creating corpus')
-corpus = utils.dbUtils.TokenizedIterator('news_cleaned', filters = {'type' : {'$in' : ['fake', 'reliable']}})
-print('Creating labels')
-y = np.array([x for x in corpus.iterTags()])
+    max_depth = [10, 100, 1000, 10000, 100000]
+    for depths in max_depth:
+        print("Training with max_depth = {}".format(depths))
+        model = DecisionTreeClassifier(max_depth = depths)
+        model.fit(X_train, y_train)
+        crp = classification_report(y_test, model.predict(X_test), labels=['fake', 'reliable'], output_dict = True)
+        collection.update_one({'_id' : db_idx.inserted_id}, 
+                                {'$push' : 
+                                {'report' : 
+                                {'classification_report' : crp, 'train_accuracy' : model.score(X_train, y_train), 'test_accuracy' : model.score(X_test, y_test), 'max_depth' : depths}}})
+    
 
-train_accuracy = []
-test_accuracy = []
-kf = KFold(n_splits=3, shuffle = True)
-i = 1
-for i, (train_index, test_index) in enumerate(kf.split(y)):
-    print('Train and test set {}'.format(i))
-    model = DecisionTreeClassifier()
+
+if __name__ == "__main__":
+    client = MongoClient('localhost', 27017)
+    db = client.TFE
+    collection = db.results
+
+    print("Creating corpus")
+    train = utils.dbUtils.TokenizedIterator('liar_liar', filters = {'split' : 'train'})
+    y_train = np.array([x for x in train.iterTags()])
+
+    test = utils.dbUtils.TokenizedIterator('liar_liar', filters = {'split' : 'valid'})
+    y_test = np.array([x for x in test.iterTags()])
+    idx = collection.insert_one({'model' : 'DecisionTreeClassifier', 
+        'date' : datetime.datetime.now(), 
+        'corpus' : 'liar_liar', 
+        'experiment_id' : 17,
+        'description' : 'Testing DecisionTreeClassifier with multiple parameters on liar-liar with train and validation set'})
+
+
     vectorizer = TfidfVectorizer()
-    print('\t Fiting tf-idf')
-    X_train = vectorizer.fit_transform([' '.join(corpus[i]) for i in train_index])
-    X_test = vectorizer.transform([' '.join(corpus[i]) for i in test_index])
-    y_train = y[train_index]
-    y_test = y[test_index]
-    print('\t fiting model')
-    model.fit(X_train, y_train)
-    print('\t Testing model')
-    train_accuracy.append(model.score(X_train, y_train))
-    test_accuracy.append(model.score(X_test, y_test))
-    #print("Training accuracy : {}".format(model.score(X_train, y_train)))
-    #print("Test accuracy : {}".format(model.score(X_test, y_test)))
-    #print("Classification report for test set")
-    #print(classification_report(y_test, model.predict(X_test)))
-    crp = classification_report(y_test, model.predict(X_test), labels=['fake', 'reliable'], output_dict = True)
-    collection.update_one({'_id' : idx.inserted_id}, {'$push' : {'classification_report' : crp, 'train_accuracy' : model.score(X_train, y_train), 'test_accuracy' : model.score(X_test, y_test)}})
+    X_train = vectorizer.fit_transform([' '.join(text) for text in train])
+    X_test = vectorizer.transform([' '.join(text) for text in test])
+    print(X_train.shape)
+    print(X_test.shape)
+    print(len(y_train))
+    print(len(y_test))
 
-collection.update_one({'_id' : idx.inserted_id}, {'$set' : {'mean_test_accuracy' : np.mean(test_accuracy) }})
+    train_test1(X_train, X_test, y_train, y_test, idx)
 
 
 
-idx = collection.insert_one({'model' : 'DecisionTreeClassifier', 'date' : datetime.datetime.now(), 'downsampling' : True, 'smote' : False, 'corpus' : 'news_cleaned'})
 
-print('Creating corpus')
-corpus = utils.dbUtils.TokenizedIterator('news_cleaned', filters = {'type' : {'$in' : ['fake', 'reliable']}, 'domain' : {'$nin' : ['nytimes.com', 'beforeitsnews.com']}})
-print('Creating labels')
-y = np.array([x for x in corpus.iterTags()])
 
-train_accuracy = []
-test_accuracy = []
-kf = KFold(n_splits=3, shuffle = True)
-for i, (train_index, test_index) in enumerate(kf.split(y)):
-    print('Train and test set {}'.format(i))
-    model = DecisionTreeClassifier()
-    vectorizer = TfidfVectorizer()
-    print('\t Fiting tf-idf')
-    X_train = vectorizer.fit_transform([' '.join(corpus[i]) for i in train_index])
-    X_test = vectorizer.transform([' '.join(corpus[i]) for i in test_index])
-    y_train = y[train_index]
-    y_test = y[test_index]
-    print('\t fiting model')
-    model.fit(X_train, y_train)
-    print('\t Testing model')
-    train_accuracy.append(model.score(X_train, y_train))
-    test_accuracy.append(model.score(X_test, y_test))
-    #print("Training accuracy : {}".format(model.score(X_train, y_train)))
-    #print("Test accuracy : {}".format(model.score(X_test, y_test)))
-    #print("Classification report for test set")
-    crp = classification_report(y_test, model.predict(X_test), labels=['fake', 'reliable'], output_dict = True)
-    collection.update_one({'_id' : idx.inserted_id}, {'$push' : {'classification_report' : crp, 'train_accuracy' : model.score(X_train, y_train), 'test_accuracy' : model.score(X_test, y_test)}})
-
-collection.update_one({'_id' : idx.inserted_id}, {'$set' : {'mean_test_accuracy' : np.mean(test_accuracy) }})
