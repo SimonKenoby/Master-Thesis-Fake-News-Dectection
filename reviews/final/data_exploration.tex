@@ -1,6 +1,6 @@
 \externaldocument{introduction}
 
-\chapter{Data Exploration}
+\chapter{Data Exploration} \label{chap2}
 \section{Introduction}
 \paragraph{}
 A good starting point for the analysis is to make some data exploration of the data set. The first thing to be done is statistical analysis such as counting the number of text per class or counting the number of words per sentence. The second step consit of doing Latent Dirichlet Allocation\cite{blei2003latent} in order to make unsupervised clustering of the text and see if there is some kind of correlation between the clusters to which a text belongs and its labels. 
@@ -208,7 +208,7 @@ Increasing the number of PCA components to 1750 gives the results at \textbf{Fig
   \label{fig:data_explo:tsne2}
 \end{figure*}
 
-\paragraph{} It is not possible to use t-SNE on the \textit{Fake News Corpus} because the algorithm is quadratic with respect to the number of samples. Which make it impossible to compute for that corpus which is larger than the \textit{liar-liar} corpus. But it is still possible to try to make some vizualisation using the first two PCA components.  \textbf{Expliquer la difference entre LSA (truncatedSVD) et PCA}
+\paragraph{} It is not possible to use t-SNE on the \textit{Fake News Corpus} because the algorithm is quadratic with respect to the number of samples. Which make it impossible to compute for that corpus which is larger than the \textit{liar-liar} corpus. But it is still possible to try to make some vizualisation using truncated singular v	alues decomposition.
 
 \begin{figure*}[h]
   \centering

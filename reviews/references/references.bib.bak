@@ -187,16 +187,15 @@
 }
 
 @Article{Li2018,
-  author        = {Shuai Li and Wanqing Li and Chris Cook and Ce Zhu and Yanbo Gao},
-  title         = {Independently Recurrent Neural Network (IndRNN): Building A Longer and Deeper RNN},
-  __markedentry = {[simon:]},
-  abstract      = {Recurrent neural networks (RNNs) have been widely used for processing sequential data. However, RNNs are commonly difficult to train due to the well-known gradient vanishing and exploding problems and hard to learn long-term patterns. Long short-term memory (LSTM) and gated recurrent unit (GRU) were developed to address these problems, but the use of hyperbolic tangent and the sigmoid action functions results in gradient decay over layers. Consequently, construction of an efficiently trainable deep network is challenging. In addition, all the neurons in an RNN layer are entangled together and their behaviour is hard to interpret. To address these problems, a new type of RNN, referred to as independently recurrent neural network (IndRNN), is proposed in this paper, where neurons in the same layer are independent of each other and they are connected across layers. We have shown that an IndRNN can be easily regulated to prevent the gradient exploding and vanishing problems while allowing the network to learn long-term dependencies. Moreover, an IndRNN can work with non-saturated activation functions such as relu (rectified linear unit) and be still trained robustly. Multiple IndRNNs can be stacked to construct a network that is deeper than the existing RNNs. Experimental results have shown that the proposed IndRNN is able to process very long sequences (over 5000 time steps), can be used to construct very deep networks (21 layers used in the experiment) and still be trained robustly. Better performances have been achieved on various tasks by using IndRNNs compared with the traditional RNN and LSTM. The code is available at https://github.com/Sunnydreamrain/IndRNN_Theano_Lasagne.},
-  date          = {2018-03-13},
-  eprint        = {1803.04831v3},
-  eprintclass   = {cs.CV},
-  eprinttype    = {arXiv},
-  file          = {online:http\://arxiv.org/pdf/1803.04831v3:PDF},
-  keywords      = {cs.CV},
+  author      = {Shuai Li and Wanqing Li and Chris Cook and Ce Zhu and Yanbo Gao},
+  title       = {Independently Recurrent Neural Network (IndRNN): Building A Longer and Deeper RNN},
+  abstract    = {Recurrent neural networks (RNNs) have been widely used for processing sequential data. However, RNNs are commonly difficult to train due to the well-known gradient vanishing and exploding problems and hard to learn long-term patterns. Long short-term memory (LSTM) and gated recurrent unit (GRU) were developed to address these problems, but the use of hyperbolic tangent and the sigmoid action functions results in gradient decay over layers. Consequently, construction of an efficiently trainable deep network is challenging. In addition, all the neurons in an RNN layer are entangled together and their behaviour is hard to interpret. To address these problems, a new type of RNN, referred to as independently recurrent neural network (IndRNN), is proposed in this paper, where neurons in the same layer are independent of each other and they are connected across layers. We have shown that an IndRNN can be easily regulated to prevent the gradient exploding and vanishing problems while allowing the network to learn long-term dependencies. Moreover, an IndRNN can work with non-saturated activation functions such as relu (rectified linear unit) and be still trained robustly. Multiple IndRNNs can be stacked to construct a network that is deeper than the existing RNNs. Experimental results have shown that the proposed IndRNN is able to process very long sequences (over 5000 time steps), can be used to construct very deep networks (21 layers used in the experiment) and still be trained robustly. Better performances have been achieved on various tasks by using IndRNNs compared with the traditional RNN and LSTM. The code is available at https://github.com/Sunnydreamrain/IndRNN_Theano_Lasagne.},
+  date        = {2018-03-13},
+  eprint      = {1803.04831v3},
+  eprintclass = {cs.CV},
+  eprinttype  = {arXiv},
+  file        = {online:http\://arxiv.org/pdf/1803.04831v3:PDF},
+  keywords    = {cs.CV},
 }
 
 @InProceedings{zhou-etal-2016-attention,
@@ -309,8 +308,34 @@ almost all of the data sets.},
   title         = {A statistical interpretation of term specificity and its application in retrieval},
   journal       = {Journal of documentation},
   year          = {2004},
-  __markedentry = {[simon:6]},
+  __markedentry = {[simon:]},
   publisher     = {Emerald Group Publishing Limited},
+}
+
+@Misc{Robertson2004,
+  author        = {Robertson, Stephen},
+  title         = {Understanding inverse document frequency: On theoretical arguments for IDF},
+  year          = {2004},
+  __markedentry = {[simon:6]},
+  abstract      = {The term weighting function known as IDF was proposed in 1972, and has since been extremely widely used, usually as part of a TF*IDF function. It is often described as a heuristic, and many papers have been written (some based on Shannon’s Information Theory) seeking to establish some theoretical basis for it. Some of these attempts are reviewed, and it is shown that the Information Theory approaches are problematic, but that there are good theoretical justifications of both IDF and TF*IDF in traditional probabilistic model of information retrieval.},
+}
+
+@Article{Fan2008LIBLINEARAL,
+  author  = {Rong-En Fan and Kai-Wei Chang and Cho-Jui Hsieh and Xiang-Rui Wang and Chih-Jen Lin},
+  title   = {LIBLINEAR: A Library for Large Linear Classification},
+  journal = {J. Mach. Learn. Res.},
+  year    = {2008},
+  volume  = {9},
+  pages   = {1871-1874},
+}
+
+@Article{zhang_optimality_nodate,
+  author   = {Zhang, Harry},
+  title    = {The {Optimality} of {Naive} {Bayes}},
+  pages    = {6},
+  abstract = {Naive Bayes is one of the most efﬁcient and effective inductive learning algorithms for machine learning and data mining. Its competitive performance in classiﬁcation is surprising, because the conditional independence assumption on which it is based, is rarely true in realworld applications. An open question is: what is the true reason for the surprisingly good performance of naive Bayes in classiﬁcation? In this paper, we propose a novel explanation on the superb classiﬁcation performance of naive Bayes. We show that, essentially, the dependence distribution; i.e., how the local dependence of a node distributes in each class, evenly or unevenly, and how the local dependencies of all nodes work together, consistently (supporting a certain classiﬁcation) or inconsistently (canceling each other out), plays a crucial role. Therefore, no matter how strong the dependences among attributes are, naive Bayes can still be optimal if the dependences distribute evenly in classes, or if the dependences cancel each other out. We propose and prove a sufﬁcient and necessary conditions for the optimality of naive Bayes. Further, we investigate the optimality of naive Bayes under the Gaussian distribution. We present and prove a sufﬁcient condition for the optimality of naive Bayes, in which the dependence between attributes do exist. This provides evidence that dependence among attributes may cancel out each other. In addition, we explore when naive Bayes works well.},
+  file     = {Zhang - The Optimality of Naive Bayes.pdf:/home/simon/Zotero/storage/MFZHYEWX/Zhang - The Optimality of Naive Bayes.pdf:application/pdf},
+  language = {en},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}

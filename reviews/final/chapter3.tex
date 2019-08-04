@@ -1,4 +1,4 @@
-\chapter{TODO: find a title}
+\chapter{TODO: find a title} \label{chap3}
 \section{Introduction}
 \paragraph{} In this chapter, we will focus on the more traditional methods used in natural language processing such as Naïve-Bayes, decision trees, linear SVM and others. These will serve as baseline for comparing the performances of the more two advanced models that will be analyse later on: LSTM and Attention Mechanism. The first thing to do when working with text is the do words and texts embedding, indeed, in order to use machine learning algorithms on texts, a mathematical representation of these texts is required. 
 
@@ -62,29 +62,108 @@ Finally, raw output can be used by looking at the confusion matrix.\\
 
 The first parameters to tune is the max number of features used by tf-idf. This is the maximum number of words that will be kept to create the text encoding. The words that are kept are the most frequent words. 
 
+\section{Models}
+Four models have been used in order to classify texts represented as a TF-IDF matrix. These are Multinomial Naïve-Bayes, Linear SVM, Ridge Classifier and Decision Tree. 
+\subsection{Na\"{i}ve-Bayes\cite{zhang_optimality_nodate}}
+The basic idea of Naïve-Bayes model is that all features are independent of each other. This is a particulary strong hypotheses in the case of text classification because it suppose that words are not related to each others. But it know to work well given this hypotheses. 
+
+Given an element of class y and vector of feature $\mathbf{X} = (x_1,...,x_n)$. The probability of the class given that vector is defined as 
+\begin{equation}
+	P(y | \mathbf{X}) = \frac{P(y)*P(\mathbf{X} | y)}{P(\mathbf{X})}
+\end{equation}
+
+Thanks to the assumption of conditional independance we have that 
+
+\begin{equation}
+	P(x_i |y,x_1, ...,x_{i-1},x_{i+1},...,x_n) = P(x_i | y)
+\end{equation}
+Using bayes rules we have that
+\begin{equation}
+	P(y|x_1,...,x_n) = \frac{P(y)\prod_{i=1}^n P(x_i | y)}{P(x_1,...,x_n)}
+\end{equation}
+
+Because $P(x_1,...,x_n)$ is constant, we have the classification rule 
+\begin{equation}
+	\hat{y} = \underset{y}{argmax} P(y)\prod_{i=1}^n P(x_i | y)
+\end{equation}
+
+\subsection{LIBLINEAR}
+Liblinear is a method for large linear classification. Given pairs of features-label $(\mathbf{x_i}, y_i), y_i \in \{-1, 1\}$, it solve the following unconstrained optimization problem. 
+\begin{equation}
+	\underset{w}{min} \frac{1}{2} \mathbf{w^Tw} + \mathbf{C} \sum_{i=1}^l \xi(\mathbf{w;x_i},y_u)
+\end{equation}
+
+Where $\xi$ is a loss function, in this case L2 loss function have been used, and $\mathbf{C} > 0$ a pennality parameter. 
+
+Class of new examples are assigned by looking at the value of $\mathbf{w^Tw}$. The class 1 is assigned if $\mathbf{w^Tw} \geq 0$ and the class $-1$ if $\mathbf{w^Tw} < 0$.
+
 \section{Models on liar-liar dataset}
+\subsection{Linear SVC}
+In the case of linear SVC there is one parameters to tune up, which is the penality parameters for the error term. \textbf{Figure \ref{fig:chap3:linearSVC}} show the tree main metrics with respect to the panlity parameter. This show that a parameters of around $0.1$ is the best one. 
+
+\begin{figure*}[]
+	\centering
+	\makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{images/chapitre3/svc_liar.pdf}}
+	\caption{Tuning linearSVC parameters }
+	\label{fig:chap3:linearSVC}
+\end{figure*}
+
+\subsection{Decision Tree}
+With decision tree, it is possible to reduce overfitting by pruning the tree. It is possible to do preprunning or post pruning. Pre pre preuning means that a stoping criterion is used to stop tree growth earlier and post pruning cut the tree once it have been fully grown. It this case pre pruning is done by limiting the maximum depth of the tree. 
+
+\begin{figure*}[]
+	\centering
+	\makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{images/chapitre3/liar-dt.pdf}}
+	\caption{Tuning decision tree parameters }
+	\label{fig:chap3:dt}
+\end{figure*}
+
+\textbf{Figure \ref{fig:chap3:dt}} shows metrics values for different depths. It seems that tree of depth 1000 are the best ones. 
 \subsection{Max Feature Number}
 
-Starting with the maximum number of features, the precision of each model can be analyzed when limiting the maxium number of words. The results for each model can be seen at \textbf{Figure \ref{fig:chap3:max_feature1}}. 
+Starting with the maximum number of features, the precision of each model can be analyzed when limiting the maxium number of words. The results for each model can be seen at \textbf{Figure \ref{fig:chap3:max_feature1}, \ref{fig:chap3:max_feature2}} and \textbf{\ref{fig:chap3:max_feature3}}. These Figures shows that in the case of Naïve-Bayes it is better to use the maximum number of features (which is the total number of words in the training set) when it is better to limit it to 500 or 1000 for ridge classifier and linear SVC. The decision tree have bad performances no matter the number of features used.  
 
-\begin{figure*}[h]
+\begin{figure*}[]
 	\centering
 	\makebox[\textwidth][c]{\includegraphics[width=1.2\textwidth]{images/chapitre3/liar-liar_precision_ML}}
 	\caption{Precision of the model for each classes, the x axes is log scale of the number of features}
 	\label{fig:chap3:max_feature1}
 \end{figure*}
 
-\begin{figure*}[h]
+\begin{figure*}[]
 	\centering
 	\makebox[\textwidth][c]{\includegraphics[width=1.2\textwidth]{images/chapitre3/liar-liar_recall_ML}}
 	\caption{Precision of the model for each classes, the x axes is log scale of the number of features}
 	\label{fig:chap3:max_feature2}
 \end{figure*}
-
-\begin{figure*}[h]
+Based on \textbf{Figure \ref{fig:chap3:max_feature3}} we can say that when it comes to precision and recall, Naïve-Bayes is the one that perform the best.
+\begin{figure*}[]
 	\centering
-	\makebox[\textwidth][c]{\includegraphics[width=0.8\textwidth]{images/chapitre3/liar-liar_f1_ML}}
-	\caption{Precision of the model for each classes, the x axes is log scale of the number of features}
-	\label{fig:chap3:max_feature2}
+	\makebox[\textwidth][c]{\includegraphics[width=1.2\textwidth]{images/chapitre3/liar-liar_f1_ML}}
+	\caption{Weigted average of f1-score, precision and recall of each classes. }
+	\label{fig:chap3:max_feature3}
 \end{figure*}
+
 \section{Models on fake corpus dataset}
+\subsection{SMOTE: Synthetic Minority Over-sampling Technique\cite{Chawla2011}}
+As it have been show in \textbf{Chapter \ref{chap2}}, the fake news corpus is inbalanced. Synthetic minority over-sampling is a technique that allows to generate fake samples from the minor class. It works by randomly choosing one or many neirest neigbhor in the minority class. For instance, if the algorithm is set to use 5 nearest neigbours, for each samples it will choose one of its nearest neigbours, and generate a new sample on the segment joining the sample and its neigbour. 
+
+\begin{algorithm}
+	 \KwData{k = Number of nearest neighbors}
+	 \KwData{T = number of minority class samples}
+	 \For{$i \leftarrow 1...T$}{Compute k-nearest neighbors of sample i\;
+	 	Populate(knn, i)\;}
+	 \caption{SMOTE}
+	 \label{algo:SMOTE}
+\end{algorithm}
+
+\begin{algorithm}
+	\KwData{knn = the k nearest neighbour of sample i}
+	\KwData{s = ith sample}
+	nn = random\_choice(knn)\;
+	newSample = s + rand(0, 1) * (nn - s)\;
+	\caption{Populate}
+	\label{aglo:populate}
+\end{algorithm}
+
+\textbf{Algorithm \ref{algo:SMOTE}} and \textbf{\ref{aglo:populate}} shows how it works. The first one compute the k-nearest neighbors and the second one compute a new element by randomly choosing one of this neighbors. 
