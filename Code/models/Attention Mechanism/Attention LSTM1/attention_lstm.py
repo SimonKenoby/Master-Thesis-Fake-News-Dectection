@@ -74,14 +74,18 @@ class LSTM(gluon.Block):
         self.seq_length = seq_length
         with self.name_scope():
             self.LSTM1 = gluon.rnn.LSTM(num_hidden, num_layers, layout = 'NTC', bidirectional = True)
+            self.norm1 = gluon.nn.BatchNorm(axis=1, center=True, scale=True)
             self.dropout = gluon.nn.Dropout(dropout)
             self.attention = Attention(seq_length, num_embed, num_hidden, num_layers, dropout)
+            self.norm2 = gluon.nn.BatchNorm(axis=1, center=True, scale=True)
             self.fc1 = gluon.nn.Dense(1)
             
     def forward(self, inputs, hidden):
         output, hidden = self.LSTM1(inputs, hidden)
+        output = self.norm1(output)
         output = self.dropout(output)
         output = self.attention(output)
+        output = self.norm2(output)
         output = self.fc1(output)
         return nd.sigmoid( output ), hidden
     
@@ -125,13 +129,13 @@ if __name__ == "__main__":
     from register_experiment import Register
 
     r = Register(args.host, args.port, args.db, args.collection)
-    r.newExperiment(r.getLastExperiment() + 1, 'Attention LSTM 1.2')
+    r.newExperiment(r.getLastExperiment() + 1, 'Self_Embedding LSTM 1.2')
 
     array, labels = load_data(trainFile)
 
     net = LSTM(SEQ_LENGTH, EMBEDDING_DIM, HIDDEN, LAYERS, DROPOUT)
-    net.initialize(mx.init.Normal(sigma=1), ctx = ctx)
-    trainer = gluon.Trainer(net.collect_params(), 'adam', {'learning_rate': 0.01, 'wd' : 0.00001})
+    net.initialize(mx.init.Normal(sigma=0.01), ctx = ctx)
+    trainer = gluon.Trainer(net.collect_params(), 'adam', {'learning_rate': 0.001, 'wd' : 0.00001})
     loss = gluon.loss.SigmoidBinaryCrossEntropyLoss(from_sigmoid=True)
     hidden = net.begin_state(func=mx.nd.zeros, batch_size=BATCH_SIZE, ctx = mx.cpu(0))
 

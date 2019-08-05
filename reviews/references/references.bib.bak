@@ -304,20 +304,18 @@ almost all of the data sets.},
 }
 
 @Article{Jones2004,
-  author        = {Jones, Karen Sp{\"a}rck},
-  title         = {A statistical interpretation of term specificity and its application in retrieval},
-  journal       = {Journal of documentation},
-  year          = {2004},
-  __markedentry = {[simon:]},
-  publisher     = {Emerald Group Publishing Limited},
+  author    = {Jones, Karen Sp{\"a}rck},
+  title     = {A statistical interpretation of term specificity and its application in retrieval},
+  journal   = {Journal of documentation},
+  year      = {2004},
+  publisher = {Emerald Group Publishing Limited},
 }
 
 @Misc{Robertson2004,
-  author        = {Robertson, Stephen},
-  title         = {Understanding inverse document frequency: On theoretical arguments for IDF},
-  year          = {2004},
-  __markedentry = {[simon:6]},
-  abstract      = {The term weighting function known as IDF was proposed in 1972, and has since been extremely widely used, usually as part of a TF*IDF function. It is often described as a heuristic, and many papers have been written (some based on Shannon’s Information Theory) seeking to establish some theoretical basis for it. Some of these attempts are reviewed, and it is shown that the Information Theory approaches are problematic, but that there are good theoretical justifications of both IDF and TF*IDF in traditional probabilistic model of information retrieval.},
+  author   = {Robertson, Stephen},
+  title    = {Understanding inverse document frequency: On theoretical arguments for IDF},
+  year     = {2004},
+  abstract = {The term weighting function known as IDF was proposed in 1972, and has since been extremely widely used, usually as part of a TF*IDF function. It is often described as a heuristic, and many papers have been written (some based on Shannon’s Information Theory) seeking to establish some theoretical basis for it. Some of these attempts are reviewed, and it is shown that the Information Theory approaches are problematic, but that there are good theoretical justifications of both IDF and TF*IDF in traditional probabilistic model of information retrieval.},
 }
 
 @Article{Fan2008LIBLINEARAL,
@@ -336,6 +334,79 @@ almost all of the data sets.},
   abstract = {Naive Bayes is one of the most efﬁcient and effective inductive learning algorithms for machine learning and data mining. Its competitive performance in classiﬁcation is surprising, because the conditional independence assumption on which it is based, is rarely true in realworld applications. An open question is: what is the true reason for the surprisingly good performance of naive Bayes in classiﬁcation? In this paper, we propose a novel explanation on the superb classiﬁcation performance of naive Bayes. We show that, essentially, the dependence distribution; i.e., how the local dependence of a node distributes in each class, evenly or unevenly, and how the local dependencies of all nodes work together, consistently (supporting a certain classiﬁcation) or inconsistently (canceling each other out), plays a crucial role. Therefore, no matter how strong the dependences among attributes are, naive Bayes can still be optimal if the dependences distribute evenly in classes, or if the dependences cancel each other out. We propose and prove a sufﬁcient and necessary conditions for the optimality of naive Bayes. Further, we investigate the optimality of naive Bayes under the Gaussian distribution. We present and prove a sufﬁcient condition for the optimality of naive Bayes, in which the dependence between attributes do exist. This provides evidence that dependence among attributes may cancel out each other. In addition, we explore when naive Bayes works well.},
   file     = {Zhang - The Optimality of Naive Bayes.pdf:/home/simon/Zotero/storage/MFZHYEWX/Zhang - The Optimality of Naive Bayes.pdf:application/pdf},
   language = {en},
+}
+
+@Article{Mikolov2013,
+  author      = {Tomas Mikolov and Kai Chen and Greg Corrado and Jeffrey Dean},
+  title       = {Efficient Estimation of Word Representations in Vector Space},
+  abstract    = {We propose two novel model architectures for computing continuous vector representations of words from very large data sets. The quality of these representations is measured in a word similarity task, and the results are compared to the previously best performing techniques based on different types of neural networks. We observe large improvements in accuracy at much lower computational cost, i.e. it takes less than a day to learn high quality word vectors from a 1.6 billion words data set. Furthermore, we show that these vectors provide state-of-the-art performance on our test set for measuring syntactic and semantic word similarities.},
+  date        = {2013-01-16},
+  eprint      = {http://arxiv.org/abs/1301.3781v3},
+  eprintclass = {cs.CL},
+  eprinttype  = {arXiv},
+  file        = {:http\://arxiv.org/pdf/1301.3781v3:PDF},
+  keywords    = {cs.CL},
+}
+
+@InProceedings{Ruchansky2017,
+  author       = {Ruchansky, Natali and Seo, Sungyong and Liu, Yan},
+  title        = {Csi: A hybrid deep model for fake news detection},
+  booktitle    = {Proceedings of the 2017 ACM on Conference on Information and Knowledge Management},
+  year         = {2017},
+  pages        = {797--806},
+  organization = {ACM},
+}
+
+@InProceedings{Long2017,
+  author    = {Long, Yunfei and Lu, Qin and Xiang, Rong and Li, Minglei and Huang, Chu-Ren},
+  title     = {Fake news detection through multi-perspective speaker profiles},
+  booktitle = {Proceedings of the Eighth International Joint Conference on Natural Language Processing (Volume 2: Short Papers)},
+  year      = {2017},
+  pages     = {252--256},
+}
+
+@Article{Tacchini2017,
+  author       = {Eugenio Tacchini and Gabriele Ballarin and Marco L. Della Vedova and Stefano Moret and Luca de Alfaro},
+  title        = {Some Like it Hoax: Automated Fake News Detection in Social Networks},
+  abstract     = {In recent years, the reliability of information on the Internet has emerged as a crucial issue of modern society. Social network sites (SNSs) have revolutionized the way in which information is spread by allowing users to freely share content. As a consequence, SNSs are also increasingly used as vectors for the diffusion of misinformation and hoaxes. The amount of disseminated information and the rapidity of its diffusion make it practically impossible to assess reliability in a timely manner, highlighting the need for automatic hoax detection systems. As a contribution towards this objective, we show that Facebook posts can be classified with high accuracy as hoaxes or non-hoaxes on the basis of the users who "liked" them. We present two classification techniques, one based on logistic regression, the other on a novel adaptation of boolean crowdsourcing algorithms. On a dataset consisting of 15,500 Facebook posts and 909,236 users, we obtain classification accuracies exceeding 99% even when the training set contains less than 1% of the posts. We further show that our techniques are robust: they work even when we restrict our attention to the users who like both hoax and non-hoax posts. These results suggest that mapping the diffusion pattern of information can be a useful component of automatic hoax detection systems.},
+  date         = {2017-04-25},
+  eprint       = {1704.07506v1},
+  eprintclass  = {cs.LG},
+  eprinttype   = {arXiv},
+  file         = {online:http\://arxiv.org/pdf/1704.07506v1:PDF},
+  journaltitle = {Proceedings of the Second Workshop on Data Science for Social Good (SoGood), Skopje, Macedonia, 2017. CEUR Workshop Proceedings Volume 1960, 2017},
+  keywords     = {cs.LG, cs.HC, cs.SI},
+}
+
+@InProceedings{Thorne2017,
+  author    = {Thorne, James and Chen, Mingjie and Myrianthous, Giorgos and Pu, Jiashu and Wang, Xiaoxuan and Vlachos, Andreas},
+  title     = {Fake news stance detection using stacked ensemble of classifiers},
+  booktitle = {Proceedings of the 2017 EMNLP Workshop: Natural Language Processing meets Journalism},
+  year      = {2017},
+  pages     = {80--83},
+}
+
+@InProceedings{Granik2017,
+  author        = {Granik, Mykhailo and Mesyura, Volodymyr},
+  title         = {Fake news detection using naive Bayes classifier},
+  booktitle     = {2017 IEEE First Ukraine Conference on Electrical and Computer Engineering (UKRCON)},
+  year          = {2017},
+  pages         = {900--903},
+  organization  = {IEEE},
+  __markedentry = {[simon:]},
+}
+
+@Article{Yang2018,
+  author        = {Yang Yang and Lei Zheng and Jiawei Zhang and Qingcai Cui and Zhoujun Li and Philip S. Yu},
+  title         = {TI-CNN: Convolutional Neural Networks for Fake News Detection},
+  __markedentry = {[simon:6]},
+  abstract      = {With the development of social networks, fake news for various commercial and political purposes has been appearing in large numbers and gotten widespread in the online world. With deceptive words, people can get infected by the fake news very easily and will share them without any fact-checking. For instance, during the 2016 US president election, various kinds of fake news about the candidates widely spread through both official news media and the online social networks. These fake news is usually released to either smear the opponents or support the candidate on their side. The erroneous information in the fake news is usually written to motivate the voters' irrational emotion and enthusiasm. Such kinds of fake news sometimes can bring about devastating effects, and an important goal in improving the credibility of online social networks is to identify the fake news timely. In this paper, we propose to study the fake news detection problem. Automatic fake news identification is extremely hard, since pure model based fact-checking for news is still an open problem, and few existing models can be applied to solve the problem. With a thorough investigation of a fake news data, lots of useful explicit features are identified from both the text words and images used in the fake news. Besides the explicit features, there also exist some hidden patterns in the words and images used in fake news, which can be captured with a set of latent features extracted via the multiple convolutional layers in our model. A model named as TI-CNN (Text and Image information based Convolutinal Neural Network) is proposed in this paper. By projecting the explicit and latent features into a unified feature space, TI-CNN is trained with both the text and image information simultaneously. Extensive experiments carried on the real-world fake news datasets have demonstrate the effectiveness of TI-CNN.},
+  date          = {2018-06-03},
+  eprint        = {1806.00749v1},
+  eprintclass   = {cs.CL},
+  eprinttype    = {arXiv},
+  file          = {online:http\://arxiv.org/pdf/1806.00749v1:PDF},
+  keywords      = {cs.CL, cs.SI},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}

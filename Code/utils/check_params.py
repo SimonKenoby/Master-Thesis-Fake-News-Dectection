@@ -3,7 +3,7 @@ from pymongo import MongoClient
 import sys
 
 if __name__ == "__main__":
-	parser = argparse.ArgumentParser(description='Arguments for Attention model')
+	parser = argparse.ArgumentParser(description='Arguments for Self_Embedding model')
 	parser.add_argument('--SEQ_LENGTH', type = int, help = "Fixed size length to expand or srink text")
 	parser.add_argument('--EMBEDDING_DIM', type = int, help = "Size of the embedding dimention")
 	parser.add_argument('--HIDDEN', type = int, help = "Size of the hidden layer")

@@ -59,7 +59,7 @@ class Attention(gluon.Block):
         self.num_hidden = num_hidden
         self.seq_length = seq_length
         with self.name_scope():
-            self.fc1 = gluon.nn.Dense(seq_length)
+            self.fc1 = gluon.nn.Dense(seq_length, activation = 'relu')
             
     def forward(self, hidden):
         h_f = hidden[:,:,0:self.num_hidden]
@@ -77,14 +77,18 @@ class LSTM(gluon.Block):
         self.seq_length = seq_length
         with self.name_scope():
             self.LSTM1 = gluon.rnn.LSTM(num_hidden, num_layers, layout = 'NTC', bidirectional = True)
+            self.norm1 = gluon.nn.BatchNorm(axis=1, center=True, scale=True)
             self.dropout = gluon.nn.Dropout(dropout)
             self.attention = Attention(seq_length, num_embed, num_hidden, num_layers, dropout)
+            self.norm2 = gluon.nn.BatchNorm(axis=1, center=True, scale=True)
             self.fc1 = gluon.nn.Dense(1)
             
     def forward(self, inputs, hidden):
         output, hidden = self.LSTM1(inputs, hidden)
+        output = self.norm1(output)
         output = self.dropout(output)
         output = self.attention(output)
+        output = self.norm2(output)
         output = self.fc1(output)
         return nd.sigmoid( output ), hidden
     

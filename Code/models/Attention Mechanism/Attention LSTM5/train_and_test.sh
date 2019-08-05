@@ -30,7 +30,7 @@ for SEQ_LENGTH in ${SEQ_LENGTH_A[@]}; do
 			for DROPOUT in ${DROPOUT_A[@]}; do
 				python $utils/check_params.py \
 				--SEQ_LENGTH $SEQ_LENGTH --EMBEDDING_DIM $EMBEDDING_DIM --HIDDEN $HIDDEN --LAYERS $LAYERS --DROPOUT $DROPOUT --EPOCHS $EPOCHS \
-				--Name 'Attention LSTM 5' --db TFE --collection results4 --host localhost --port 27017;
+				--Name 'Self_Embedding LSTM 5' --db TFE --collection results4 --host localhost --port 27017;
 				check=$?
 				if [ $check -eq 0 ]
 				then

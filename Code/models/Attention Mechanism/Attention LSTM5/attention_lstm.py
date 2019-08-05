@@ -104,7 +104,7 @@ if __name__ == "__main__":
     from register_experiment import Register
 
     r = Register(args.host, args.port, args.db, args.collection)
-    r.newExperiment(r.getLastExperiment() + 1, 'Attention LSTM 5')
+    r.newExperiment(r.getLastExperiment() + 1, 'Self_Embedding LSTM 5')
 
     ds = train('train', SEQ_LENGTH, EMBEDDING_DIM, '/home/simon/Documents/TFE/Code/utils')
 
@@ -143,7 +143,7 @@ if __name__ == "__main__":
         pbar.close() 
 
         # TODO: Evalute on validation set at the same time
-        # TODO: Make plots of training 
+        # TODO: Make plots of training
         print("epoch : {}, Loss : {}, Accuracy : {}, recall : {}".format(epochs, total_L, acc.get()[1], np.mean(recall_list)))
         r.addResult({'epoch' : epochs, 'train' : {'accuracy' : acc.get()[1], 'loss' : total_L, 'recall' : np.mean(recall_list), 'Confusion Matrix' : list(map(int, sum(cfMatrix)))}}, r.getLastExperiment() + 1)
         net.save_parameters(args.outmodel+"_{:04d}.params".format(epochs))

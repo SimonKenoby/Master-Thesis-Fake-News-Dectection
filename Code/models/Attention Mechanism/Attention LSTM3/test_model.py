@@ -108,7 +108,6 @@ if __name__ == "__main__":
     parser.add_argument('--DROPOUT', type = float, help = "Number of hidden layers")
     parser.add_argument('--BATCH_SIZE', type = int, help = "Batch size")
     parser.add_argument('--log', type=str, help = "Log Directory")
-    parser.add_argument('--experiment', type=int, help = "Experiment id for registration")
     parser.add_argument('--utils', type=str, help = "Helper directory")
     parser.add_argument('--db', type=str, help = "DB name", required=True)
     parser.add_argument('--collection', type=str, help = "DB collection")
@@ -132,10 +131,6 @@ if __name__ == "__main__":
     BATCH_SIZE = args.BATCH_SIZE
     LOG = args.log
     ctx = mx.gpu(0)
-
-    cw = csvwriter(LOG)
-    cw.write(['accuracy'])
-
     files = []
     # r=root, d=directories, f = files
     for r, d, f in os.walk(args.input):
@@ -171,9 +166,7 @@ if __name__ == "__main__":
                 cfMatrix.append(mat)
             accuracy.append(acc.get()[1])
             r.addEpochs(j, {'accuracy' : acc.get()[1], 'recall' : np.mean(recall_list), 'Confusion Matrix' : list(map(int, sum(cfMatrix)))}, r.getLastExperiment() + 1, 'valid')
-        cw.write(accuracy)
         pbar.update(1)
     pbar.close()
     r.closeExperiment(r.getLastExperiment() + 1)
-    cw.close()
         

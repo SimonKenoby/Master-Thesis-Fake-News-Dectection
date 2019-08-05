@@ -7,13 +7,13 @@ out_prefix="model"
 utils="/home/simon/Documents/TFE/Code/utils"
 logs="train.log"
 dictFile='Dictionary.dct'
-SEQ_LENGTH_A=(15)
-EMBEDDING_DIM_A=(20)
-HIDDEN_A=(20)
+SEQ_LENGTH_A=(20)
+EMBEDDING_DIM_A=(100)
+HIDDEN_A=(100)
 LAYERS_A=(1)
 DROPOUT_A=(0.25 0.50)
 BATCH_SIZE=128
-EPOCHS=500
+EPOCHS=100
 
 : 'SEQ_LENGTH_A=(3 5 7)
 EMBEDDING_DIM_A=(5 10)
@@ -31,16 +31,16 @@ for SEQ_LENGTH in ${SEQ_LENGTH_A[@]}; do
 		for HIDDEN in ${HIDDEN_A[@]}; do
 			for LAYERS in ${LAYERS_A[@]}; do
 				for DROPOUT in ${DROPOUT_A[@]}; do
-					python $utils/check_params.py --SEQ_LENGTH $SEQ_LENGTH --EMBEDDING_DIM $EMBEDDING_DIM --HIDDEN $HIDDEN --LAYERS $LAYERS --DROPOUT $DROPOUT --EPOCHS $EPOCHS --Name 'Attention LSTM 3.2' --db TFE --collection results --host localhost --port 27017;
+					python $utils/check_params.py --SEQ_LENGTH $SEQ_LENGTH --EMBEDDING_DIM $EMBEDDING_DIM --HIDDEN $HIDDEN --LAYERS $LAYERS --DROPOUT $DROPOUT --EPOCHS $EPOCHS --Name 'Self_Embedding LSTM 3.2' --db TFE --collection "Attetion3" --host localhost --port 27017;
 					check=$?
 					if [ $check -eq 0 ]
 					then
 						rm -r $out_dir
 						mkdir $out_dir
-						python $utils/experiment_number.py --db TFE --collection results --host localhost --port 27017
-						experiment=$?
+						#python $utils/experiment_number.py --db TFE --collection "Attetion3" --host localhost --port 27017
+						#experiment=$?
 						python buildDictionary.py $train $dictFile
-						python attention_lstm.py $train $out_dir/$out_prefix $dictFile $SEQ_LENGTH $EMBEDDING_DIM $HIDDEN $LAYERS $DROPOUT $BATCH_SIZE $EPOCHS $logs --test $test --experiment $experiment --utils $utils --db TFE --collection results --host localhost --port 27017
+						python attention_lstm.py $train $out_dir/$out_prefix $dictFile $SEQ_LENGTH $EMBEDDING_DIM $HIDDEN $LAYERS $DROPOUT $BATCH_SIZE $EPOCHS $logs --test $test --utils $utils --db TFE --collection "Attetion3" --host localhost --port 27017
 						error=$?
 						if [ $error -eq 1 ] 
 						then
@@ -51,7 +51,7 @@ for SEQ_LENGTH in ${SEQ_LENGTH_A[@]}; do
 							echo $DROPOUT
 							exit
 						fi 
-						python test_model.py --test $test --input $out_dir --dictFile $dictFile --SEQ_LENGTH $SEQ_LENGTH --EMBEDDING_DIM $EMBEDDING_DIM --HIDDEN $HIDDEN --LAYERS $LAYERS --DROPOUT $DROPOUT --BATCH_SIZE $BATCH_SIZE --log $logs --experiment $experiment --utils $utils --db TFE --collection results --host localhost --port 27017
+						python test_model.py --test $test --input $out_dir --dictFile $dictFile --SEQ_LENGTH $SEQ_LENGTH --EMBEDDING_DIM $EMBEDDING_DIM --HIDDEN $HIDDEN --LAYERS $LAYERS --DROPOUT $DROPOUT --BATCH_SIZE $BATCH_SIZE --log $logs --utils $utils --db TFE --collection "Attetion3" --host localhost --port 27017
 						error=$?
 						if [ $error -eq 1 ] 
 						then

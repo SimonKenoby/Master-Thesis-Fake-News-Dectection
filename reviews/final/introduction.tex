@@ -1,19 +1,21 @@
 \chapter{Introduction} \label{section:intro}
 \section{What are fake news?}
 \subsection{Definition}
-\paragraph{} Fake news have quickly become a society problem, being used to propagate false or rumorus informations in order to change behaviors of peoples. Before stating to work on detecting fake news, it is needed to first understand what they are. It have been show that propagation of fake news have had a non negligable influence of 2016 US presidential elections\cite{Allcott2017}. A few facts on fake news in the United States: 
+Fake news have quickly become a society problem, being used to propagate false or rumorus informations in order to change behaviors of peoples. Before stating to work on detecting fake news, it is needed to first understand what they are. It have been show that propagation of fake news have had a non negligable influence of 2016 US presidential elections\cite{Allcott2017}. A few facts on fake news in the United States: 
 
 \begin{itemize}
 	\item $62\%$ of US citizen get there news for social medias\cite{gottfried2016news}
 	\item Fake news had more share on facebook than mainstream news\cite{silverman2016teens}.
 \end{itemize}
 
-Fake news have also been used in order to influence the referendum in the United Kingdom for the "Brexit".
+Fake news have also been used in order to influence the referendum in the United Kingdom for the "Brexit". \\
+
+In this paper I experiment the possibility to detect fake news based only on textual information by applying traditional machine learning techniques\cite{Fan2008LIBLINEARAL,Robertson2004,zhang_optimality_nodate} as well as bidirectional-LSTM\cite{Hochreiter1997LongSM} and attention mechanism\cite{zhou-etal-2016-attention} on two different dataset that contains different kinds of news.
 
 %TODO: Define fake news
 %TODO: Expliquer les differentes méthodes de détection de fake news dans le paper Fake News Detection on Social Media: A Data Mining Perspective 1708.01967v3.pdf
-\paragraph{}There are two aspects of fake news detection that need to be taken into account according to Shu et al\cite{shu2017fake}. The first is characterization or what are fake news and the second is detection. In order to build detection models, it is need to start by charaterization, indeed, it is need to understand what are fake news before trying to detect them. 
-\paragraph{}
+There are two aspects of fake news detection that need to be taken into account according to Shu et al\cite{shu2017fake}. The first is characterization or what are fake news and the second is detection. In order to build detection models, it is need to start by charaterization, indeed, it is need to understand what are fake news before trying to detect them. \\
+
 Fake news definition is made of two part: authenticity and intent. Authenticity means that fake news content fale information that can be verified as such, which means that concpiracy theory is not included in fake news as there are difficult to be proven true or false in most cases. The second part, intent, means that the false information have been written with the goal of missleading the reader. 
 
 
@@ -35,7 +37,7 @@ The part of the definition introducing the intent of missleading the reader auto
 
 \section{Feature Extraction} \label{intro:feature_extract}
 \subsection{News Content Features}
-\paragraph{} Now that fake news have been defined and the target have been set, it is needed to analize what features can be used in order to classify fake news. Starting by looking at news content, it can be seen that it is made of four principal raw components: 
+Now that fake news have been defined and the target have been set, it is needed to analize what features can be used in order to classify fake news. Starting by looking at news content, it can be seen that it is made of four principal raw components: 
 \begin{itemize}
 	\item \textbf{Source}: Where does the news come from, who wrote it, is this source reliable or not.
 	\item \textbf{Headline}: Short summary of the news content that try to attract the reader.
@@ -43,8 +45,8 @@ The part of the definition introducing the intent of missleading the reader auto
 	\item \textbf{Image/Video}: Usualy, textual information is agremented with visual information such as images, videos or audio.  
 \end{itemize}
 
-\paragraph{} Features will be extracted from these four basic components, with the mains features being linguistic-based and visual-based. 
-As explained before, fake news are used to influence the consumer, and in order to do that, they often use a specific language in order to attract the readers. On the other hand, non fake news will mostly stick to a different language register, being more formal. This are linguistic-based features, to which can be added lexical features such as total number of words, frequency of large words or unique words. 
+Features will be extracted from these four basic components, with the mains features being linguistic-based and visual-based. 
+As explained before, fake news are used to influence the consumer, and in order to do that, they often use a specific language in order to attract the readers. On the other hand, non fake news will mostly stick to a different language register, being more formal. This are linguistic-based features, to which can be added lexical features such as total number of words, frequency of large words or unique words. \\
 
 The second features that need to be taken into account are visual features. Indeed, modified images are often used to add more weight to the textual information. For example, the \textbf{Figure \ref{fig:intro:deforestation}} is supposed to show the progress of deforestation, but the two images are acutaly from the same original one, and in addition the WWF logo make it looks like to be from a trusted source. 
 
@@ -56,9 +58,9 @@ The second features that need to be taken into account are visual features. Inde
 \end{figure*}
 
 \subsection{Social Context Features}
-\paragraph{} In the context of news sharing on social medias, multiples aspect can be taken into account, such as user aspect, post aspect and group aspect. For instance, it is possible to analyize the behavior of specific users and use their metadata in order to find if a user is at risk of trusting or sharing false information. For instance, those metadata can be its center of intereset, its number of followers, or anything that relates to it. 
+In the context of news sharing on social medias, multiples aspect can be taken into account, such as user aspect, post aspect and group aspect. For instance, it is possible to analyize the behavior of specific users and use their metadata in order to find if a user is at risk of trusting or sharing false information. For instance, those metadata can be its center of intereset, its number of followers, or anything that relates to it. \\
 
-\paragraph{} Post-based aspect is in a sense similar to user based: it can use post metadata in order to provide usefull informations, but in addition to metadata, the actual content can be used. It is also possible to extract features from the content using latent Dirichlet allocation (LDA)\cite{blei2003latent}.
+Post-based aspect is in a sense similar to user based: it can use post metadata in order to provide usefull informations, but in addition to metadata, the actual content can be used. It is also possible to extract features from the content using latent Dirichlet allocation (LDA)\cite{blei2003latent}.
 
 \section{News Content Models} \label{intro:models}
 \subsection{Knowledge-based models}
@@ -72,65 +74,44 @@ Now that the differents kinds of features available for the news have been defin
 These methods all have pros and cons, hiring expert might be constly, and expert are limited in number and might not be able to treat all the news that are produced. In the case of crowdsourcing it can easily be fooled if enought bad annotators breaks the system and automatic fact checking might not have the necessary accuracy.
 
 \subsection{Style-based model}
-\paragraph{} As explained earlier, fake news usualy tries to influence consumier behavior, and thus generaly use a specific style in order to play on the emotion. These methods are called deception-oriented stylometric methods.
+As explained earlier, fake news usualy tries to influence consumier behavior, and thus generaly use a specific style in order to play on the emotion. These methods are called deception-oriented stylometric methods. \\
 
-\paragraph{}The second method is called objectivity-oriented approaches and tries to capture the objectivity of the texts or headlines. These kind of style is mostly used by partisan article or yellow-journalism, that is, website that relies on eye-catching headline without reporting any useful information. An example of these kind of headline could be:
-	\begin{quote}You will never beleive what he did !!!!!!\end{quote}
-\paragraph{} This kind of headline plays on the curiosity of the reader that would click to read the news.
+The second method is called objectivity-oriented approaches and tries to capture the objectivity of the texts or headlines. These kind of style is mostly used by partisan article or yellow-journalism, that is, website that relies on eye-catching headline without reporting any useful information. An example of these kind of headline could be:
+	\begin{quote}You will never beleive what he did !!!!!!\end{quote} 
+This kind of headline plays on the curiosity of the reader that would click to read the news.
 
 \section{Social Context Models}
-\paragraph{} The last features that have not been used yet are social media features. There are two approaches to use these features: stance-based and propagation-based. 
+The last features that have not been used yet are social media features. There are two approaches to use these features: stance-based and propagation-based. 
 
 \paragraph{Stence-based} approaches use implicit or explicit representation. For instance, explicit representation might be positive or negative votes on social medias. Implicit representation need to be extracted from the post itself. 
 
 \paragraph{Propagation-based} approaches use features related to sharing such as the number of retweet on twitter. 
 
-\section{Datasets} \label{intro:dataset}
-\subsection{Fake News Corpus}
-\paragraph{}
-This works uses multiples corpus in order to train and test different models. The main corpus used for training is called Fake News Corpus\cite{Szpakowski}. This corpus have been automatically crawled using \url{opensources.co} labels. In other words, domains have been labeled with one or more labels in \begin{itemize}
-	\item Fake News
-	\item Satire
-	\item Extreme Bias
-	\item Conspiracy Theory
-	\item Junk Science
-	\item Hate News
-	\item Clickbait
-	\item Proceed With Caution
-	\item Political
-	\item Credible
-\end{itemize}
-\paragraph{}
-These annotations have been provided by crowdsourcing, which means that they might not be exactly accurate, but are expected to be close to the reality. Because this works focus on fake news detection against reliable news, only the news labels as fake and credible have been used. 
+\section{Related Works}
+\subsection{Fake news detection}
+Current research focus mostly on using socials features and speaker informations in order to improve the quality of classifications.\\
 
-\subsection{Fake News Net}
-\paragraph{}
-The second dataset used is fake news net\cite{shu2018fakenewsnet,shu2017exploiting,shu2017fake}. This corpus is made of news from two different sources, PolitiFact and GossipCop. An older version also provide news from BuzzFeed. News are categorized in two classes: fake and non fake. Being quite smaller than fake news corpus, this dataset will be used as a test dataset. 
+Ruchansky et al.\cite{Ruchansky2017} proposed an hybrid deep model for fake news detection making use of multiple kind a features such as temporal engagement between n users and m news-articles over time and produce a label for fake news categorisation but as well a score for suspicious users.\\
 
-\subsection{Liar, Liar Pants on Fire}
-\paragraph{}
-The third and last dataset is \textbf{Liar, Liar Pants on Fire} dataset\cite{Wang2017}, which is a collection of twelve thousand small sentences collected from various sources and hand labeled. They are devided in six classes:
-\begin{itemize}
-	\item pants-fire
-	\item false
-	\item barely-true
-	\item half-true
-	\item mostly-true
-	\item true
-\end{itemize} 
-\paragraph{}
-This set will be used a second test set. Because in this case there are six classes againt two in the other cases, a threshold should be used in order to fix which one will be concidered as true or false in order to be compared with the other dataset.  
-\paragraph{}
-It should be noted that this one differ from the two other dataset is it is composed only on short sentences, and thus it should not be expected to have very good results on this dataset for models trained on Fake News Corpus which is made of full texts. In addition, the texts from the latest dataset are more politicaly oriented then the ones from the first one. 
+Long et al. \cite{Long2017} proposed to apply attention mechanism to the speaker profile in an hybrid way with an LSTM on the textual information. \\
 
-\section{State of the Art}
-\paragraph{} There are two mains categories of state of the art that are interesting for this work: previous work on fake news detection and on general text classification. Works on fake news detection is almost inexistant and mainly focus on 2016 US presidential elections or does not uses the sames features. That is, when this work focus on automatic features extraction using machine learning and deep learning, other works make use of hand crafted features\cite{Reis2019,Perez-Rosas2017} such as psycholinguistic features\cite{Pennebaker2001} which is not the goal here. 
-\paragraph{}
+Tacchini et al.\cite{Tacchini2017} proposed a method based on social network informations such as likes and users in order to find hoax information.\\
+
+Thorne et al.\cite{Thorne2017} proposed a stacked ensemble classifier in order to adress a subproblem of fake news dectection which is stance classification. It is the fact of finding if an articile agree, disagree or simply discus a fact. \\
+
+Granik and Mesyura\cite{Granik2017} used Naïve-Bayes classifier in order to classify news from buzzfeed dataset.\\
+
+In addition to text and social features, Yang et al.\cite{Yang2018} used visual features such as images with a convolutional neural network. \\
+
+Wang et al.\cite{Wang2018} also used visual features for classifying fake news but uses adversarial neural network to do so. 
+\subsection{State of the Art Text classification}
+There are two mains categories of state of the art that are interesting for this work: previous work on fake news detection and on general text classification. Works on fake news detection is almost inexistant and mainly focus on 2016 US presidential elections or does not uses the sames features. That is, when this work focus on automatic features extraction using machine learning and deep learning, other works make use of hand crafted features\cite{Reis2019,Perez-Rosas2017} such as psycholinguistic features\cite{Pennebaker2001} which is not the goal here. \\
+
 When it comes to state of the art for text classifiction, it includes Long short-term memory (LSTM)\cite{Hochreiter1997LongSM}, Attention Mechanism\cite{Vaswani2017AttentionIA}, IndRNN\cite{Li2018}, Attention-Based Bidirection LSTM\cite{zhou-etal-2016-attention}, Hierarchical Attention Networks for Text Classification\cite{yang_hierarchical_2016}, Adversarial Training Methods For Supervised Text Classification\cite{miyato_adversarial_2016}, Convolutional Neural Networks for Sentence Classification\cite{kim_convolutional_2014} and RMDL: Random Multimodel Deep Learning for Classification\cite{kowsari_rmdl:_2018}. All of these models have comparable performances. 
 \section{Conclusion}
-\paragraph{} As it have been shown in \textbf{Section \ref{intro:feature_extract}} and \textbf{Section \ref{intro:models}} mutliples approaches can be used in order to extract features and use them in models. This works focus on textual news content features. Indeed, other features related to social medias are difficult to aquire. For example, users information are difficult to obtain on Facebook, as well as post information. In addition, the different datasets that have been presented at \textbf{Section \ref{intro:dataset}} does not provides any other information than textual ones. 
+As it have been shown in \textbf{Section \ref{intro:feature_extract}} and \textbf{Section \ref{intro:models}} mutliples approaches can be used in order to extract features and use them in models. This works focus on textual news content features. Indeed, other features related to social medias are difficult to aquire. For example, users information are difficult to obtain on Facebook, as well as post information. In addition, the different datasets that have been presented at \textbf{Section \ref{intro:dataset}} does not provides any other information than textual ones. \\
 
-\paragraph{} Looking at \textbf{Figure \ref{fig:intro:features}} it can be seen that the main focus will be made on unsupervised and supervised learning models using textual news content. It should be noted that machine learning models usualy comes with a trade-off between precision and recall and thus that a model which is very good at detected fake news might have a high false positive rate as opposite to a model with a low false positive rate which might not be good at detecting them. This cause ethical questions such as automatic censorship that will not be discused here. 
+Looking at \textbf{Figure \ref{fig:intro:features}} it can be seen that the main focus will be made on unsupervised and supervised learning models using textual news content. It should be noted that machine learning models usualy comes with a trade-off between precision and recall and thus that a model which is very good at detected fake news might have a high false positive rate as opposite to a model with a low false positive rate which might not be good at detecting them. This cause ethical questions such as automatic censorship that will not be discused here. 
 
 \begin{figure*}
 	\centering

@@ -5,6 +5,40 @@
 \paragraph{}
 A good starting point for the analysis is to make some data exploration of the data set. The first thing to be done is statistical analysis such as counting the number of text per class or counting the number of words per sentence. The second step consit of doing Latent Dirichlet Allocation\cite{blei2003latent} in order to make unsupervised clustering of the text and see if there is some kind of correlation between the clusters to which a text belongs and its labels. 
 
+\section{Datasets} \label{intro:dataset}
+\subsection{Fake News Corpus}
+\paragraph{}
+This works uses multiples corpus in order to train and test different models. The main corpus used for training is called Fake News Corpus\cite{Szpakowski}. This corpus have been automatically crawled using \url{opensources.co} labels. In other words, domains have been labeled with one or more labels in \begin{itemize}
+  \item Fake News
+  \item Satire
+  \item Extreme Bias
+  \item Conspiracy Theory
+  \item Junk Science
+  \item Hate News
+  \item Clickbait
+  \item Proceed With Caution
+  \item Political
+  \item Credible
+\end{itemize}
+\paragraph{}
+These annotations have been provided by crowdsourcing, which means that they might not be exactly accurate, but are expected to be close to the reality. Because this works focus on fake news detection against reliable news, only the news labels as fake and credible have been used. 
+
+\subsection{Liar, Liar Pants on Fire}
+\paragraph{}
+The third and last dataset is \textbf{Liar, Liar Pants on Fire} dataset\cite{Wang2017}, which is a collection of twelve thousand small sentences collected from various sources and hand labeled. They are devided in six classes:
+\begin{itemize}
+  \item pants-fire
+  \item false
+  \item barely-true
+  \item half-true
+  \item mostly-true
+  \item true
+\end{itemize} 
+\paragraph{}
+This set will be used a second test set. Because in this case there are six classes againt two in the other cases, a threshold should be used in order to fix which one will be concidered as true or false in order to be compared with the other dataset.  
+\paragraph{}
+It should be noted that this one differ from the two other dataset is it is composed only on short sentences, and thus it should not be expected to have very good results on this dataset for models trained on Fake News Corpus which is made of full texts. In addition, the texts from the latest dataset are more politicaly oriented then the ones from the first one. 
+
 \section{Dataset statistics}
 \subsection{Fake News Corpus}
 \subsubsection{General Analysis}

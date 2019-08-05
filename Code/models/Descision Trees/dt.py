@@ -7,6 +7,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split, KFold
 from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.naive_bayes import MultinomialNB
+from imblearn.over_sampling import SMOTE
 
 
 from pymongo import MongoClient
@@ -44,27 +45,32 @@ if __name__ == "__main__":
     collection = db.results
 
     print("Creating corpus")
-    train = utils.dbUtils.TokenizedIterator('liar_liar', filters = {'split' : 'train'})
+    train = utils.dbUtils.TokenizedIterator('news_cleaned', filters = {'split' : 'train'})
     y_train = np.array([x for x in train.iterTags()])
 
-    test = utils.dbUtils.TokenizedIterator('liar_liar', filters = {'split' : 'valid'})
+    test = utils.dbUtils.TokenizedIterator('news_cleaned', filters = {'split' : 'valid'})
     y_test = np.array([x for x in test.iterTags()])
     idx = collection.insert_one({'model' : 'DecisionTreeClassifier', 
         'date' : datetime.datetime.now(), 
-        'corpus' : 'liar_liar', 
-        'experiment_id' : 17,
-        'description' : 'Testing DecisionTreeClassifier with multiple parameters on liar-liar with train and validation set'})
+        'corpus' : 'news_cleaned', 
+        'experiment_id' : 19,
+        'SMOTE' : True,
+        'description' : 'Testing DecisionTreeClassifier with multiple parameters on fake corpus with train and validation set and SMOTE'})
 
 
     vectorizer = TfidfVectorizer()
     X_train = vectorizer.fit_transform([' '.join(text) for text in train])
     X_test = vectorizer.transform([' '.join(text) for text in test])
+
+    sm = SMOTE(random_state=42)
+    X_res, y_res = sm.fit_resample(X_train, y_train)
+
     print(X_train.shape)
     print(X_test.shape)
     print(len(y_train))
     print(len(y_test))
 
-    train_test1(X_train, X_test, y_train, y_test, idx)
+    train_test1(X_res, X_test, y_res, y_test, idx)
 
 
 

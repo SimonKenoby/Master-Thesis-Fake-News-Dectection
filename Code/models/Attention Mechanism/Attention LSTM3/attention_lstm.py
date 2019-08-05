@@ -115,7 +115,6 @@ if __name__ == "__main__":
     parser.add_argument('BATCH_SIZE', type = int, help = "Batch size")
     parser.add_argument('EPOCHS', type = int, help = "Number of epochs for training")
     parser.add_argument('log', type=str, help = "Log Directory")
-    parser.add_argument('--experiment', type=int, help = "Experiment id for registration")
     parser.add_argument('--utils', type=str, help = "Helper directory")
     parser.add_argument('--db', type=str, help = "DB name", required=True)
     parser.add_argument('--collection', type=str, help = "DB collection")
@@ -130,9 +129,8 @@ if __name__ == "__main__":
     from register_experiment import Register
 
     r = Register(args.host, args.port, args.db, args.collection)
-    r.newExperiment(r.getLastExperiment() + 1, 'Attention LSTM 3.2')
+    r.newExperiment(r.getLastExperiment() + 1, 'Self_Embedding LSTM 3.2')
 
-    args.experiment = r.getLastExperiment()
 
     dictFile = args.dictFile
     trainFile = args.train
@@ -148,8 +146,6 @@ if __name__ == "__main__":
     LOG = args.log
     ctx = mx.gpu(0)
 
-    cw = csvwriter(LOG)
-    cw.write(['epoch', 'loss', 'accuracy'])
 
     #mx.random.seed(42, ctx = mx.cpu(0))
     #mx.random.seed(42, ctx = mx.gpu(0))
@@ -158,8 +154,8 @@ if __name__ == "__main__":
     array, labels = load_data(trainFile, dct)
 
     net = LSTM(len(dct), SEQ_LENGTH, EMBEDDING_DIM, HIDDEN, LAYERS, DROPOUT)
-    net.initialize(mx.init.Normal(sigma=1), ctx = ctx)
-    trainer = gluon.Trainer(net.collect_params(), 'adam', {'learning_rate': 0.001, 'wd' : 0.0001})
+    net.initialize(mx.init.Normal(sigma=0.01), ctx = ctx)
+    trainer = gluon.Trainer(net.collect_params(), 'adam', {'learning_rate': 0.00001, 'wd' : 0.0001})
     loss = gluon.loss.SigmoidBinaryCrossEntropyLoss(from_sigmoid=False)
     hidden = net.begin_state(func=mx.nd.zeros, batch_size=BATCH_SIZE, ctx = mx.cpu(0))
 
@@ -194,7 +190,5 @@ if __name__ == "__main__":
         # TODO: Make plots of training 
         print("epoch : {}, Loss : {}, Accuracy : {}, recall : {}".format(epochs, total_L, acc.get()[1], np.mean(recall_list)))
         r.addResult({'epoch' : epochs, 'train' : {'accuracy' : acc.get()[1], 'loss' : total_L, 'recall' : np.mean(recall_list), 'Confusion Matrix' : list(map(int, sum(cfMatrix)))}}, r.getLastExperiment() + 1)
-        cw.write([epochs, total_L, acc.get()[1]])
         net.save_parameters(args.outmodel+"_{:04d}.params".format(epochs))
     r.addParams({'SEQ_LENGTH' : SEQ_LENGTH, 'EMBEDDING_DIM': EMBEDDING_DIM, 'HIDDEN': HIDDEN, 'LAYERS' : LAYERS, 'DROPOUT' : DROPOUT, 'BATCH_SIZE' : BATCH_SIZE, 'EPOCHS' : EPOCHS}, r.getLastExperiment() + 1)
-    cw.close()
