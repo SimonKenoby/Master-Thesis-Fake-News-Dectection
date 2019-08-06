@@ -2,7 +2,7 @@
 \section{Introduction}
 In this chapter, we will focus on the more traditional methods used in natural language processing such as Naïve-Bayes, decision trees, linear SVM and others. These will serve as baseline for comparing the performances of the more two advanced models that will be analyse later on: LSTM and Attention Mechanism. The first thing to do when working with text is the do words and texts embedding, indeed, in order to use machine learning algorithms on texts, a mathematical representation of these texts is required. 
 
-\section{Words and text embedding}
+\section{Text to vectors}
 As explained before, text need to be represented in a way that gives more meaningful information than a simple sequence of bits, which have additional drawbacks such that for a given word, the sequence of bits representing it depends on the coding.
  The first and simplest coding that come to mind is a one-hot encoding: a matrix $M$ of size number of texts $\times$ number of words where $M_{ij} = 1$ if the word $j$ is present in the text  $i$ and $0$ in the other case. But this is till not enougth as each word is given the same weight, no matter how often it appears in the text. \\ 
 
@@ -87,8 +87,8 @@ Because $P(x_1,...,x_n)$ is constant, we have the classification rule
 	\hat{y} = \underset{y}{argmax} P(y)\prod_{i=1}^n P(x_i | y)
 \end{equation}
 
-\subsection{LIBLINEAR}
-Liblinear is a method for large linear classification. Given pairs of features-label $(\mathbf{x_i}, y_i), y_i \in \{-1, 1\}$, it solve the following unconstrained optimization problem. 
+\subsection{Linear SVM}
+Linear SVM is a method for large linear classification. Given pairs of features-label $(\mathbf{x_i}, y_i), y_i \in \{-1, 1\}$, it solve the following unconstrained optimization problem. 
 \begin{equation}
 	\underset{w}{min} \frac{1}{2} \mathbf{w^Tw} + \mathbf{C} \sum_{i=1}^l \xi(\mathbf{w;x_i},y_u)
 \end{equation}
@@ -97,6 +97,13 @@ Where $\xi$ is a loss function, in this case L2 loss function have been used, an
 
 Class of new examples are assigned by looking at the value of $\mathbf{w^Tw}$. The class 1 is assigned if $\mathbf{w^Tw} \geq 0$ and the class $-1$ if $\mathbf{w^Tw} < 0$.
 
+\subsection{Decision Tree}
+\subsection{Ridge Classifier}
+Ridge classifier works the same way as ridge regression. It states the problem as a minimization of the sum of square errors with penalization. It can be expressed as in \textbf{Equation \ref{eq:ridge}}.
+\begin{equation}
+	\underset{w}{min} ||Xw-y||^2_2 + \alpha ||w||^2_2 \label{eq:ridge}
+\end{equation}
+The predicted class if positive if Xw is positive and negative otherwise. 
 \section{Models on liar-liar dataset}
 \subsection{Linear SVC}
 In the case of linear SVC there is one parameters to tune up, which is the penality parameters for the error term. \textbf{Figure \ref{fig:chap3:linearSVC}} show the tree main metrics with respect to the panlity parameter. This show that a parameters of around $0.1$ is the best one. 
@@ -121,8 +128,19 @@ With decision tree, it is possible to reduce overfitting by pruning the tree. It
 \textbf{Figure \ref{fig:chap3:dt}} shows metrics values for different depths. It seems that tree of depth 1000 are the best ones. 
 \subsection{Max Feature Number}
 
-Starting with the maximum number of features, the precision of each model can be analyzed when limiting the maxium number of words. The results for each model can be seen at \textbf{Figure \ref{fig:chap3:max_feature1}, \ref{fig:chap3:max_feature2}} and \textbf{\ref{fig:chap3:max_feature3}}. These Figures shows that in the case of Naïve-Bayes it is better to use the maximum number of features (which is the total number of words in the training set) when it is better to limit it to 500 or 1000 for ridge classifier and linear SVC. The decision tree have bad performances no matter the number of features used.  
+Starting with the maximum number of features, the precision of each model can be analyzed when limiting the maxium number of words. The results for each model can be seen at \textbf{Figure \ref{fig:chap3:max_feature3}, \ref{fig:chap3:max_feature1}} and \textbf{\ref{fig:chap3:max_feature2}}. Shows that depending on the metrics we want to optimize it is better to choose different parameters. For instance, in order to maximize F1-score, it is better to use a maximum number of features of 1000.\\
 
+The results are slightly different if the goal is to optimize the precision because if the best value stay the same for Linear SVM and Ridge Classifier, the Naïve-Bayes works better when using the maxium number of features and it goes the same way for recall. 
+Based on \textbf{Figure \ref{fig:chap3:max_feature3}} we can say that when it comes to precision and recall, Naïve-Bayes is the one that perform the best.\\
+
+Row results for max features selection are available at \textbf{Appendix \ref{Appendix1}}.
+\begin{figure*}[]
+	\centering
+	\makebox[\textwidth][c]{\includegraphics[width=1.2\textwidth]{images/chapitre3/liar-liar_f1_ML}}
+	\caption{Weigted average of f1-score, precision and recall of each classes. }
+	\label{fig:chap3:max_feature3}
+\end{figure*}
+It goes differently when we focus on a single class. For example, the precision for fake detection is at its maxium for Linear SVM and Ridge Classifier when only 10 features are used. But at the same time, it is at its minium for reliable class. Its shows that when trying to optimze the overall model and not only for a single class, it is better to look at the weighted average than at the value for a single clas. But it is still important to look at the metrics for a single class because it indicate how it behave for this class. For instance, in the case of automatic fake news detection, it is important to minimize the number of reliable news missclassified in order to avoid what could be called censorship. 
 \begin{figure*}[]
 	\centering
 	\makebox[\textwidth][c]{\includegraphics[width=1.2\textwidth]{images/chapitre3/liar-liar_precision_ML}}
@@ -135,13 +153,6 @@ Starting with the maximum number of features, the precision of each model can be
 	\makebox[\textwidth][c]{\includegraphics[width=1.2\textwidth]{images/chapitre3/liar-liar_recall_ML}}
 	\caption{Precision of the model for each classes, the x axes is log scale of the number of features}
 	\label{fig:chap3:max_feature2}
-\end{figure*}
-Based on \textbf{Figure \ref{fig:chap3:max_feature3}} we can say that when it comes to precision and recall, Naïve-Bayes is the one that perform the best.
-\begin{figure*}[]
-	\centering
-	\makebox[\textwidth][c]{\includegraphics[width=1.2\textwidth]{images/chapitre3/liar-liar_f1_ML}}
-	\caption{Weigted average of f1-score, precision and recall of each classes. }
-	\label{fig:chap3:max_feature3}
 \end{figure*}
 
 \section{Models on fake corpus dataset}
@@ -167,3 +178,5 @@ As it have been show in \textbf{Chapter \ref{chap2}}, the fake news corpus is in
 \end{algorithm}
 
 \textbf{Algorithm \ref{algo:SMOTE}} and \textbf{\ref{aglo:populate}} shows how it works. The first one compute the k-nearest neighbors and the second one compute a new element by randomly choosing one of this neighbors. 
+
+\subsection{Results without using SMOTE}

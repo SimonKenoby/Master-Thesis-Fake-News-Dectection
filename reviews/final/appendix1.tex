@@ -1,6 +1,6 @@
-\chapter{Appendix to Chapter \ref{chap3}} \label{Appendix1}
-\section{TF-IDF max features row results}
-
+\chapter{} \label{Appendix1}
+\section{TF-IDF max features row results on liar-liar corpus}
+\subsection{Weigted Average Metrics}
 \begin{tabular}{lllrrr}
 \toprule
 {} &                   model & max\_features &    recall &  precision &        f1 \\
@@ -37,5 +37,108 @@
 29 &           MultinomialNB &        11222 &  0.597352 &   0.615925 &  0.569280 \\
 30 &  DecisionTreeClassifier &        11222 &  0.556854 &   0.555689 &  0.555171 \\
 31 &         RidgeClassifier &        11222 &  0.582555 &   0.581782 &  0.579279 \\
+\bottomrule
+\end{tabular}
+\subsection{Per class Metrics}
+\begin{longtable}{llllrrr}
+\toprule
+{} &                   model & max\_features &      type &    recall &  precision &        f1 \\
+\midrule
+0  &               LinearSVC &           10 &      fake &  0.181818 &   0.640000 &  0.283186 \\
+1  &               LinearSVC &           10 &  reliable &  0.905689 &   0.545537 &  0.680923 \\
+2  &           MultinomialNB &           10 &      fake &  0.178571 &   0.650888 &  0.280255 \\
+3  &           MultinomialNB &           10 &  reliable &  0.911677 &   0.546188 &  0.683118 \\
+4  &  DecisionTreeClassifier &           10 &      fake &  0.212662 &   0.569565 &  0.309693 \\
+5  &  DecisionTreeClassifier &           10 &  reliable &  0.851796 &   0.539848 &  0.660859 \\
+6  &         RidgeClassifier &           10 &      fake &  0.181818 &   0.640000 &  0.283186 \\
+7  &         RidgeClassifier &           10 &  reliable &  0.905689 &   0.545537 &  0.680923 \\
+8  &               LinearSVC &          100 &      fake &  0.371753 &   0.602632 &  0.459839 \\
+9  &               LinearSVC &          100 &  reliable &  0.773952 &   0.571903 &  0.657761 \\
+10 &           MultinomialNB &          100 &      fake &  0.314935 &   0.621795 &  0.418103 \\
+11 &           MultinomialNB &          100 &  reliable &  0.823353 &   0.565844 &  0.670732 \\
+12 &  DecisionTreeClassifier &          100 &      fake &  0.446429 &   0.523810 &  0.482033 \\
+13 &  DecisionTreeClassifier &          100 &  reliable &  0.625749 &   0.550725 &  0.585844 \\
+14 &         RidgeClassifier &          100 &      fake &  0.371753 &   0.602632 &  0.459839 \\
+15 &         RidgeClassifier &          100 &  reliable &  0.773952 &   0.571903 &  0.657761 \\
+16 &               LinearSVC &          250 &      fake &  0.470779 &   0.613108 &  0.532599 \\
+17 &               LinearSVC &          250 &  reliable &  0.726048 &   0.598027 &  0.655849 \\
+18 &           MultinomialNB &          250 &      fake &  0.368506 &   0.637640 &  0.467078 \\
+19 &           MultinomialNB &          250 &  reliable &  0.806886 &   0.580819 &  0.675439 \\
+20 &  DecisionTreeClassifier &          250 &      fake &  0.561688 &   0.545741 &  0.553600 \\
+21 &  DecisionTreeClassifier &          250 &  reliable &  0.568862 &   0.584615 &  0.576631 \\
+22 &         RidgeClassifier &          250 &      fake &  0.470779 &   0.613108 &  0.532599 \\
+23 &         RidgeClassifier &          250 &  reliable &  0.726048 &   0.598027 &  0.655849 \\
+24 &               LinearSVC &         1000 &      fake &  0.509740 &   0.598095 &  0.550394 \\
+25 &               LinearSVC &         1000 &  reliable &  0.684132 &   0.602108 &  0.640505 \\
+26 &           MultinomialNB &         1000 &      fake &  0.417208 &   0.613365 &  0.496618 \\
+27 &           MultinomialNB &         1000 &  reliable &  0.757485 &   0.584971 &  0.660144 \\
+28 &  DecisionTreeClassifier &         1000 &      fake &  0.529221 &   0.531811 &  0.530513 \\
+29 &  DecisionTreeClassifier &         1000 &  reliable &  0.570359 &   0.567809 &  0.569081 \\
+30 &         RidgeClassifier &         1000 &      fake &  0.496753 &   0.600000 &  0.543517 \\
+31 &         RidgeClassifier &         1000 &  reliable &  0.694611 &   0.599483 &  0.643551 \\
+32 &               LinearSVC &         2500 &      fake &  0.498377 &   0.565378 &  0.529767 \\
+33 &               LinearSVC &         2500 &  reliable &  0.646707 &   0.582996 &  0.613201 \\
+34 &           MultinomialNB &         2500 &      fake &  0.402597 &   0.615385 &  0.486752 \\
+35 &           MultinomialNB &         2500 &  reliable &  0.767964 &   0.582293 &  0.662363 \\
+36 &  DecisionTreeClassifier &         2500 &      fake &  0.548701 &   0.550489 &  0.549593 \\
+37 &  DecisionTreeClassifier &         2500 &  reliable &  0.586826 &   0.585075 &  0.585949 \\
+38 &         RidgeClassifier &         2500 &      fake &  0.495130 &   0.578748 &  0.533683 \\
+39 &         RidgeClassifier &         2500 &  reliable &  0.667665 &   0.589168 &  0.625965 \\
+40 &               LinearSVC &         5000 &      fake &  0.487013 &   0.561798 &  0.521739 \\
+41 &               LinearSVC &         5000 &  reliable &  0.649701 &   0.578667 &  0.612130 \\
+42 &           MultinomialNB &         5000 &      fake &  0.383117 &   0.622691 &  0.474372 \\
+43 &           MultinomialNB &         5000 &  reliable &  0.785928 &   0.580110 &  0.667514 \\
+44 &  DecisionTreeClassifier &         5000 &      fake &  0.459416 &   0.540076 &  0.496491 \\
+45 &  DecisionTreeClassifier &         5000 &  reliable &  0.639222 &   0.561842 &  0.598039 \\
+46 &         RidgeClassifier &         5000 &      fake &  0.477273 &   0.564299 &  0.517150 \\
+47 &         RidgeClassifier &         5000 &  reliable &  0.660180 &   0.577982 &  0.616352 \\
+48 &               LinearSVC &        10000 &      fake &  0.491883 &   0.554945 &  0.521515 \\
+49 &               LinearSVC &        10000 &  reliable &  0.636228 &   0.575881 &  0.604552 \\
+50 &           MultinomialNB &        10000 &      fake &  0.345779 &   0.653374 &  0.452229 \\
+51 &           MultinomialNB &        10000 &  reliable &  0.830838 &   0.579332 &  0.682657 \\
+52 &  DecisionTreeClassifier &        10000 &      fake &  0.498377 &   0.546263 &  0.521222 \\
+53 &  DecisionTreeClassifier &        10000 &  reliable &  0.618263 &   0.572022 &  0.594245 \\
+54 &         RidgeClassifier &        10000 &      fake &  0.490260 &   0.573055 &  0.528434 \\
+55 &         RidgeClassifier &        10000 &  reliable &  0.663174 &   0.585205 &  0.621754 \\
+56 &               LinearSVC &        11222 &      fake &  0.495130 &   0.554545 &  0.523156 \\
+57 &               LinearSVC &        11222 &  reliable &  0.633234 &   0.576294 &  0.603424 \\
+58 &           MultinomialNB &        11222 &      fake &  0.336039 &   0.657143 &  0.444683 \\
+59 &           MultinomialNB &        11222 &  reliable &  0.838323 &   0.577915 &  0.684178 \\
+60 &  DecisionTreeClassifier &        11222 &      fake &  0.491883 &   0.542039 &  0.515745 \\
+61 &  DecisionTreeClassifier &        11222 &  reliable &  0.616766 &   0.568276 &  0.591529 \\
+62 &         RidgeClassifier &        11222 &      fake &  0.491883 &   0.576046 &  0.530648 \\
+63 &         RidgeClassifier &        11222 &  reliable &  0.666168 &   0.587071 &  0.624123 \\
+\bottomrule
+\end{longtable}
+
+\section{TF-IDF max features row results for fake news corpus without SMOTE}
+\begin{tabular}{llrrlr}
+\toprule
+{} &                   model &    recall &  precision & max\_features &        f1 \\
+\midrule
+0  &               LinearSVC &  0.744278 &   0.741135 &        10000 &  0.742519 \\
+1  &           MultinomialNB &  0.638690 &   0.666131 &        10000 &  0.647986 \\
+2  &  DecisionTreeClassifier &  0.649834 &   0.664873 &        10000 &  0.655847 \\
+3  &         RidgeClassifier &  0.730762 &   0.739152 &        10000 &  0.734125 \\
+4  &               LinearSVC &  0.757846 &   0.758336 &        50000 &  0.758086 \\
+5  &           MultinomialNB &  0.658424 &   0.680365 &        50000 &  0.666197 \\
+6  &  DecisionTreeClassifier &  0.668170 &   0.685830 &        50000 &  0.674751 \\
+7  &         RidgeClassifier &  0.742044 &   0.756513 &        50000 &  0.746957 \\
+8  &               LinearSVC &  0.757589 &   0.757112 &       100000 &  0.757346 \\
+9  &           MultinomialNB &  0.657282 &   0.681421 &       100000 &  0.665562 \\
+10 &  DecisionTreeClassifier &  0.669952 &   0.685943 &       100000 &  0.676058 \\
+11 &         RidgeClassifier &  0.742437 &   0.754869 &       100000 &  0.746859 \\
+12 &               LinearSVC &  0.757935 &   0.756228 &       250000 &  0.757021 \\
+13 &           MultinomialNB &  0.660640 &   0.683517 &       250000 &  0.668590 \\
+14 &  DecisionTreeClassifier &  0.668623 &   0.685926 &       250000 &  0.675103 \\
+15 &         RidgeClassifier &  0.744877 &   0.754769 &       250000 &  0.748600 \\
+16 &               LinearSVC &  0.753187 &   0.750750 &       500000 &  0.751847 \\
+17 &           MultinomialNB &  0.672800 &   0.687760 &       500000 &  0.678584 \\
+18 &  DecisionTreeClassifier &  0.673318 &   0.690695 &       500000 &  0.679764 \\
+19 &         RidgeClassifier &  0.742800 &   0.751770 &       500000 &  0.746270 \\
+20 &               LinearSVC &  0.753156 &   0.750642 &      1000000 &  0.751769 \\
+21 &           MultinomialNB &  0.673599 &   0.688095 &      1000000 &  0.679241 \\
+22 &  DecisionTreeClassifier &  0.673084 &   0.688515 &      1000000 &  0.679001 \\
+23 &         RidgeClassifier &  0.742725 &   0.751611 &      1000000 &  0.746170 \\
 \bottomrule
 \end{tabular}
