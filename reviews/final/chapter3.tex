@@ -125,7 +125,16 @@ With decision tree, it is possible to reduce overfitting by pruning the tree. It
 	\label{fig:chap3:dt}
 \end{figure*}
 
-\textbf{Figure \ref{fig:chap3:dt}} shows metrics values for different depths. It seems that tree of depth 1000 are the best ones. 
+\textbf{Figure \ref{fig:chap3:dt}} shows metrics values for different depths. It seems that tree of depth 1000 are the best ones.
+\subsection{Ridge Classifier}
+With the ridge classifier model it is also possible to tweak the pennality value of the optimization problem. At \textbf{Figure \ref{fig:chap3:ridge1}} we can see that the optimal parameter is around 10 or 20, depending of the metrics that we want to maximize. Later on, the value of 10 will be chose as a comprimse between precision and recall. It is the value that maximize the f1-score. 
+
+\begin{figure*}
+	\centering
+	\includegraphics[width=1\textwidth]{images/chapitre3/liar-ridge}
+	\caption{Average metrics for ridge classifier with respect to the penality parameter.}
+	\label{fig:chap3:ridge1}
+\end{figure*} 
 \subsection{Max Feature Number}
 
 Starting with the maximum number of features, the precision of each model can be analyzed when limiting the maxium number of words. The results for each model can be seen at \textbf{Figure \ref{fig:chap3:max_feature3}, \ref{fig:chap3:max_feature1}} and \textbf{\ref{fig:chap3:max_feature2}}. Shows that depending on the metrics we want to optimize it is better to choose different parameters. For instance, in order to maximize F1-score, it is better to use a maximum number of features of 1000.\\
@@ -174,9 +183,63 @@ As it have been show in \textbf{Chapter \ref{chap2}}, the fake news corpus is in
 	nn = random\_choice(knn)\;
 	newSample = s + rand(0, 1) * (nn - s)\;
 	\caption{Populate}
-	\label{aglo:populate}
+	\label{algo:populate}
 \end{algorithm}
 
-\textbf{Algorithm \ref{algo:SMOTE}} and \textbf{\ref{aglo:populate}} shows how it works. The first one compute the k-nearest neighbors and the second one compute a new element by randomly choosing one of this neighbors. 
+\textbf{Algorithm \ref{algo:SMOTE}} and \textbf{\ref{algo:populate}} shows how it works. The first one compute the k-nearest neighbors and the second one compute a new element by randomly choosing one of this neighbors. 
 
 \subsection{Results without using SMOTE}
+\subsubsection{Hyperparameters tuning}
+As for the models trained on the \textbf{liar-liar corpus}, hyper-parameters can be optimized the same way. The average metrics for each models with respect to there paramters are shown at \textbf{Figure \ref{fig:chap3:ridge2}, \ref{fig:chap3:dt2}} and \textbf{\ref{fig:chap3:lsvm2}}. \\
+
+\begin{figure*}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/chapitre3/ridge}
+	\caption{Metrics value with respect to the penality paramter for ridge classifier}
+	\label{fig:chap3:ridge2}
+\end{figure*}
+The optimal parameter for the ridge classifier is clearly 1. As well as for the decision tree trained on \textbf{liar-liar} dataset, the optimal maximum depth is of 1000. 
+\begin{figure*}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/chapitre3/fake-dt}
+	\caption{Optimal depth of decision tree.}
+	\label{fig:chap3:dt2}
+\end{figure*}
+And finaly, the optimal value for the penality parameter of the svm is also 1.\\
+\begin{figure*}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/chapitre3/svc_fake}
+	\caption{Optimal penality parameters for linear svm}
+	\label{fig:chap3:lsvm2}
+\end{figure*}
+
+By looking at \textbf{Figure \ref{fig:chap3:max_feature1}, \ref{fig:chap3:max_feature2}} and \textbf{\ref{fig:chap3:max_feature3}} we can find optimal parameters for the number of features used in TF-IDF. It shows that linear svm and ridge classifier are the ones that perform the best, having an average precision of sligtly more than $94\%$ for the linear svm and $94\%$ for the ridge classifier. They acheive these performances from $50,000$ features and does not decrease. On the other hand, Naïve-Bayes reches a pike at $100,000$ features and greatly decrease afterward. \\
+
+\begin{figure*}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/chapitre3/ML_fake_average}
+	\caption{Average recall, precision and f1-score wti respect to the maxiumum number of features.}
+	\label{fig:chap3:max_feat1}
+\end{figure*}
+\begin{figure*}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/chapitre3/ML_fake_precision}
+	\caption{Precision for fake and reliable class for each model with respect to the maxiumum number of features}
+	\label{fig:chap3:max_feat2}
+\end{figure*}
+\begin{figure*}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/chapitre3/ML_fake_recall}
+	\caption{Recall for fake and reliable class for each model with respect to the maxiumum number of features}
+	\label{fig:chap3:max_feat3}
+\end{figure*}
+
+
+\textbf{Figure \ref{fig:chap3:max_feature3}} shows why it is important to look at all the metrics, because Naïve-Bayes reaches a recall of 1 for the reliable class and close to 0 for the fake class, which means that almost all the text are classified as reliable. This can be verified by looking at \textbf{Figure \ref{fig:chap3:confMat1}}, only a small proportion of true fake are actualy classified as it.
+
+\begin{figure*}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/chapitre3/confMat_fake_364070}
+	\caption{Confusion matrix for each model using $364,070$ features}
+	\label{fig:chap3:confMat1}
+\end{figure*}

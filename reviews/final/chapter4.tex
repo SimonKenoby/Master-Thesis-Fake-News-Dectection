@@ -38,7 +38,58 @@ The output layer values are computed as
 	\mathbf{Y} = \mathbf{W'^Th}
 \end{equation}
 
-As before $\mathbf{W'^{N \times V}}$ is also a weight matrix to optimize. The loss can be computed as softmax cross entropy. 
+As before $\mathbf{W'^{N \times V}}$ is also a weight matrix to optimize. The loss can be computed as softmax cross entropy. \\
 
+It is also possible to make the oposite: predicting the context given a single input word. This is the skip-gram model. In this case the loss become \textbf{Equation \ref{eq:loss}}.
+
+\begin{equation}
+	E = - \sum_{c=1}^C u_{j^*_c} + C \cdot \sum_{j' = 1}^V \exp(u_{j'}) \ \label{eq:loss}
+\end{equation}
+
+$j_c^*$ is the index of the cth output context word and $u_{j^*_c}$ is the score of the jth word in the vocabulary for the cth context word. Finly, the embedding that is used are the value of the hidden layers produced for a given word. 
+
+\begin{figure*}
+	\centering
+	\includegraphics[width=\textwidth]{images/chapitre4/skip-gram}
+	\caption{Skip-gram model with multiple outputs.}
+	\label{fig:chap4:skip-gram}
+\end{figure*}
 \section{LSTM}
+LSTM or Long Short Term Memory\cite{Hochreiter1997LongSM} is a kind of reccurent neural network that fits well to temporal or sequential input such as texts. A RNN is a type of neural network where the hidden state is fed in a loop with the sequential inputs. There are usualy shown as unrolled version of it (\textbf{Figure \ref{fig:chap4:RNN_unroll}}). Each of the $X_i$ being one value in the sequence.\\
+
+Recurrent Neural Networks does not works very well with long-term dependencies, that is why LSTM have been introduced. It is made of an input gate, an output gate and a forget gate that are combined in \textbf{Equation \ref{eq:LSTM}}.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{images/chapitre4/RNN-unrolled.png}
+	\caption{Unrolled RNN (Understanding LSTM Networks, \url{https://colah.github.io/posts/2015-08-Understanding-LSTMs/)}}
+	\label{fig:chap4:RNN_unroll}
+\end{figure} 
+
+\begin{align} \label{eq:LSTM}
+	f_t &= \sigma_g(\mathbf{W}_f x_t + \mathbf{U}_fh_{t-1} + b_f)\\
+	i_t &= \sigma_g(\mathbf{W}_i x_t + \mathbf{U}_ih_{t-1} + b_i)\\
+	o_t &= \sigma_g(\mathbf{W}_o x_t + \mathbf{U}_oh_{t-1} + b_o)\\
+	c_t &= f_t \circ c_{t-1} + i_t \circ \sigma_c(\mathbf{W}_cx_t + \mathbf{U}_c h_{t-1} + b_c)\\
+	h_t &= o_t \circ \sigma_h (c_t)
+\end{align}
+
+\textbf{Figure \ref{fig:chap4:LSTM-gates}} shows how it works.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.6\textwidth]{images/chapitre4/LSTM1.jpeg}
+	\caption{LSTM gates, \\ \url{https://hackernoon.com/understanding-architecture-of-lstm-cell-from-scratch-with-code-8da40f0b71f4)}}
+	\label{fig:chap4:LSTM-gates}
+\end{figure} 
+
 \section{Attention Mechanism}
+
+\section{Results}
+\subsection{Methodology}
+In order to train the models and perform hyper parameters optimization grid search have been used when it was possibile (on the liar-liar dataset) and knwoleadge aquiered there have been used in order to tune parameters for the networks on the \textbf{Fake News Corpus}. In addition, in order to find the bests parameters among all tested with gird search, for each metrics, the training epochs having the highest validation value for that metrics have been choosen. \\
+
+As SMOTE cannot be used on the \textbf{Fake News Corpus} dues to the size of the corpus, in order to rebalance the dataset the minority class have been over sampled by feeding multiple times the same input by looping through them. 
+\subsection{Liar-Liar dataset results}
+As explained earlier, both models have been train using different embedding: the first one being pre-trained word2vec vectors of size 300 and the second one beging a tunable parameters with different embedding size.
+\subsubsection{Using word2vec embedding}

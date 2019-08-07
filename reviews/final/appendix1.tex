@@ -1,7 +1,7 @@
 \chapter{} \label{Appendix1}
 \section{TF-IDF max features row results on liar-liar corpus}
 \subsection{Weigted Average Metrics}
-\begin{tabular}{lllrrr}
+\begin{longtable}{lllrrr}
 \toprule
 {} &                   model & max\_features &    recall &  precision &        f1 \\
 \midrule
@@ -38,7 +38,8 @@
 30 &  DecisionTreeClassifier &        11222 &  0.556854 &   0.555689 &  0.555171 \\
 31 &         RidgeClassifier &        11222 &  0.582555 &   0.581782 &  0.579279 \\
 \bottomrule
-\end{tabular}
+\end{longtable}
+\newpage
 \subsection{Per class Metrics}
 \begin{longtable}{llllrrr}
 \toprule
@@ -110,9 +111,9 @@
 63 &         RidgeClassifier &        11222 &  reliable &  0.666168 &   0.587071 &  0.624123 \\
 \bottomrule
 \end{longtable}
-
+\newpage
 \section{TF-IDF max features row results for fake news corpus without SMOTE}
-\begin{tabular}{llrrlr}
+\begin{longtable}{llrrlr}
 \toprule
 {} &                   model &    recall &  precision & max\_features &        f1 \\
 \midrule
@@ -141,4 +142,4 @@
 22 &  DecisionTreeClassifier &  0.673084 &   0.688515 &      1000000 &  0.679001 \\
 23 &         RidgeClassifier &  0.742725 &   0.751611 &      1000000 &  0.746170 \\
 \bottomrule
-\end{tabular}
+\end{longtable}
