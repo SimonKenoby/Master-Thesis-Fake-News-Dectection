@@ -348,6 +348,37 @@ almost all of the data sets.},
   keywords    = {cs.CL},
 }
 
+@Article{Rong2014,
+  author        = {Xin Rong},
+  title         = {word2vec Parameter Learning Explained},
+  __markedentry = {[simon:6]},
+  abstract      = {The word2vec model and application by Mikolov et al. have attracted a great amount of attention in recent two years. The vector representations of words learned by word2vec models have been shown to carry semantic meanings and are useful in various NLP tasks. As an increasing number of researchers would like to experiment with word2vec or similar techniques, I notice that there lacks a material that comprehensively explains the parameter learning process of word embedding models in details, thus preventing researchers that are non-experts in neural networks from understanding the working mechanism of such models. This note provides detailed derivations and explanations of the parameter update equations of the word2vec models, including the original continuous bag-of-word (CBOW) and skip-gram (SG) models, as well as advanced optimization techniques, including hierarchical softmax and negative sampling. Intuitive interpretations of the gradient equations are also provided alongside mathematical derivations. In the appendix, a review on the basics of neuron networks and backpropagation is provided. I also created an interactive demo, wevi, to facilitate the intuitive understanding of the model.},
+  date          = {2014-11-11},
+  eprint        = {http://arxiv.org/abs/1411.2738v4},
+  eprintclass   = {cs.CL},
+  eprinttype    = {arXiv},
+  file          = {:http\://arxiv.org/pdf/1411.2738v4:PDF},
+  keywords      = {cs.CL},
+}
+
+@InProceedings{Wang2018,
+  author        = {Wang, Yaqing and Ma, Fenglong and Jin, Zhiwei and Yuan, Ye and Xun, Guangxu and Jha, Kishlay and Su, Lu and Gao, Jing},
+  title         = {Eann: Event adversarial neural networks for multi-modal fake news detection},
+  booktitle     = {Proceedings of the 24th acm sigkdd international conference on knowledge discovery \& data mining},
+  year          = {2018},
+  pages         = {849--857},
+  organization  = {ACM},
+  __markedentry = {[simon:6]},
+}
+
+@InProceedings{Thorne2017,
+  author    = {Thorne, James and Chen, Mingjie and Myrianthous, Giorgos and Pu, Jiashu and Wang, Xiaoxuan and Vlachos, Andreas},
+  title     = {Fake news stance detection using stacked ensemble of classifiers},
+  booktitle = {Proceedings of the 2017 EMNLP Workshop: Natural Language Processing meets Journalism},
+  year      = {2017},
+  pages     = {80--83},
+}
+
 @InProceedings{Ruchansky2017,
   author       = {Ruchansky, Natali and Seo, Sungyong and Liu, Yan},
   title        = {Csi: A hybrid deep model for fake news detection},
@@ -365,6 +396,28 @@ almost all of the data sets.},
   pages     = {252--256},
 }
 
+@InProceedings{Granik2017,
+  author       = {Granik, Mykhailo and Mesyura, Volodymyr},
+  title        = {Fake news detection using naive Bayes classifier},
+  booktitle    = {2017 IEEE First Ukraine Conference on Electrical and Computer Engineering (UKRCON)},
+  year         = {2017},
+  pages        = {900--903},
+  organization = {IEEE},
+}
+
+@Article{Yang2018,
+  author        = {Yang Yang and Lei Zheng and Jiawei Zhang and Qingcai Cui and Zhoujun Li and Philip S. Yu},
+  title         = {TI-CNN: Convolutional Neural Networks for Fake News Detection},
+  __markedentry = {[simon:]},
+  abstract      = {With the development of social networks, fake news for various commercial and political purposes has been appearing in large numbers and gotten widespread in the online world. With deceptive words, people can get infected by the fake news very easily and will share them without any fact-checking. For instance, during the 2016 US president election, various kinds of fake news about the candidates widely spread through both official news media and the online social networks. These fake news is usually released to either smear the opponents or support the candidate on their side. The erroneous information in the fake news is usually written to motivate the voters' irrational emotion and enthusiasm. Such kinds of fake news sometimes can bring about devastating effects, and an important goal in improving the credibility of online social networks is to identify the fake news timely. In this paper, we propose to study the fake news detection problem. Automatic fake news identification is extremely hard, since pure model based fact-checking for news is still an open problem, and few existing models can be applied to solve the problem. With a thorough investigation of a fake news data, lots of useful explicit features are identified from both the text words and images used in the fake news. Besides the explicit features, there also exist some hidden patterns in the words and images used in fake news, which can be captured with a set of latent features extracted via the multiple convolutional layers in our model. A model named as TI-CNN (Text and Image information based Convolutinal Neural Network) is proposed in this paper. By projecting the explicit and latent features into a unified feature space, TI-CNN is trained with both the text and image information simultaneously. Extensive experiments carried on the real-world fake news datasets have demonstrate the effectiveness of TI-CNN.},
+  date          = {2018-06-03},
+  eprint        = {1806.00749v1},
+  eprintclass   = {cs.CL},
+  eprinttype    = {arXiv},
+  file          = {online:http\://arxiv.org/pdf/1806.00749v1:PDF},
+  keywords      = {cs.CL, cs.SI},
+}
+
 @Article{Tacchini2017,
   author       = {Eugenio Tacchini and Gabriele Ballarin and Marco L. Della Vedova and Stefano Moret and Luca de Alfaro},
   title        = {Some Like it Hoax: Automated Fake News Detection in Social Networks},
@@ -378,35 +431,11 @@ almost all of the data sets.},
   keywords     = {cs.LG, cs.HC, cs.SI},
 }
 
-@InProceedings{Thorne2017,
-  author    = {Thorne, James and Chen, Mingjie and Myrianthous, Giorgos and Pu, Jiashu and Wang, Xiaoxuan and Vlachos, Andreas},
-  title     = {Fake news stance detection using stacked ensemble of classifiers},
-  booktitle = {Proceedings of the 2017 EMNLP Workshop: Natural Language Processing meets Journalism},
-  year      = {2017},
-  pages     = {80--83},
-}
-
-@InProceedings{Granik2017,
-  author        = {Granik, Mykhailo and Mesyura, Volodymyr},
-  title         = {Fake news detection using naive Bayes classifier},
-  booktitle     = {2017 IEEE First Ukraine Conference on Electrical and Computer Engineering (UKRCON)},
-  year          = {2017},
-  pages         = {900--903},
-  organization  = {IEEE},
-  __markedentry = {[simon:]},
-}
-
-@Article{Yang2018,
-  author        = {Yang Yang and Lei Zheng and Jiawei Zhang and Qingcai Cui and Zhoujun Li and Philip S. Yu},
-  title         = {TI-CNN: Convolutional Neural Networks for Fake News Detection},
-  __markedentry = {[simon:6]},
-  abstract      = {With the development of social networks, fake news for various commercial and political purposes has been appearing in large numbers and gotten widespread in the online world. With deceptive words, people can get infected by the fake news very easily and will share them without any fact-checking. For instance, during the 2016 US president election, various kinds of fake news about the candidates widely spread through both official news media and the online social networks. These fake news is usually released to either smear the opponents or support the candidate on their side. The erroneous information in the fake news is usually written to motivate the voters' irrational emotion and enthusiasm. Such kinds of fake news sometimes can bring about devastating effects, and an important goal in improving the credibility of online social networks is to identify the fake news timely. In this paper, we propose to study the fake news detection problem. Automatic fake news identification is extremely hard, since pure model based fact-checking for news is still an open problem, and few existing models can be applied to solve the problem. With a thorough investigation of a fake news data, lots of useful explicit features are identified from both the text words and images used in the fake news. Besides the explicit features, there also exist some hidden patterns in the words and images used in fake news, which can be captured with a set of latent features extracted via the multiple convolutional layers in our model. A model named as TI-CNN (Text and Image information based Convolutinal Neural Network) is proposed in this paper. By projecting the explicit and latent features into a unified feature space, TI-CNN is trained with both the text and image information simultaneously. Extensive experiments carried on the real-world fake news datasets have demonstrate the effectiveness of TI-CNN.},
-  date          = {2018-06-03},
-  eprint        = {1806.00749v1},
-  eprintclass   = {cs.CL},
-  eprinttype    = {arXiv},
-  file          = {online:http\://arxiv.org/pdf/1806.00749v1:PDF},
-  keywords      = {cs.CL, cs.SI},
+@Misc{WWF2019,
+  author = {WWF},
+  title  = {WWF 10YearsChallenge},
+  year   = {2019},
+  url    = {https://www.pausecafein.fr/culture/culture-internet-photographie-virale-fake.html},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}

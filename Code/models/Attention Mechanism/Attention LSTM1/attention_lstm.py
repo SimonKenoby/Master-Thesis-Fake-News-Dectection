@@ -129,7 +129,7 @@ if __name__ == "__main__":
     from register_experiment import Register
 
     r = Register(args.host, args.port, args.db, args.collection)
-    r.newExperiment(r.getLastExperiment() + 1, 'Self_Embedding LSTM 1.2')
+    r.newExperiment(r.getLastExperiment() + 1, 'Self_Embedding Attention')
 
     array, labels = load_data(trainFile)
 

@@ -188,7 +188,7 @@ As it have been show in \textbf{Chapter \ref{chap2}}, the fake news corpus is in
 
 \textbf{Algorithm \ref{algo:SMOTE}} and \textbf{\ref{algo:populate}} shows how it works. The first one compute the k-nearest neighbors and the second one compute a new element by randomly choosing one of this neighbors. 
 
-\subsection{Results without using SMOTE}
+\subsection{Model selection without using SMOTE}
 \subsubsection{Hyperparameters tuning}
 As for the models trained on the \textbf{liar-liar corpus}, hyper-parameters can be optimized the same way. The average metrics for each models with respect to there paramters are shown at \textbf{Figure \ref{fig:chap3:ridge2}, \ref{fig:chap3:dt2}} and \textbf{\ref{fig:chap3:lsvm2}}. \\
 
@@ -239,7 +239,146 @@ By looking at \textbf{Figure \ref{fig:chap3:max_feature1}, \ref{fig:chap3:max_fe
 
 \begin{figure*}
 	\centering
-	\includegraphics[width=0.8\textwidth]{images/chapitre3/confMat_fake_364070}
+	\includegraphics[width=0.5\textwidth]{images/chapitre3/confMat_fake_364070}
 	\caption{Confusion matrix for each model using $364,070$ features}
 	\label{fig:chap3:confMat1}
+\end{figure*}
+
+\subsection{Model selection with SMOTE}
+The first thing that can be noticed at \textbf{Figure \ref{fig:chap3:ridge3}, \ref{fig:chap3:dt3}, \ref{fig:chap3:lsvm3}, \ref{fig:chap3:smote_max_feat1}, \ref{fig:chap3:smote_max_feat2}} and \textbf{\ref{fig:chap3:smote_max_feat3}} is that the two models that worked the best without applying SMOTE method, linear SVM and ridge classifier are still the ones that perform the best. By comparing \textbf{Figure \ref{fig:chap3:lsvm2}} and \textbf{Figure \ref{fig:chap3:lsvm3}} we can see that it work better when applying a smaller regularization parameter. It goes from $0.66\%$ of accuracy to  $0.86\%$ of accuracy thus accting as a regularization. The same does not apply to ridge classifier. \\
+\begin{figure*}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/chapitre3/ridge+smote}
+	\caption{Metrics value with respect to the penality paramter for ridge classifier when using SMOTE.}
+	\label{fig:chap3:ridge3}
+\end{figure*}
+
+It also has a huge impact on how Naïve-Bayes behaves as it removes overfitting when using a larger number of features in TF-IDF, leading to a few percent of accuracy increase. \\
+\begin{figure*}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/chapitre3/fake-dt-SMOTE}
+	\caption{Optimal depth of decision tree when using SMOTE.}
+	\label{fig:chap3:dt3}
+\end{figure*}
+\begin{figure*}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/chapitre3/svc_fake_smote}
+	\caption{Optimal penality parameters for linear svm when using SMOTE}
+	\label{fig:chap3:lsvm3}
+\end{figure*}
+
+
+\begin{figure*}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/chapitre3/ML_SMOTE_fake_average}
+	\caption{Average recall, precision and f1-score wti respect to the maxiumum number of features.}
+	\label{fig:chap3:smote_max_feat1}
+\end{figure*}
+\begin{figure*}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/chapitre3/ML_SMOTE_fake_precision}
+	\caption{Precision for fake and reliable class for each model with respect to the maxiumum number of features}
+	\label{fig:chap3:smote_max_feat2}
+\end{figure*}
+\begin{figure*}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/chapitre3/ML_SMOTE_fake_recall}
+	\caption{Recall for fake and reliable class for each model with respect to the maxiumum number of features}
+	\label{fig:chap3:smote_max_feat3}
+\end{figure*}
+
+It conclusion for SMOTE method we can say that it does help models that does not have regularization parameter or when the regularization parameter is low. Thus it does help preventing overfitting.
+
+\section{Results on testing set}
+\subsection{Methodology}
+Now that all the models have been tuned, they need to be tested independantly on testing set. Each datasets contains a testing set. \\
+
+For the \textbf{liar-liar} dataset the following paramters will be used:
+\begin{itemize}
+	\item Linear SVM with regularization parameters of $0.1$ of a max TF-IDF features of 500,
+	\item Ridge Classifier with $\alpha = 10$ and also max TF-IDF features of 500,
+	\item Decision Tree with maximum depth of 1000 and the maxiumum number of features for TF-IDF,
+	\item Naïve-Bayes will also use the maxiumum number of features for TF-IDF.
+\end{itemize}
+
+For the \textbf{Fake News Corpus}, the following setting will be used:
+\begin{itemize}
+	\item Linear SVM with regularisation parameters of $1$,
+	\item Ridge Classifier with $\alpha = 1$,
+	\item Decision Tree with maxiumum depth of 100.
+\end{itemize}
+
+They will all be trained using $100,000$ features for TF-IDF.
+
+For the \textbf{Fake News Corpus} with SMOTE, the same parameters will be used, but the maximum number of features for TF-ISF will be used.\\
+
+All the models will be trained on train and validation set and tested on test set. 
+
+\subsection{Results}
+\subsubsection{Liar-Liar Corpus}
+By looking at the row results, based on average accuracy Naïve-Bayes, Linear SVM and ridge classifier perform very close, but when looking at the recall per class it shows that Naïve-Bayes is bad at detecting fake news and classifies most of the text as reliable, when Linear SVM and Ridge classifier are more balanced. 
+
+\begin{table}
+\begin{tabular}{lrrrrr}
+\toprule
+{} &         fake &     reliable &  accuracy &    macro avg &  weighted avg \\
+\midrule
+f1-score  &     0.514399 &     0.679764 &  0.614049 &     0.597082 &      0.607588 \\
+precision &     0.570485 &     0.638376 &  0.614049 &     0.604430 &      0.608744 \\
+recall    &     0.468354 &     0.726891 &  0.614049 &     0.597623 &      0.614049 \\
+support   &  1106.000000 &  1428.000000 &  0.614049 &  2534.000000 &   2534.000000 \\
+\bottomrule
+\end{tabular}
+\caption{Raw results for Linear SVM}
+\end{table}
+
+\begin{table}
+\begin{tabular}{lrrrrr}
+\toprule
+{} &         fake &     reliable &  accuracy &    macro avg &  weighted avg \\
+\midrule
+f1-score  &     0.412107 &     0.698507 &  0.601421 &     0.555307 &      0.573504 \\
+precision &     0.578431 &     0.608741 &  0.601421 &     0.593586 &      0.595512 \\
+recall    &     0.320072 &     0.819328 &  0.601421 &     0.569700 &      0.601421 \\
+support   &  1106.000000 &  1428.000000 &  0.601421 &  2534.000000 &   2534.000000 \\
+\bottomrule
+\end{tabular}
+\caption{Raw results for Naïve-Bayes}
+\end{table}
+
+\begin{table}
+\begin{tabular}{lrrrrr}
+\toprule
+{} &         fake &     reliable &  accuracy &    macro avg &  weighted avg \\
+\midrule
+f1-score  &     0.496366 &     0.691279 &  0.617206 &     0.593822 &      0.606207 \\
+precision &     0.582927 &     0.633606 &  0.617206 &     0.608266 &      0.611486 \\
+recall    &     0.432188 &     0.760504 &  0.617206 &     0.596346 &      0.617206 \\
+support   &  1106.000000 &  1428.000000 &  0.617206 &  2534.000000 &   2534.000000 \\
+\bottomrule
+\end{tabular}
+\caption{Raw results for Ridge Classifer.}
+\end{table}
+
+\begin{table}
+\begin{tabular}{lrrrrr}
+\toprule
+{} &         fake &     reliable &  accuracy &    macro avg &  weighted avg \\
+\midrule
+f1-score  &     0.479354 &     0.591549 &  0.542226 &     0.535451 &      0.542580 \\
+precision &     0.475936 &     0.594901 &  0.542226 &     0.535418 &      0.542977 \\
+recall    &     0.482821 &     0.588235 &  0.542226 &     0.535528 &      0.542226 \\
+support   &  1106.000000 &  1428.000000 &  0.542226 &  2534.000000 &   2534.000000 \\
+\bottomrule
+\end{tabular}
+\caption{Raw results for Decision Tree}
+\end{table}
+
+Finally, it is possible to look at the ROC curve at \textbf{Figure \ref{fig:chap3:roc1}}. One more time, it shows that Naïve-Bayes, linear svm and rigde classifier have similar performance, but in this case it shows that NB has a little advantage, with a slightly larger AUC. There is only one point for the decision tree as it does not output probabilites for each classes. 
+
+\begin{figure*}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/chapitre3/roc1}
+	\caption{ROC curve for each model}
+	\label{fig:chap3:roc1}
 \end{figure*}

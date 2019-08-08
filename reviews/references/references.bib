@@ -348,6 +348,37 @@ almost all of the data sets.},
   keywords    = {cs.CL},
 }
 
+@Article{Rong2014,
+  author        = {Xin Rong},
+  title         = {word2vec Parameter Learning Explained},
+  __markedentry = {[simon:6]},
+  abstract      = {The word2vec model and application by Mikolov et al. have attracted a great amount of attention in recent two years. The vector representations of words learned by word2vec models have been shown to carry semantic meanings and are useful in various NLP tasks. As an increasing number of researchers would like to experiment with word2vec or similar techniques, I notice that there lacks a material that comprehensively explains the parameter learning process of word embedding models in details, thus preventing researchers that are non-experts in neural networks from understanding the working mechanism of such models. This note provides detailed derivations and explanations of the parameter update equations of the word2vec models, including the original continuous bag-of-word (CBOW) and skip-gram (SG) models, as well as advanced optimization techniques, including hierarchical softmax and negative sampling. Intuitive interpretations of the gradient equations are also provided alongside mathematical derivations. In the appendix, a review on the basics of neuron networks and backpropagation is provided. I also created an interactive demo, wevi, to facilitate the intuitive understanding of the model.},
+  date          = {2014-11-11},
+  eprint        = {http://arxiv.org/abs/1411.2738v4},
+  eprintclass   = {cs.CL},
+  eprinttype    = {arXiv},
+  file          = {:http\://arxiv.org/pdf/1411.2738v4:PDF},
+  keywords      = {cs.CL},
+}
+
+@InProceedings{Wang2018,
+  author        = {Wang, Yaqing and Ma, Fenglong and Jin, Zhiwei and Yuan, Ye and Xun, Guangxu and Jha, Kishlay and Su, Lu and Gao, Jing},
+  title         = {Eann: Event adversarial neural networks for multi-modal fake news detection},
+  booktitle     = {Proceedings of the 24th acm sigkdd international conference on knowledge discovery \& data mining},
+  year          = {2018},
+  pages         = {849--857},
+  organization  = {ACM},
+  __markedentry = {[simon:6]},
+}
+
+@InProceedings{Thorne2017,
+  author    = {Thorne, James and Chen, Mingjie and Myrianthous, Giorgos and Pu, Jiashu and Wang, Xiaoxuan and Vlachos, Andreas},
+  title     = {Fake news stance detection using stacked ensemble of classifiers},
+  booktitle = {Proceedings of the 2017 EMNLP Workshop: Natural Language Processing meets Journalism},
+  year      = {2017},
+  pages     = {80--83},
+}
+
 @InProceedings{Ruchansky2017,
   author       = {Ruchansky, Natali and Seo, Sungyong and Liu, Yan},
   title        = {Csi: A hybrid deep model for fake news detection},
@@ -363,27 +394,6 @@ almost all of the data sets.},
   booktitle = {Proceedings of the Eighth International Joint Conference on Natural Language Processing (Volume 2: Short Papers)},
   year      = {2017},
   pages     = {252--256},
-}
-
-@Article{Tacchini2017,
-  author       = {Eugenio Tacchini and Gabriele Ballarin and Marco L. Della Vedova and Stefano Moret and Luca de Alfaro},
-  title        = {Some Like it Hoax: Automated Fake News Detection in Social Networks},
-  abstract     = {In recent years, the reliability of information on the Internet has emerged as a crucial issue of modern society. Social network sites (SNSs) have revolutionized the way in which information is spread by allowing users to freely share content. As a consequence, SNSs are also increasingly used as vectors for the diffusion of misinformation and hoaxes. The amount of disseminated information and the rapidity of its diffusion make it practically impossible to assess reliability in a timely manner, highlighting the need for automatic hoax detection systems. As a contribution towards this objective, we show that Facebook posts can be classified with high accuracy as hoaxes or non-hoaxes on the basis of the users who "liked" them. We present two classification techniques, one based on logistic regression, the other on a novel adaptation of boolean crowdsourcing algorithms. On a dataset consisting of 15,500 Facebook posts and 909,236 users, we obtain classification accuracies exceeding 99% even when the training set contains less than 1% of the posts. We further show that our techniques are robust: they work even when we restrict our attention to the users who like both hoax and non-hoax posts. These results suggest that mapping the diffusion pattern of information can be a useful component of automatic hoax detection systems.},
-  date         = {2017-04-25},
-  eprint       = {1704.07506v1},
-  eprintclass  = {cs.LG},
-  eprinttype   = {arXiv},
-  file         = {online:http\://arxiv.org/pdf/1704.07506v1:PDF},
-  journaltitle = {Proceedings of the Second Workshop on Data Science for Social Good (SoGood), Skopje, Macedonia, 2017. CEUR Workshop Proceedings Volume 1960, 2017},
-  keywords     = {cs.LG, cs.HC, cs.SI},
-}
-
-@InProceedings{Thorne2017,
-  author    = {Thorne, James and Chen, Mingjie and Myrianthous, Giorgos and Pu, Jiashu and Wang, Xiaoxuan and Vlachos, Andreas},
-  title     = {Fake news stance detection using stacked ensemble of classifiers},
-  booktitle = {Proceedings of the 2017 EMNLP Workshop: Natural Language Processing meets Journalism},
-  year      = {2017},
-  pages     = {80--83},
 }
 
 @InProceedings{Granik2017,
@@ -408,14 +418,24 @@ almost all of the data sets.},
   keywords      = {cs.CL, cs.SI},
 }
 
-@InProceedings{Wang2018,
-  author        = {Wang, Yaqing and Ma, Fenglong and Jin, Zhiwei and Yuan, Ye and Xun, Guangxu and Jha, Kishlay and Su, Lu and Gao, Jing},
-  title         = {Eann: Event adversarial neural networks for multi-modal fake news detection},
-  booktitle     = {Proceedings of the 24th acm sigkdd international conference on knowledge discovery \& data mining},
-  year          = {2018},
-  pages         = {849--857},
-  organization  = {ACM},
-  __markedentry = {[simon:6]},
+@Article{Tacchini2017,
+  author       = {Eugenio Tacchini and Gabriele Ballarin and Marco L. Della Vedova and Stefano Moret and Luca de Alfaro},
+  title        = {Some Like it Hoax: Automated Fake News Detection in Social Networks},
+  abstract     = {In recent years, the reliability of information on the Internet has emerged as a crucial issue of modern society. Social network sites (SNSs) have revolutionized the way in which information is spread by allowing users to freely share content. As a consequence, SNSs are also increasingly used as vectors for the diffusion of misinformation and hoaxes. The amount of disseminated information and the rapidity of its diffusion make it practically impossible to assess reliability in a timely manner, highlighting the need for automatic hoax detection systems. As a contribution towards this objective, we show that Facebook posts can be classified with high accuracy as hoaxes or non-hoaxes on the basis of the users who "liked" them. We present two classification techniques, one based on logistic regression, the other on a novel adaptation of boolean crowdsourcing algorithms. On a dataset consisting of 15,500 Facebook posts and 909,236 users, we obtain classification accuracies exceeding 99% even when the training set contains less than 1% of the posts. We further show that our techniques are robust: they work even when we restrict our attention to the users who like both hoax and non-hoax posts. These results suggest that mapping the diffusion pattern of information can be a useful component of automatic hoax detection systems.},
+  date         = {2017-04-25},
+  eprint       = {1704.07506v1},
+  eprintclass  = {cs.LG},
+  eprinttype   = {arXiv},
+  file         = {online:http\://arxiv.org/pdf/1704.07506v1:PDF},
+  journaltitle = {Proceedings of the Second Workshop on Data Science for Social Good (SoGood), Skopje, Macedonia, 2017. CEUR Workshop Proceedings Volume 1960, 2017},
+  keywords     = {cs.LG, cs.HC, cs.SI},
+}
+
+@Misc{WWF2019,
+  author = {WWF},
+  title  = {WWF 10YearsChallenge},
+  year   = {2019},
+  url    = {https://www.pausecafein.fr/culture/culture-internet-photographie-virale-fake.html},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}

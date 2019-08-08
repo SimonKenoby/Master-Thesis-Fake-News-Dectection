@@ -38,7 +38,7 @@ def load_data(trainFile, dct, ctx = mx.cpu(0)):
     return array, label_binarize(labels, ctx)
 
 def tokens_to_idx(tokens, dct, ctx = mx.cpu(0)):
-    array = [dct.token2id[token] for token in tokens]
+    array = [dct.token2id[token] if token in dct.token2id else -1 for token in tokens]
     if len(array) > SEQ_LENGTH:
         array = array[0:SEQ_LENGTH]
     else:
@@ -129,7 +129,7 @@ if __name__ == "__main__":
     from register_experiment import Register
 
     r = Register(args.host, args.port, args.db, args.collection)
-    r.newExperiment(r.getLastExperiment() + 1, 'Self_Embedding LSTM 3.2')
+    r.newExperiment(r.getLastExperiment() + 1, 'Attention Fake')
 
 
     dictFile = args.dictFile
@@ -154,8 +154,8 @@ if __name__ == "__main__":
     array, labels = load_data(trainFile, dct)
 
     net = LSTM(len(dct), SEQ_LENGTH, EMBEDDING_DIM, HIDDEN, LAYERS, DROPOUT)
-    net.initialize(mx.init.Normal(sigma=0.01), ctx = ctx)
-    trainer = gluon.Trainer(net.collect_params(), 'adam', {'learning_rate': 0.00001, 'wd' : 0.0001})
+    net.initialize(mx.init.Normal(sigma=0.001), ctx = ctx)
+    trainer = gluon.Trainer(net.collect_params(), 'adam', {'learning_rate': 0.001, 'wd' : 0.00001})
     loss = gluon.loss.SigmoidBinaryCrossEntropyLoss(from_sigmoid=False)
     hidden = net.begin_state(func=mx.nd.zeros, batch_size=BATCH_SIZE, ctx = mx.cpu(0))
 

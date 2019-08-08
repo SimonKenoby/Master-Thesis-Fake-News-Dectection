@@ -7,6 +7,8 @@ from sklearn.linear_model import RidgeClassifier
 from sklearn.model_selection import train_test_split, KFold
 from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.naive_bayes import MultinomialNB
+from imblearn.over_sampling import SMOTE
+
 
 
 from pymongo import MongoClient
@@ -25,14 +27,17 @@ def train_test1(X_train, X_test, y_train, y_test, db_idx):
     db = client.TFE
     collection = db.results
 
-    model = RidgeClassifier()
-    model.fit(X_train, y_train)
-    crp = classification_report(y_test, model.predict(X_test), labels=['fake', 'reliable'], output_dict = True)
-    collection.update_one({'_id' : db_idx.inserted_id}, 
-                            {'$push' : 
-                            {'report' : 
-                            {'classification_report' : crp, 'train_accuracy' : model.score(X_train, y_train), 'test_accuracy' : model.score(X_test, y_test)}}})
-
+    alphas = [0.0001, 0.001, 0.01, 0.05, 0.1, 0.25, 0.5, 1, 2, 4, 5, 10, 20]
+    for a in alphas:
+        print("Training with alpha = {}".format(a))
+        model = RidgeClassifier(alpha = a)
+        model.fit(X_train, y_train)
+        crp = classification_report(y_test, model.predict(X_test), labels=['fake', 'reliable'], output_dict = True)
+        collection.update_one({'_id' : db_idx.inserted_id}, 
+                                {'$push' : 
+                                {'report' : 
+                                {'classification_report' : crp, 'train_accuracy' : model.score(X_train, y_train), 'test_accuracy' : model.score(X_test, y_test), 'alpha' : a}}})
+    
 
 
 if __name__ == "__main__":
@@ -41,39 +46,30 @@ if __name__ == "__main__":
     collection = db.results
 
     print("Creating corpus")
-    corpus = utils.dbUtils.TokenizedIterator('news_cleaned', filters = {'type' : {'$in' : ['fake', 'reliable']}})
-    y = np.array([x for x in corpus.iterTags()])
-
-    idx = collection.insert_one({'model' : 'RidgeClassifier', 'date' : datetime.datetime.now(), 'downsampling' : False, 'smote' : False, 'corpus' : 'news_cleaned', 'parameters' : 'defaults'})
-
-
-    train_accuracy = []
-    test_accuracy = []
-    kf = KFold(n_splits=3, shuffle = True)
-    for i, (train_index, test_index) in enumerate(kf.split(y)):
-        vectorizer = TfidfVectorizer()
-        X_train = vectorizer.fit_transform([' '.join(corpus[i]) for i in train_index])
-        X_test = vectorizer.transform([' '.join(corpus[i]) for i in test_index])
-        y_train = y[train_index]
-        y_test = y[test_index]
-        train_test1(X_train, X_test, y_train, y_test, idx)
-
-    train = utils.dbUtils.TokenizedIterator('news_cleaned', filters = {'type' : {'$in' : ['fake', 'reliable']}, 'domain' : {'$nin' : ['nytimes.com', 'beforeitsnews.com']}})
+    train = utils.dbUtils.TokenizedIterator('news_cleaned', filters = {'split' : 'train'})
     y_train = np.array([x for x in train.iterTags()])
 
-    test = utils.dbUtils.TokenizedIterator('news_cleaned', filters = {'type' : {'$in' : ['fake', 'reliable']}, 'domain' : {'$in' : ['nytimes.com', 'beforeitsnews.com']}})
+    test = utils.dbUtils.TokenizedIterator('news_cleaned', filters = {'split' : 'valid'})
     y_test = np.array([x for x in test.iterTags()])
 
-    print("Fiting tf-idf")
+    idx = collection.insert_one({'model' : 'RidgeClassifier', 
+        'date' : datetime.datetime.now(), 
+        'smote' : True, 
+        'corpus' : 'news_cleaned', 
+        'experiment_id' : 23,
+        'description' : 'Testing RidgeClassifier with multiple parameters on news_cleaned with train and validation set + SMOTE'})
 
-    vectorizer = TfidfVectorizer(max_features = max_features)       
-    X_train = vectorizer.fit_transform([' '.join(news) for news in train])  
-    X_test = vectorizer.transform([' '.join(news) for news in test])
 
-    model = RidgeClassifier()
-    model.fit(X_train, y_train)
+    vectorizer = TfidfVectorizer()
+    X_train = vectorizer.fit_transform([' '.join(text) for text in train])
+    X_test = vectorizer.transform([' '.join(text) for text in test])
 
-    crp = classification_report(y_test, model.predict(X_test), labels=['fake', 'reliable'], output_dict = True)
+    sm = SMOTE(random_state=42)
+    X_res, y_res = sm.fit_resample(X_train, y_train)
 
-    collection.update_one({'_id' : idx.inserted_id}, {'$set' : {'validation' : {'classification_report' : crp, 'train_accuracy' : model.score(X_train, y_train), 'test_accuracy' : model.score(X_test, y_test)}}})
+    train_test1(X_res, X_test, y_res, y_test, idx)
+
+
+
+
 
