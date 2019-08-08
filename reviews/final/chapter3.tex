@@ -63,7 +63,7 @@ Finally, raw output can be used by looking at the confusion matrix.\\
 The first parameters to tune is the max number of features used by tf-idf. This is the maximum number of words that will be kept to create the text encoding. The words that are kept are the most frequent words. 
 
 \section{Models}
-Four models have been used in order to classify texts represented as a TF-IDF matrix. These are Multinomial Na\"{i}ve-Bayes, Linear SVM, Ridge Classifier and Decision Tree. 
+Four models have been used in order to classify texts represented as a TF-IDF matrix. These are Multinomial Na\"{i}ve-Bayes, Linear SVM, Ridge Classifier and Decision Tree. I will start by a very brief recap of each models and how they work. 
 \subsection{Na\"{i}ve-Bayes\cite{zhang_optimality_nodate}}
 The basic idea of Na\"{i}ve-Bayes model is that all features are independent of each other. This is a particulary strong hypotheses in the case of text classification because it suppose that words are not related to each others. But it know to work well given this hypotheses. 
 
@@ -97,7 +97,15 @@ Where $\xi$ is a loss function, in this case L2 loss function have been used, an
 
 Class of new examples are assigned by looking at the value of $\mathbf{w^Tw}$. The class 1 is assigned if $\mathbf{w^Tw} \geq 0$ and the class $-1$ if $\mathbf{w^Tw} < 0$.
 
-\subsection{Decision Tree}
+\subsection{Decision Tree\cite{Rokach:2014:DMD:2755359}}
+Decision tree works by recursively selecting features and splitting the dataset on that features. These features can either be nominal or continuous. \\
+
+In order to find the best split, it uses gini impurity. 
+\begin{equation}
+	G = \sum_{i=1}^C p(i) * (1-p(i))\\
+\end{equation}
+Where $p(i)$ is the probability of class i in the current branch. The best split is chosen as the one that decrease the most the impurity. For instance, begining from the root, the gini impurity is computed on the complete dataset, then the impurity of each branch is computed over all features, weighting it by the number of element in each branch. The chosen features is the one that have the highest impurity. 
+
 \subsection{Ridge Classifier}
 Ridge classifier works the same way as ridge regression. It states the problem as a minimization of the sum of square errors with penalization. It can be expressed as in \textbf{Equation \ref{eq:ridge}}.
 \begin{equation}
