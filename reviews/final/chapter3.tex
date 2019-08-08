@@ -374,7 +374,7 @@ support   &  1106.000000 &  1428.000000 &  0.542226 &  2534.000000 &   2534.0000
 \caption{Raw results for Decision Tree}
 \end{table}
 
-Finally, it is possible to look at the ROC curve at \textbf{Figure \ref{fig:chap3:roc1}}. One more time, it shows that Naïve-Bayes, linear svm and rigde classifier have similar performance, but in this case it shows that NB has a little advantage, with a slightly larger AUC. There is only one point for the decision tree as it does not output probabilites for each classes. 
+Finally, it is possible to look at the ROC curve at \textbf{Figure \ref{fig:chap3:roc1}}. One more time, it shows that Naïve-Bayes, linear svm and rigde classifier have similar performance, but in this case it shows that NB has a little advantage, with a slightly larger AUC. There is only one point for the decision tree as it does not output probabilites for each classes. \\
 
 \begin{figure*}
 	\centering
@@ -382,3 +382,168 @@ Finally, it is possible to look at the ROC curve at \textbf{Figure \ref{fig:chap
 	\caption{ROC curve for each model}
 	\label{fig:chap3:roc1}
 \end{figure*}
+
+\begin{figure*}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/chapitre3/test_liar_confMat}
+	\caption{Confusion Matrix for each models}
+	\label{fig:chap3:confMat1}
+\end{figure*}
+
+When it comes to the \textbf{Fake news corpus}, linear model are still the ones that perform the best, with linear svm reaching an accuracy of $94.7\%$ and ridge classifer $93.98\%$. Surprisingly decision tree outperform Naïve-Bayes in this case, with an accuracy of $89.4\%$ when Naïve-Bayes only gets $85.3\%$.\\
+\begin{table}
+	\begin{tabular}{lrrrrr}
+	\toprule
+	{} &          fake &      reliable &  accuracy &     macro avg &  weighted avg \\
+	\midrule
+	f1-score  &      0.894700 &      0.965364 &  0.947874 &      0.930032 &      0.947620 \\
+	precision &      0.907861 &      0.960783 &  0.947874 &      0.934322 &      0.947494 \\
+	recall    &      0.881916 &      0.969989 &  0.947874 &      0.925952 &      0.947874 \\
+	support   &  17496.000000 &  52181.000000 &  0.947874 &  69677.000000 &  69677.000000 \\
+	\bottomrule
+	\end{tabular}
+	\caption{Raw results for Linear SVM on \textbf{Fake News Corpus}}
+\end{table}
+
+\begin{table}
+	\begin{tabular}{lrrrrr}
+	\toprule
+	{} &          fake &      reliable &  accuracy &     macro avg &  weighted avg \\
+	\midrule
+	f1-score  &      0.674458 &      0.905634 &  0.853682 &      0.790046 &      0.847585 \\
+	precision &      0.764127 &      0.875841 &  0.853682 &      0.819984 &      0.847790 \\
+	recall    &      0.603624 &      0.937525 &  0.853682 &      0.770574 &      0.853682 \\
+	support   &  17496.000000 &  52181.000000 &  0.853682 &  69677.000000 &  69677.000000 \\
+	\bottomrule
+	\end{tabular}
+	\caption{Raw results for Naïve-Bayes on \textbf{Fake News Corpus}}
+\end{table}
+
+\begin{table}
+	\begin{tabular}{lrrrrr}
+	\toprule
+	{} &          fake &      reliable &  accuracy &     macro avg &  weighted avg \\
+	\midrule
+	f1-score  &      0.874220 &      0.960438 &  0.939808 &      0.917329 &      0.938788 \\
+	precision &      0.919674 &      0.945736 &  0.939808 &      0.932705 &      0.939192 \\
+	recall    &      0.833048 &      0.975604 &  0.939808 &      0.904326 &      0.939808 \\
+	support   &  17496.000000 &  52181.000000 &  0.939808 &  69677.000000 &  69677.000000 \\
+	\bottomrule
+	\end{tabular}
+	\caption{Raw results for Ridge Classifier on \textbf{Fake News Corpus}}
+\end{table}
+
+\begin{table}
+	\begin{tabular}{lrrrrr}
+	\toprule
+	{} &          fake &      reliable &  accuracy &     macro avg &  weighted avg \\
+	\midrule
+	f1-score  &      0.791687 &      0.929799 &  0.894987 &      0.860743 &      0.895119 \\
+	precision &      0.788700 &      0.930987 &  0.894987 &      0.859844 &      0.895258 \\
+	recall    &      0.794696 &      0.928614 &  0.894987 &      0.861655 &      0.894987 \\
+	support   &  17496.000000 &  52181.000000 &  0.894987 &  69677.000000 &  69677.000000 \\
+	\bottomrule
+	\end{tabular}
+	\caption{Raw results for Decision Tree on \textbf{Fake News Corpus}}
+\end{table}
+
+In this case, the ROC curve (\textbf{Figure \ref{fig:chap3:roc2}}) shows almost the same ranking of models, except for Decision Tree that is the last one, and Naïve-Bayes being juste above it. 
+
+\begin{figure*}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/chapitre3/roc2}
+	\caption{ROC curve for each model}
+	\label{fig:chap3:roc2}
+\end{figure*}
+
+Confusion matrix (\textbf{Figure \ref{fig:chap3:confMat2}}) shows that Naïve-Bayes has a tendancy of classifying fake news as being reliable. And the other hand, ridge classifier is the one that makes the least missclassification for reliable news, which is a good point. \\
+
+\begin{figure*}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/chapitre3/test_fake_confMat}
+	\caption{Confusion Matrix for each models}
+	\label{fig:chap3:confMat2}
+\end{figure*}
+
+Finlay, there is the results of the models trained with SMOTE data augmentation. Using it shows little to no improvements. The only benefit is to balance a little bit the recall for Naïve-Bayes on fake and reliable news. 
+
+\begin{table}
+	\begin{tabular}{lrrrrr}
+	\toprule
+	{} &          fake &      reliable &  accuracy &     macro avg &  weighted avg \\
+	\midrule
+	f1-score  &      0.891373 &      0.962340 &   0.94407 &      0.926857 &      0.944520 \\
+	precision &      0.869960 &      0.970623 &   0.94407 &      0.920291 &      0.945346 \\
+	recall    &      0.913866 &      0.954198 &   0.94407 &      0.934032 &      0.944070 \\
+	support   &  17496.000000 &  52181.000000 &   0.94407 &  69677.000000 &  69677.000000 \\
+	\bottomrule
+	\end{tabular}
+	\caption{Raw results of linear svm on \textbf{Fake News Corpus} when training using SMOTE}
+\end{table}
+
+\begin{table}
+	\begin{tabular}{lrrrrr}
+	\toprule
+	{} &          fake &      reliable &  accuracy &     macro avg &  weighted avg \\
+	\midrule
+	f1-score  &      0.714816 &      0.873538 &  0.824777 &      0.794177 &      0.833683 \\
+	precision &      0.604424 &      0.950521 &  0.824777 &      0.777472 &      0.863615 \\
+	recall    &      0.874543 &      0.808091 &  0.824777 &      0.841317 &      0.824777 \\
+	support   &  17496.000000 &  52181.000000 &  0.824777 &  69677.000000 &  69677.000000 \\
+	\bottomrule
+	\end{tabular}
+	\caption{Raw results of Naïve-Bayes on \textbf{Fake News Corpus} when training using SMOTE}
+\end{table}
+
+\begin{table}
+	\begin{tabular}{lrrrrr}
+	\toprule
+	{} &          fake &      reliable &  accuracy &     macro avg &  weighted avg \\
+	\midrule
+	f1-score  &      0.877755 &      0.956129 &  0.935431 &      0.916942 &      0.936449 \\
+	precision &      0.836588 &      0.973317 &  0.935431 &      0.904953 &      0.938984 \\
+	recall    &      0.923182 &      0.939537 &  0.935431 &      0.931360 &      0.935431 \\
+	support   &  17496.000000 &  52181.000000 &  0.935431 &  69677.000000 &  69677.000000 \\
+	\bottomrule
+	\end{tabular}
+	\caption{Raw results of Ridge Classifier on \textbf{Fake News Corpus} when training using SMOTE}
+\end{table}
+
+\begin{table}
+	\begin{tabular}{lrrrrr}
+	\toprule
+	{} &          fake &      reliable &  accuracy &     macro avg &  weighted avg \\
+	\midrule
+	f1-score  &      0.787226 &      0.921178 &  0.884969 &      0.854202 &      0.887542 \\
+	precision &      0.734992 &      0.946085 &  0.884969 &      0.840539 &      0.893079 \\
+	recall    &      0.847451 &      0.897549 &  0.884969 &      0.872500 &      0.884969 \\
+	support   &  17496.000000 &  52181.000000 &  0.884969 &  69677.000000 &  69677.000000 \\
+	\bottomrule
+	\end{tabular}
+	\caption{Raw results of Decision tree on \textbf{Fake News Corpus} when training using SMOTE}
+\end{table}
+
+\begin{figure*}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/chapitre3/roc3}
+	\caption{ROC curve for each model}
+	\label{fig:chap3:roc3}
+\end{figure*}
+
+\begin{figure*}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/chapitre3/test_SMOTE_fake_confMat}
+	\caption{Confusion Matrix for each models}
+	\label{fig:chap3:confMat3}
+\end{figure*}
+
+\section{Conclusion}
+In this chapter we have analyzed how traditional machine learning algorithms words on two differents datasets, the second being imbalanced a data augmentation technique, called SMOTE, has been used in order to see if it improves the results. \\
+
+We can conclude that in all the cases linear models are the ones that works the best, with a top accuracy of $61.7\%$ on the \textbf{liar-liar corpus} using Ridge Classifier, and a top accuracy of $94.7\%$ on the \textbf{Fake News Corpus} using linear svm. At the end, the results obtains on the second data set are realy goods, when those obtains on the first when are mitigates. \\
+
+As explained earlier, it might be important to choose to model that make the smaller missclassification rate on reliable news in order to avoid possible censorship and confusion matrix shows that in both case Ridge Classifier is the ones that makes the less errors in that case. \\
+
+In addition, we have shown that Synthectic Minority Over Sampling Techniques acts as a regularizers, as it does improve performance when the penelization term in small on linear models. \\
+
+In the next section, the focus will be put on trying to improve results on the \textbf{Liar-Liar corpus} as there is room for improvement and that the second dataset already as very good results. But models will still be trying on it for comparison. 
