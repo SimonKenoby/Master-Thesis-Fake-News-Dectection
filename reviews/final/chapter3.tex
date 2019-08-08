@@ -1,6 +1,6 @@
 \chapter{Machine Learning techniques} \label{chap3}
 \section{Introduction}
-In this chapter, we will focus on the more traditional methods used in natural language processing such as Naïve-Bayes, decision trees, linear SVM and others. These will serve as baseline for comparing the performances of the more two advanced models that will be analyse later on: LSTM and Attention Mechanism. The first thing to do when working with text is the do words and texts embedding, indeed, in order to use machine learning algorithms on texts, a mathematical representation of these texts is required. 
+In this chapter, we will focus on the more traditional methods used in natural language processing such as Na\"{i}ve-Bayes, decision trees, linear SVM and others. These will serve as baseline for comparing the performances of the more two advanced models that will be analyse later on: LSTM and Attention Mechanism. The first thing to do when working with text is the do words and texts embedding, indeed, in order to use machine learning algorithms on texts, a mathematical representation of these texts is required. 
 
 \section{Text to vectors}
 As explained before, text need to be represented in a way that gives more meaningful information than a simple sequence of bits, which have additional drawbacks such that for a given word, the sequence of bits representing it depends on the coding.
@@ -63,9 +63,9 @@ Finally, raw output can be used by looking at the confusion matrix.\\
 The first parameters to tune is the max number of features used by tf-idf. This is the maximum number of words that will be kept to create the text encoding. The words that are kept are the most frequent words. 
 
 \section{Models}
-Four models have been used in order to classify texts represented as a TF-IDF matrix. These are Multinomial Naïve-Bayes, Linear SVM, Ridge Classifier and Decision Tree. 
+Four models have been used in order to classify texts represented as a TF-IDF matrix. These are Multinomial Na\"{i}ve-Bayes, Linear SVM, Ridge Classifier and Decision Tree. 
 \subsection{Na\"{i}ve-Bayes\cite{zhang_optimality_nodate}}
-The basic idea of Naïve-Bayes model is that all features are independent of each other. This is a particulary strong hypotheses in the case of text classification because it suppose that words are not related to each others. But it know to work well given this hypotheses. 
+The basic idea of Na\"{i}ve-Bayes model is that all features are independent of each other. This is a particulary strong hypotheses in the case of text classification because it suppose that words are not related to each others. But it know to work well given this hypotheses. 
 
 Given an element of class y and vector of feature $\mathbf{X} = (x_1,...,x_n)$. The probability of the class given that vector is defined as 
 \begin{equation}
@@ -139,8 +139,8 @@ With the ridge classifier model it is also possible to tweak the pennality value
 
 Starting with the maximum number of features, the precision of each model can be analyzed when limiting the maxium number of words. The results for each model can be seen at \textbf{Figure \ref{fig:chap3:max_feature3}, \ref{fig:chap3:max_feature1}} and \textbf{\ref{fig:chap3:max_feature2}}. Shows that depending on the metrics we want to optimize it is better to choose different parameters. For instance, in order to maximize F1-score, it is better to use a maximum number of features of 1000.\\
 
-The results are slightly different if the goal is to optimize the precision because if the best value stay the same for Linear SVM and Ridge Classifier, the Naïve-Bayes works better when using the maxium number of features and it goes the same way for recall. 
-Based on \textbf{Figure \ref{fig:chap3:max_feature3}} we can say that when it comes to precision and recall, Naïve-Bayes is the one that perform the best.\\
+The results are slightly different if the goal is to optimize the precision because if the best value stay the same for Linear SVM and Ridge Classifier, the Na\"{i}ve-Bayes works better when using the maxium number of features and it goes the same way for recall. 
+Based on \textbf{Figure \ref{fig:chap3:max_feature3}} we can say that when it comes to precision and recall, Na\"{i}ve-Bayes is the one that perform the best.\\
 
 Row results for max features selection are available at \textbf{Appendix \ref{Appendix1}}.
 \begin{figure*}[]
@@ -213,7 +213,7 @@ And finaly, the optimal value for the penality parameter of the svm is also 1.\\
 	\label{fig:chap3:lsvm2}
 \end{figure*}
 
-By looking at \textbf{Figure \ref{fig:chap3:max_feature1}, \ref{fig:chap3:max_feature2}} and \textbf{\ref{fig:chap3:max_feature3}} we can find optimal parameters for the number of features used in TF-IDF. It shows that linear svm and ridge classifier are the ones that perform the best, having an average precision of sligtly more than $94\%$ for the linear svm and $94\%$ for the ridge classifier. They acheive these performances from $50,000$ features and does not decrease. On the other hand, Naïve-Bayes reches a pike at $100,000$ features and greatly decrease afterward. \\
+By looking at \textbf{Figure \ref{fig:chap3:max_feature1}, \ref{fig:chap3:max_feature2}} and \textbf{\ref{fig:chap3:max_feature3}} we can find optimal parameters for the number of features used in TF-IDF. It shows that linear svm and ridge classifier are the ones that perform the best, having an average precision of sligtly more than $94\%$ for the linear svm and $94\%$ for the ridge classifier. They acheive these performances from $50,000$ features and does not decrease. On the other hand, Na\"{i}ve-Bayes reches a pike at $100,000$ features and greatly decrease afterward. \\
 
 \begin{figure*}
 	\centering
@@ -235,7 +235,7 @@ By looking at \textbf{Figure \ref{fig:chap3:max_feature1}, \ref{fig:chap3:max_fe
 \end{figure*}
 
 
-\textbf{Figure \ref{fig:chap3:max_feature3}} shows why it is important to look at all the metrics, because Naïve-Bayes reaches a recall of 1 for the reliable class and close to 0 for the fake class, which means that almost all the text are classified as reliable. This can be verified by looking at \textbf{Figure \ref{fig:chap3:confMat1}}, only a small proportion of true fake are actualy classified as it.
+\textbf{Figure \ref{fig:chap3:max_feature3}} shows why it is important to look at all the metrics, because Na\"{i}ve-Bayes reaches a recall of 1 for the reliable class and close to 0 for the fake class, which means that almost all the text are classified as reliable. This can be verified by looking at \textbf{Figure \ref{fig:chap3:confMat1}}, only a small proportion of true fake are actualy classified as it.
 
 \begin{figure*}
 	\centering
@@ -253,7 +253,7 @@ The first thing that can be noticed at \textbf{Figure \ref{fig:chap3:ridge3}, \r
 	\label{fig:chap3:ridge3}
 \end{figure*}
 
-It also has a huge impact on how Naïve-Bayes behaves as it removes overfitting when using a larger number of features in TF-IDF, leading to a few percent of accuracy increase. \\
+It also has a huge impact on how Na\"{i}ve-Bayes behaves as it removes overfitting when using a larger number of features in TF-IDF, leading to a few percent of accuracy increase. \\
 \begin{figure*}
 	\centering
 	\includegraphics[width=0.8\textwidth]{images/chapitre3/fake-dt-SMOTE}
@@ -298,7 +298,7 @@ For the \textbf{liar-liar} dataset the following paramters will be used:
 	\item Linear SVM with regularization parameters of $0.1$ of a max TF-IDF features of 500,
 	\item Ridge Classifier with $\alpha = 10$ and also max TF-IDF features of 500,
 	\item Decision Tree with maximum depth of 1000 and the maxiumum number of features for TF-IDF,
-	\item Naïve-Bayes will also use the maxiumum number of features for TF-IDF.
+	\item Na\"{i}ve-Bayes will also use the maxiumum number of features for TF-IDF.
 \end{itemize}
 
 For the \textbf{Fake News Corpus}, the following setting will be used:
@@ -310,13 +310,13 @@ For the \textbf{Fake News Corpus}, the following setting will be used:
 
 They will all be trained using $100,000$ features for TF-IDF.
 
-For the \textbf{Fake News Corpus} with SMOTE, the same parameters will be used, but the maximum number of features for TF-ISF will be used.\\
+For the \textbf{Fake News Corpus} with SMOTE, the same parameters will be used, but the maximum number of features for TF-IDF will be used.\\
 
 All the models will be trained on train and validation set and tested on test set. 
 
 \subsection{Results}
 \subsubsection{Liar-Liar Corpus}
-By looking at the row results, based on average accuracy Naïve-Bayes, Linear SVM and ridge classifier perform very close, but when looking at the recall per class it shows that Naïve-Bayes is bad at detecting fake news and classifies most of the text as reliable, when Linear SVM and Ridge classifier are more balanced. 
+By looking at the row results, based on average accuracy Na\"{i}ve-Bayes, Linear SVM and ridge classifier perform very close, but when looking at the recall per class it shows that Na\"{i}ve-Bayes is bad at detecting fake news and classifies most of the text as reliable, when Linear SVM and Ridge classifier are more balanced. 
 
 \begin{table}
 \begin{tabular}{lrrrrr}
@@ -343,7 +343,7 @@ recall    &     0.320072 &     0.819328 &  0.601421 &     0.569700 &      0.6014
 support   &  1106.000000 &  1428.000000 &  0.601421 &  2534.000000 &   2534.000000 \\
 \bottomrule
 \end{tabular}
-\caption{Raw results for Naïve-Bayes}
+\caption{Raw results for Na\"{i}ve-Bayes}
 \end{table}
 
 \begin{table}
@@ -374,7 +374,7 @@ support   &  1106.000000 &  1428.000000 &  0.542226 &  2534.000000 &   2534.0000
 \caption{Raw results for Decision Tree}
 \end{table}
 
-Finally, it is possible to look at the ROC curve at \textbf{Figure \ref{fig:chap3:roc1}}. One more time, it shows that Naïve-Bayes, linear svm and rigde classifier have similar performance, but in this case it shows that NB has a little advantage, with a slightly larger AUC. There is only one point for the decision tree as it does not output probabilites for each classes. \\
+Finally, it is possible to look at the ROC curve at \textbf{Figure \ref{fig:chap3:roc1}}. One more time, it shows that Na\"{i}ve-Bayes, linear svm and rigde classifier have similar performance, but in this case it shows that NB has a little advantage, with a slightly larger AUC. There is only one point for the decision tree as it does not output probabilites for each classes. \\
 
 \begin{figure*}
 	\centering
@@ -390,7 +390,7 @@ Finally, it is possible to look at the ROC curve at \textbf{Figure \ref{fig:chap
 	\label{fig:chap3:confMat1}
 \end{figure*}
 
-When it comes to the \textbf{Fake news corpus}, linear model are still the ones that perform the best, with linear svm reaching an accuracy of $94.7\%$ and ridge classifer $93.98\%$. Surprisingly decision tree outperform Naïve-Bayes in this case, with an accuracy of $89.4\%$ when Naïve-Bayes only gets $85.3\%$.\\
+When it comes to the \textbf{Fake news corpus}, linear model are still the ones that perform the best, with linear svm reaching an accuracy of $94.7\%$ and ridge classifer $93.98\%$. Surprisingly decision tree outperform Na\"{i}ve-Bayes in this case, with an accuracy of $89.4\%$ when Na\"{i}ve-Bayes only gets $85.3\%$.\\
 \begin{table}
 	\begin{tabular}{lrrrrr}
 	\toprule
@@ -416,7 +416,7 @@ When it comes to the \textbf{Fake news corpus}, linear model are still the ones 
 	support   &  17496.000000 &  52181.000000 &  0.853682 &  69677.000000 &  69677.000000 \\
 	\bottomrule
 	\end{tabular}
-	\caption{Raw results for Naïve-Bayes on \textbf{Fake News Corpus}}
+	\caption{Raw results for Na\"{i}ve-Bayes on \textbf{Fake News Corpus}}
 \end{table}
 
 \begin{table}
@@ -447,7 +447,7 @@ When it comes to the \textbf{Fake news corpus}, linear model are still the ones 
 	\caption{Raw results for Decision Tree on \textbf{Fake News Corpus}}
 \end{table}
 
-In this case, the ROC curve (\textbf{Figure \ref{fig:chap3:roc2}}) shows almost the same ranking of models, except for Decision Tree that is the last one, and Naïve-Bayes being juste above it. 
+In this case, the ROC curve (\textbf{Figure \ref{fig:chap3:roc2}}) shows almost the same ranking of models, except for Decision Tree that is the last one, and Na\"{i}ve-Bayes being juste above it. 
 
 \begin{figure*}
 	\centering
@@ -456,7 +456,7 @@ In this case, the ROC curve (\textbf{Figure \ref{fig:chap3:roc2}}) shows almost 
 	\label{fig:chap3:roc2}
 \end{figure*}
 
-Confusion matrix (\textbf{Figure \ref{fig:chap3:confMat2}}) shows that Naïve-Bayes has a tendancy of classifying fake news as being reliable. And the other hand, ridge classifier is the one that makes the least missclassification for reliable news, which is a good point. \\
+Confusion matrix (\textbf{Figure \ref{fig:chap3:confMat2}}) shows that Na\"{i}ve-Bayes has a tendancy of classifying fake news as being reliable. And the other hand, ridge classifier is the one that makes the least missclassification for reliable news, which is a good point. \\
 
 \begin{figure*}
 	\centering
@@ -465,7 +465,7 @@ Confusion matrix (\textbf{Figure \ref{fig:chap3:confMat2}}) shows that Naïve-Ba
 	\label{fig:chap3:confMat2}
 \end{figure*}
 
-Finlay, there is the results of the models trained with SMOTE data augmentation. Using it shows little to no improvements. The only benefit is to balance a little bit the recall for Naïve-Bayes on fake and reliable news. 
+Finlay, there is the results of the models trained with SMOTE data augmentation. Using it shows little to no improvements. The only benefit is to balance a little bit the recall for Na\"{i}ve-Bayes on fake and reliable news. 
 
 \begin{table}
 	\begin{tabular}{lrrrrr}
@@ -492,7 +492,7 @@ Finlay, there is the results of the models trained with SMOTE data augmentation.
 	support   &  17496.000000 &  52181.000000 &  0.824777 &  69677.000000 &  69677.000000 \\
 	\bottomrule
 	\end{tabular}
-	\caption{Raw results of Naïve-Bayes on \textbf{Fake News Corpus} when training using SMOTE}
+	\caption{Raw results of Na\"{i}ve-Bayes on \textbf{Fake News Corpus} when training using SMOTE}
 \end{table}
 
 \begin{table}
