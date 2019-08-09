@@ -117,7 +117,110 @@ For the classification, it uses a softmax classifier as $\hat{p}(y|S) = softmax(
 \subsection{Methodology}
 In order to train the models and perform hyper parameters optimization grid search have been used when it was possibile (on the liar-liar dataset) and knwoleadge aquiered there have been used in order to tune parameters for the networks on the \textbf{Fake News Corpus}. In addition, in order to find the bests parameters among all tested with gird search, for each metrics, the training epochs having the highest validation value for that metrics have been choosen. \\
 
+All the models have been trained using adam optimizer and initialized using a normal distribution for the weightes. \\
+
 As SMOTE cannot be used on the \textbf{Fake News Corpus} dues to the size of the corpus, in order to rebalance the dataset the minority class have been over sampled by feeding multiple times the same input by looping through them. 
 \subsection{Liar-Liar dataset results}
 As explained earlier, both models have been train using different embedding: the first one being pre-trained word2vec vectors of size 300 and the second one beging a tunable parameters with different embedding size.
-\subsubsection{Using word2vec embedding}
+\subsubsection{LSTM}
+When it comes to LSTM trained on liar-liar dataset, it simply does not works. It classify almost all the texts as being from the same class. Althougth, it reaches a good score on the training data, it does not manage to generalize correctly. \textbf{Figure \ref{fig:chap4:lstm2}} shows the recall, precision and f1-score and loss for training and testing set of the best models for the LSTM using word2vec. We can see that even if the training score increase, the testing values ocillates. \\
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{images/chapitre4/lstm2}
+	\caption{Best LSTM with word2vec}
+	\label{fig:chap4:lstm2}
+\end{figure}
+
+When training the models with word embedding as tunable parameters, the results slightly improves, with an average precision between $55\%$ and $60\%$. This can be seen at \textbf{Figure \ref{fig:chap4:lstm1}}. \\
+
+The training was stopped after 200 iterations because the validation score was not improving anymore. 
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{images/chapitre4/lstm1}
+	\caption{Best LSTM with word2vec}
+	\label{fig:chap4:lstm1}
+\end{figure}
+
+
+\subsection{Attention Mechanism}
+We could think that adding an extra layer to such a bad model would not make any improvement and be useless, but adding an attention layer does improve a little the results. When using word2vec embedding, the best epoch reach up to $62.9595\%$ of average accuracy, which is better than the simple LSTM. Because there are a lot a models with different parameters, it is interesting to look at the distribution of the results for the best epochs by fixing parameters one by one. \textbf{Figure \ref{fig:chap4:att1:confInt}} shows the $95\%$ confidence interval for precision for a fixed parameter. \\
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{images/chapitre4/confInt_precision_liar_attention_word2vec}
+	\caption{Confidence interval of precision for each paramter value}
+	\label{fig:chap4:att1:confInt}
+\end{figure}
+
+It shows that it is better to use less hidden units in the model, and only a single layer. The sequence length have a very small impact on the precision. Acctualy, the best model uses a sequence length of 20. \\\
+
+The precision of the different models range from $53\%$ to $63\%$ (\textbf{Figure \ref{fig:chap4:att1:distPrecision}}.)
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{images/chapitre4/distplot_precision_liar_attention_word2vec}
+	\caption{Distribution of the precision of best epochs for all the models, trained with word2vec embedding.}
+	\label{fig:chap4:att1:distPrecision}
+\end{figure}
+
+The training plot of the model that reach the maximum precision can be seen at \textbf{figure \ref{fig:chap4:att1:train}}. It shows that after the 25th iteration, the validation values start to decrease, which is a sign of overfitting. \\
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{images/chapitre4/attention1}
+	\caption{Training and validation of the model with top precision, trained with word2vec embedding.}
+	\label{fig:chap4:att1:train}
+\end{figure}
+
+Finaly, there is the models where the embedding is a tunable parameter. The \textbf{Figure \ref{fig:chap4:att3:confInt2}} shows that in this case, the longer the sequence the better, and that as before using few hidden units perform better. In this case, variation have a wider range than when using word2vec. 
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{images/chapitre4/confInt_precision_liar_attention_200}
+	\caption{Training and validation of the model with top precision}
+	\label{fig:chap4:att3:confInt2}
+\end{figure}
+
+There are a few models that have top precision higher than $75\%$, but looking at the training plot (\textbf{Appendix \ref{Appendix2}, Figure \ref{appendix2:training_plot1}}) shows that the model does not perform well. Because in particular case precision in not a good indicator on how well a model perform, f1-score will be used instead, as it a balance between precision and recall. \\
+
+And the best f1-score obtained is $0.55384$, which is quite smaller than the $0.63$ for the model using word2vec. The training plot is at \textbf{Figure \ref{fig:chap4:att3:f1}}. We can see that there is still room for improvement, the next step is to see what happens when training on more epochs. \\
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{images/chapitre4/attention-f1}
+	\caption{Training and validation of the model with top f1-score}
+	\label{fig:chap4:att3:f1}
+\end{figure}
+
+Training on 1000 epochs rather than 200 does not improves validation score, but it does for training (\textbf{Figure \ref{fig:chap4:att3:f1.1}}). \\
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{images/chapitre4/attention3}
+	\caption{Training on 1000 epochs rather than 200}
+	\label{fig:chap4:att3:f1.1}
+\end{figure}
+
+\subsection{Result Analysis}
+The previous section shows a few things
+\begin{itemize}
+	\item LSTMs do not work well,
+	\item Adding attention layer improve LSTM results,
+	\item Using word2vec rather than training the embedding gives better results.
+\end{itemize}
+
+It also shows that despite reaching a very good precision, recall and f1-score on the training set it does not perform well on the validation set. This is a sign of overfitting. In order to avoid this multiple methods have been applied without showing any improvement. \\
+
+The following methods have been applied: 
+\begin{itemize}
+	\item Dropout\cite{srivastava2014dropout}, 
+	\item batch-normlaziation\cite{Ioffe2015},
+	\item reducing network capacity (less hidden layer, lower embedding dimension, less training paramater with word2vec),
+	\item Early stopping of training.
+\end{itemize}
+
+The highest gain was from using word2vec embedding. This significantly reduce the number of training parameters, secondly dropout also helped a little. 
+
+\subsection{Testing}
