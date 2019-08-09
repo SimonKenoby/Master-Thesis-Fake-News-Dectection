@@ -57,6 +57,8 @@ $j_c^*$ is the index of the cth output context word and $u_{j^*_c}$ is the score
 \section{LSTM}
 LSTM or Long Short Term Memory\cite{Hochreiter1997LongSM} is a kind of reccurent neural network that fits well to temporal or sequential input such as texts. A RNN is a type of neural network where the hidden state is fed in a loop with the sequential inputs. There are usualy shown as unrolled version of it (\textbf{Figure \ref{fig:chap4:RNN_unroll}}). Each of the $X_i$ being one value in the sequence.\\
 
+In this case, $X_i$ values are word vectors. There are two possibilities, either use pre-trained vector with word2vec or make $X_i$ inputs a paramter to learn in the same way as it works for the Word2Vec algorithm, having a one-hot enconding of the word and a matrix of weights to tune. Each methods will be used. \\
+
 Recurrent Neural Networks does not works very well with long-term dependencies, that is why LSTM have been introduced. It is made of an input gate, an output gate and a forget gate that are combined in \textbf{Equation \ref{eq:LSTM}}.
 
 \begin{figure}
@@ -83,8 +85,34 @@ Recurrent Neural Networks does not works very well with long-term dependencies, 
 	\label{fig:chap4:LSTM-gates}
 \end{figure} 
 
+A bidirectional LSTM works the same way, but the input is fed in the two direction, from the start to the end and from the end to the start.
 \section{Attention Mechanism}
+Attention mechanism\cite{zhou-etal-2016-attention,Vaswani2017AttentionIA} add an extra layer between LSTM outputs and the final output of the network. It merges word level features into sentence features using a weight vector. \\
 
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{images/chapitre4/attention.png}
+	\caption{Bidirectional LSTM model with Attention}
+	\label{fig:chap4:attention}
+\end{figure}
+
+Outputs sequence of the LSTM are summed element-wise in order to merge them. We have that $h_i = [\overrightarrow{h_i} + \overleftarrow{h_i}]$, $\overrightarrow{h_i}$ and $\overleftarrow{h_i}$ begin the outputs i of sequence in each direction as show at \textbf{Figure \ref{fig:chap4:attention}}.\\
+
+Let $H$ be a matrix of the concatenation of all the $h_i$, 
+\begin{equation}
+	H = [h_1,h_2,...,h_T]
+\end{equation}
+Where T is the sequence length. 
+
+Then we define 
+\begin{align}
+	M &= \tanh(H)\\
+	\alpha &= softmax(w^TM) \\
+	r &= H \alpha^T 
+\end{align}
+Finaly, we compute $h^* = \tanh(r)$.
+
+For the classification, it uses a softmax classifier as $\hat{p}(y|S) = softmax(W^Sh^* + b)$. Originaly the loss function is the negative log-likelihood, but as in this case it is a binary classification I used binary cross entropy. 
 \section{Results}
 \subsection{Methodology}
 In order to train the models and perform hyper parameters optimization grid search have been used when it was possibile (on the liar-liar dataset) and knwoleadge aquiered there have been used in order to tune parameters for the networks on the \textbf{Fake News Corpus}. In addition, in order to find the bests parameters among all tested with gird search, for each metrics, the training epochs having the highest validation value for that metrics have been choosen. \\
