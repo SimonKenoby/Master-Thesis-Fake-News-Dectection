@@ -139,7 +139,7 @@ The training was stopped after 200 iterations because the validation score was n
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/chapitre4/lstm1}
-	\caption{Best LSTM with word2vec}
+	\caption{Best LSTM with word embedding as tunable parameters.}
 	\label{fig:chap4:lstm1}
 \end{figure}
 
@@ -212,7 +212,7 @@ The previous section shows a few things
 \end{itemize}
 
 It also shows that despite reaching a very good precision, recall and f1-score on the training set it does not perform well on the validation set. This is a sign of overfitting. In order to avoid this multiple methods have been applied without showing any improvement. \\
-
+{}
 The following methods have been applied: 
 \begin{itemize}
 	\item Dropout\cite{srivastava2014dropout}, 
@@ -224,3 +224,83 @@ The following methods have been applied:
 The highest gain was from using word2vec embedding. This significantly reduce the number of training parameters, secondly dropout also helped a little. 
 
 \subsection{Testing}
+
+The same way as in \textbf{Chapter \ref{chap3}}, the models will be trained on the parameters that produced the best results on the training set, and trained on training and validation set, and tested on testing set. \\
+
+The parameters used for training are given at \textbf{Table \ref{table:chap4:param}}.
+
+\begin{table}[h]
+	\begin{tabular}{|c|ccccc|}
+	\hline
+	model & embedding size & Sequence Length & num hiddens & droupout & Early Stop\\
+	\hline
+	LSTM & 300 & 10 & 50 & 0.75 & 126\\
+	LSTM + word2vec & 300 & 10 & 50 & 0.0 & 160\\
+	Attention & 10 & 20 & 10 & 0.75 & 400\\
+	Attention + word2vec & 300 & 20 & 5 & 0.75 & 25\\
+	\hline
+	\end{tabular}
+	\caption{Parameters used for training}
+	\label{table:chap4:param}
+\end{table}
+The results for all four models are given at \textbf{Table \ref{table:chap4:results}}. It shows that the model that works the best is attention network using word2vec embedding, with an accuracy of $61\%$, which is equivalent to ridge classifier and linear svm. The three other models does not perform well, all having a average precision around $55\%$, which is close to being a random classifier. 
+\begin{table}
+\centering
+\begin{subtable}{\textwidth}
+\begin{tabular}{lrrrrr}
+\toprule
+{} &         fake &     reliable &  accuracy &    macro avg &  weighted avg \\
+\midrule
+f1-score  &     0.440574 &     0.649551 &  0.569061 &     0.545062 &      0.558340 \\
+precision &     0.508274 &     0.599526 &  0.569061 &     0.553900 &      0.559698 \\
+recall    &     0.388788 &     0.708683 &  0.569061 &     0.548736 &      0.569061 \\
+support   &  1106.000000 &  1428.000000 &  0.569061 &  2534.000000 &   2534.000000 \\
+\bottomrule
+\end{tabular}
+\caption{Simple LSTM}
+\end{subtable}
+
+\begin{subtable}{\textwidth}
+	\begin{tabular}{lrrrrr}
+	\toprule
+	{} &         fake &     reliable &  accuracy &    macro avg &  weighted avg \\
+	\midrule
+	f1-score  &     0.481724 &     0.623040 &  0.563536 &     0.552382 &      0.561361 \\
+	precision &     0.500000 &     0.606906 &  0.563536 &     0.553453 &      0.560245 \\
+	recall    &     0.464738 &     0.640056 &  0.563536 &     0.552397 &      0.563536 \\
+	support   &  1106.000000 &  1428.000000 &  0.563536 &  2534.000000 &   2534.000000 \\
+	\bottomrule
+	\end{tabular}
+	\caption{LSTM + word2vec}
+\end{subtable}
+
+\begin{subtable}{\textwidth}
+\begin{tabular}{lrrrrr}
+\toprule
+{} &         fake &     reliable &  accuracy &    macro avg &  weighted avg \\
+\midrule
+f1-score  &     0.486636 &     0.615597 &  0.560379 &     0.551116 &      0.559310 \\
+precision &     0.496241 &     0.606803 &  0.560379 &     0.551522 &      0.558546 \\
+recall    &     0.477396 &     0.624650 &  0.560379 &     0.551023 &      0.560379 \\
+support   &  1106.000000 &  1428.000000 &  0.560379 &  2534.000000 &   2534.000000 \\
+\bottomrule
+\end{tabular}
+\caption{Attention network}
+\end{subtable}
+
+\begin{subtable}{\textwidth}
+\begin{tabular}{lrrrrr}
+\toprule
+{} &         fake &     reliable &  accuracy &    macro avg &  weighted avg \\
+\midrule
+f1-score  &     0.511397 &     0.676721 &  0.610892 &     0.594059 &      0.604563 \\
+precision &     0.565789 &     0.636252 &  0.610892 &     0.601021 &      0.605497 \\
+recall    &     0.466546 &     0.722689 &  0.610892 &     0.594618 &      0.610892 \\
+support   &  1106.000000 &  1428.000000 &  0.610892 &  2534.000000 &   2534.000000 \\
+\bottomrule
+\end{tabular}
+\caption{Attention Network + word2vec}
+\end{subtable}
+\caption{Results for the differents models trained with parameters given at \textbf{Table \ref{table:chap4:param}}.}
+\label{table:chap4:results}
+\end{table}
