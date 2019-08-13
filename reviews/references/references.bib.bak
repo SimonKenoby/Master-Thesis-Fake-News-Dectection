@@ -431,6 +431,16 @@ almost all of the data sets.},
   keywords     = {cs.LG, cs.HC, cs.SI},
 }
 
+@Book{Rokach:2014:DMD:2755359,
+  title     = {Data Mining With Decision Trees: Theory and Applications},
+  publisher = {World Scientific Publishing Co., Inc.},
+  year      = {2014},
+  author    = {Rokach, Lior and Maimon, Oded},
+  address   = {River Edge, NJ, USA},
+  edition   = {2nd},
+  isbn      = {9789814590075, 981459007X},
+}
+
 @Misc{WWF2019,
   author = {WWF},
   title  = {WWF 10YearsChallenge},
