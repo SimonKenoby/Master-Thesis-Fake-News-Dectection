@@ -1,0 +1,8 @@
+\chapter{Conclusion}
+\section{Result analysis}
+Some hypotheses can be made on why same models works very well on one dataset and does not work well on the other one. The first thing we can think of is that the original hypothesis on different style of writting between fake and reliable news is only verified in one dataset, the \textbf{Fake News Corpus}, and it is the most logical one, as these texts are comming from online newspapers (or pretending to be), and thus capitalize on advertisment for making money. The second dataset, \textbf{Liar-Liar Corpus} is described by its authors as a collection a short sentences comming from various context such as political debate, interviews, TV ads and so on, thus it induce a lot of variety in writing style. For instance, it contains transcription of vocal messages, which have in essence a different style from written one. \\
+
+The data exploration chapter had already given an insight about this fact, as 2D data projection of the \textbf{Liar-Liar Corpus} shows no clear sign of separation, when \textbf{Fake News Corpus} shows one at first look. 
+
+\section{Futur works}
+Basing fake news detection only on supervised model on text have shown not to be enought in all the cases. In order to solve this problem, most of the research focus on additional information such as author information. I think the most succesfull approach would be automatic fact checking model, that is, compling the model with some kind of knoleadge base, the purpose of the model would then be to extract information for the text and verify the information in the database. The problem with this approach would be that the knoledge base would need to be constantly and manualy update to stay up to date.

@@ -28,16 +28,14 @@ Finnaly, the value tfidf value is computed by \begin{equation}
 This the text embedding methods that will be used in this section. 
 
 \section{Methodology}
-\paragraph{} All the methods presented will be tested in tree differents ways: 
+\paragraph{} All the methods presented will be tested in two differents ways: 
 \begin{itemize}
 	\item On the liar-liar dataset
 	\item On the fake corpus dataset, excluding the news from \textit{beforeitsnews.com} and \textit{nytimes.com}
-	\item On the fake corpus dataset, including the two pervious domains. 
 \end{itemize}
 
-To be more precise, in the first case, the models will be trained on a training set, tunned using validation set and finally tested using test set. In the second case, the same methodology will be used, the dataset have been split be choosing $60\%$ of the text from each domain for training, and $20\%$ for validation and testing. This way have splitting have been choosen because of the uneven representation of each domain in the dataset in order to ensure representation of all the domains in the tree subsets. 
+To be more precise, in the first case, the models will be trained on a training set, tunned using validation set and finally tested using test set. In the second case, the same methodology will be used, the dataset have been split be choosing $60\%$ of the text from each domain for training, and $20\%$ for validation and testing. This way have splitting have been chosen because of the uneven representation of each domain in the dataset in order to ensure representation of all the domains in the tree subsets. 
 
-In the last case, the model is trained on all the news but the two domain previously cited and tested on this two domains.  
 \subsection{Evaluation metrics}
 In order to evaluate each models, multiple evaluation metrics have been used. There are recall, precision and f1-score. It is needed to use multiple metrics because they don't all account for the same values. For instance, it is possible to have a model with a recall of 1 that behave extremely bad because it simply classify all the inputs in the same single class. 
 
@@ -327,6 +325,7 @@ All the models will be trained on train and validation set and tested on test se
 By looking at the row results, based on average accuracy Na\"{i}ve-Bayes, Linear SVM and ridge classifier perform very close, but when looking at the recall per class it shows that Na\"{i}ve-Bayes is bad at detecting fake news and classifies most of the text as reliable, when Linear SVM and Ridge classifier are more balanced. 
 
 \begin{table}
+\begin{subtable}{\textwidth}
 \begin{tabular}{lrrrrr}
 \toprule
 {} &         fake &     reliable &  accuracy &    macro avg &  weighted avg \\
@@ -338,9 +337,9 @@ support   &  1106.000000 &  1428.000000 &  0.614049 &  2534.000000 &   2534.0000
 \bottomrule
 \end{tabular}
 \caption{Raw results for Linear SVM}
-\end{table}
+\end{subtable}
 
-\begin{table}
+\begin{subtable}{\textwidth}
 \begin{tabular}{lrrrrr}
 \toprule
 {} &         fake &     reliable &  accuracy &    macro avg &  weighted avg \\
@@ -352,9 +351,9 @@ support   &  1106.000000 &  1428.000000 &  0.601421 &  2534.000000 &   2534.0000
 \bottomrule
 \end{tabular}
 \caption{Raw results for Na\"{i}ve-Bayes}
-\end{table}
+\end{subtable}
 
-\begin{table}
+\begin{subtable}{\textwidth}
 \begin{tabular}{lrrrrr}
 \toprule
 {} &         fake &     reliable &  accuracy &    macro avg &  weighted avg \\
@@ -366,9 +365,9 @@ support   &  1106.000000 &  1428.000000 &  0.617206 &  2534.000000 &   2534.0000
 \bottomrule
 \end{tabular}
 \caption{Raw results for Ridge Classifer.}
-\end{table}
+\end{subtable}
 
-\begin{table}
+\begin{subtable}{\textwidth}
 \begin{tabular}{lrrrrr}
 \toprule
 {} &         fake &     reliable &  accuracy &    macro avg &  weighted avg \\
@@ -380,6 +379,8 @@ support   &  1106.000000 &  1428.000000 &  0.542226 &  2534.000000 &   2534.0000
 \bottomrule
 \end{tabular}
 \caption{Raw results for Decision Tree}
+\end{subtable}
+\caption{Raw results on \textbf{Liar-Liar Corpus}.}
 \end{table}
 
 Finally, it is possible to look at the ROC curve at \textbf{Figure \ref{fig:chap3:roc1}}. One more time, it shows that Na\"{i}ve-Bayes, linear svm and rigde classifier have similar performance, but in this case it shows that NB has a little advantage, with a slightly larger AUC. There is only one point for the decision tree as it does not output probabilites for each classes. \\
@@ -400,6 +401,7 @@ Finally, it is possible to look at the ROC curve at \textbf{Figure \ref{fig:chap
 
 When it comes to the \textbf{Fake news corpus}, linear model are still the ones that perform the best, with linear svm reaching an accuracy of $94.7\%$ and ridge classifer $93.98\%$. Surprisingly decision tree outperform Na\"{i}ve-Bayes in this case, with an accuracy of $89.4\%$ when Na\"{i}ve-Bayes only gets $85.3\%$.\\
 \begin{table}
+\begin{subtable}{\textwidth}
 	\begin{tabular}{lrrrrr}
 	\toprule
 	{} &          fake &      reliable &  accuracy &     macro avg &  weighted avg \\
@@ -411,9 +413,9 @@ When it comes to the \textbf{Fake news corpus}, linear model are still the ones 
 	\bottomrule
 	\end{tabular}
 	\caption{Raw results for Linear SVM on \textbf{Fake News Corpus}}
-\end{table}
+\end{subtable}
 
-\begin{table}
+\begin{subtable}{\textwidth}
 	\begin{tabular}{lrrrrr}
 	\toprule
 	{} &          fake &      reliable &  accuracy &     macro avg &  weighted avg \\
@@ -425,9 +427,9 @@ When it comes to the \textbf{Fake news corpus}, linear model are still the ones 
 	\bottomrule
 	\end{tabular}
 	\caption{Raw results for Na\"{i}ve-Bayes on \textbf{Fake News Corpus}}
-\end{table}
+\end{subtable}
 
-\begin{table}
+\begin{subtable}{\textwidth}
 	\begin{tabular}{lrrrrr}
 	\toprule
 	{} &          fake &      reliable &  accuracy &     macro avg &  weighted avg \\
@@ -439,9 +441,9 @@ When it comes to the \textbf{Fake news corpus}, linear model are still the ones 
 	\bottomrule
 	\end{tabular}
 	\caption{Raw results for Ridge Classifier on \textbf{Fake News Corpus}}
-\end{table}
+\end{subtable}
 
-\begin{table}
+\begin{subtable}{\textwidth}
 	\begin{tabular}{lrrrrr}
 	\toprule
 	{} &          fake &      reliable &  accuracy &     macro avg &  weighted avg \\
@@ -453,6 +455,8 @@ When it comes to the \textbf{Fake news corpus}, linear model are still the ones 
 	\bottomrule
 	\end{tabular}
 	\caption{Raw results for Decision Tree on \textbf{Fake News Corpus}}
+\end{subtable}
+\caption{Results on \textbf{Fake News Corpus} without using SMOTE.}
 \end{table}
 
 In this case, the ROC curve (\textbf{Figure \ref{fig:chap3:roc2}}) shows almost the same ranking of models, except for Decision Tree that is the last one, and Na\"{i}ve-Bayes being juste above it. 
@@ -476,6 +480,7 @@ Confusion matrix (\textbf{Figure \ref{fig:chap3:confMat2}}) shows that Na\"{i}ve
 Finlay, there is the results of the models trained with SMOTE data augmentation. Using it shows little to no improvements. The only benefit is to balance a little bit the recall for Na\"{i}ve-Bayes on fake and reliable news. 
 
 \begin{table}
+\begin{subtable}{\textwidth}
 	\begin{tabular}{lrrrrr}
 	\toprule
 	{} &          fake &      reliable &  accuracy &     macro avg &  weighted avg \\
@@ -487,9 +492,9 @@ Finlay, there is the results of the models trained with SMOTE data augmentation.
 	\bottomrule
 	\end{tabular}
 	\caption{Raw results of linear svm on \textbf{Fake News Corpus} when training using SMOTE}
-\end{table}
+\end{subtable}
 
-\begin{table}
+\begin{subtable}{\textwidth}
 	\begin{tabular}{lrrrrr}
 	\toprule
 	{} &          fake &      reliable &  accuracy &     macro avg &  weighted avg \\
@@ -501,9 +506,9 @@ Finlay, there is the results of the models trained with SMOTE data augmentation.
 	\bottomrule
 	\end{tabular}
 	\caption{Raw results of Na\"{i}ve-Bayes on \textbf{Fake News Corpus} when training using SMOTE}
-\end{table}
+\end{subtable}
 
-\begin{table}
+\begin{subtable}{\textwidth}
 	\begin{tabular}{lrrrrr}
 	\toprule
 	{} &          fake &      reliable &  accuracy &     macro avg &  weighted avg \\
@@ -515,9 +520,9 @@ Finlay, there is the results of the models trained with SMOTE data augmentation.
 	\bottomrule
 	\end{tabular}
 	\caption{Raw results of Ridge Classifier on \textbf{Fake News Corpus} when training using SMOTE}
-\end{table}
+\end{subtable}
 
-\begin{table}
+\begin{subtable}{\textwidth}
 	\begin{tabular}{lrrrrr}
 	\toprule
 	{} &          fake &      reliable &  accuracy &     macro avg &  weighted avg \\
@@ -529,6 +534,8 @@ Finlay, there is the results of the models trained with SMOTE data augmentation.
 	\bottomrule
 	\end{tabular}
 	\caption{Raw results of Decision tree on \textbf{Fake News Corpus} when training using SMOTE}
+\end{subtable}
+\caption{Results on \textbf{Fake News Corpus} when training with SMOTE.}
 \end{table}
 
 \begin{figure*}

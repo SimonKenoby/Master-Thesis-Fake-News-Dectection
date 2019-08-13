@@ -304,3 +304,70 @@ support   &  1106.000000 &  1428.000000 &  0.610892 &  2534.000000 &   2534.0000
 \caption{Results for the differents models trained with parameters given at \textbf{Table \ref{table:chap4:param}}.}
 \label{table:chap4:results}
 \end{table}
+
+\section{Attention Mechanism on fake news corpus}
+\subsection{Model Selection}
+The two models using word2vec embedding have shown to work better than their contrepart, this why only these two methods will be tested on \textbf{Fake News Corpus} for comparison as very good results have already been obtained. \\
+
+It shows out that in this case LSTMs works better than Attention Mechanism, but as in previous section does not reach machine learning results. \\
+
+The best LSTM obtained uses sequence of 200 words and 200 hidden layers, with an average precision of $0.929376$ on the validation set. The training plots of this particular model are shown at \textbf{Figure \ref{chap4:fig:lstm5.1}}.\\
+\begin{figure*}
+	\centering
+	\includegraphics[width=\textwidth]{images/chapitre4/lstm5}
+	\caption{Training plots of the best LSTM using word2vec embedding.}
+	\label{chap4:fig:lstm5.1}
+\end{figure*} 
+
+
+
+In the case of attention mechanism, training on the \textbf{Fake News Corpus} have shown to be harder than on the \textbf{Liar-Liar Corpus} as using too large learning rate would led to oscillating loss and too small learning rate led to halting the loss decrease. This can be seen at \textbf{Appendix \ref{appendix2:training_plot2}}. \\
+
+The same parameters as for the LSTM will be used for training the Attention Network. Its training plot is available at \textbf{Figure \ref{chap4:fig:attention5}}.
+
+\begin{figure*}
+	\centering
+	\includegraphics[width=\textwidth]{images/chapitre4/attention5}
+	\caption{Training plots of the best attention network using word2vec embedding.}
+	\label{chap4:fig:attention5}
+\end{figure*} 
+
+The final results are given at \textbf{Table \ref{table:chap4:results2}}. It shows that for the same parameters LSTM works better than Attention Network on this particular dataset. It shows that LSTM place bellow Linear SVM and Ridge Classifier and above Decision Tree and Na\"{i}ve-Bayes in term of accuracy. 
+
+\begin{table}
+	\begin{subtable}{\textwidth}
+		\begin{tabular}{lrrrrr}
+		\toprule
+		{} &          fake &      reliable &  accuracy &     macro avg &  weighted avg \\
+		\midrule
+		f1-score  &      0.856568 &      0.947577 &  0.923217 &      0.902073 &      0.924724 \\
+		precision &      0.806655 &      0.969503 &  0.923217 &      0.888079 &      0.928611 \\
+		recall    &      0.913066 &      0.926621 &  0.923217 &      0.919843 &      0.923217 \\
+		support   &  17496.000000 &  52181.000000 &  0.923217 &  69677.000000 &  69677.000000 \\
+		\bottomrule
+		\end{tabular}
+		\caption{LSTM + word2vec results on \textbf{Fake News Corpus}}
+	\end{subtable}
+	\begin{subtable}{\textwidth}
+		\begin{tabular}{lrrrrr}
+		\toprule
+		{} &      reliable &          fake &  accuracy &     macro avg &  weighted avg \\
+		\midrule
+		f1-score  &      0.850296 &      0.687493 &  0.797566 &      0.768894 &      0.809416 \\
+		precision &      0.952876 &      0.561344 &  0.797566 &      0.757110 &      0.854562 \\
+		recall    &      0.767655 &      0.886774 &  0.797566 &      0.827215 &      0.797566 \\
+		support   &  52181.000000 &  17496.000000 &  0.797566 &  69677.000000 &  69677.000000 \\
+		\bottomrule
+		\end{tabular}
+		\caption{Attention Network + word2vec on \textbf{Fake News Corpus}}
+	\end{subtable}
+	\caption{Final result on testing set for LSTM and attention network using word2vec.}
+	\label{table:chap4:results2}
+\end{table}
+It is likely to be possible to reach results as good as LSTM or even better for the Attention Network, but due to technical and time contraints I was not able to experiment further. For instance, using longer sequence length and more hidden units with a smaller learning rate might have overcome this problems. 
+\section{Conclusion}
+In this chapter I have investigated how state of the art deep learning models works on fake news detection, and it shows that for the particular case of fake news detection it does not outperform traditional machine learning methods. I have also made some addition to the original model that improve the performances by a few percent by replacing the tunable word embedding by constant one using word2vec. It shows out that it help reducing overfitting and increase result on the testing set. \\
+
+An hypotheses to explain why these two deep learning methods does not works as well as machine learning methods is the fact that in this case text are requierd to be the same size. Which means that some of them requiere some padding and the other are srunk. In the second case, information is lost. \\
+
+In addition, it shows that \textbf{Liar-Liar Corpus} is hard to work on, with $60\%$ precision, when \textbf{Fake News Corpus} still have good results. 

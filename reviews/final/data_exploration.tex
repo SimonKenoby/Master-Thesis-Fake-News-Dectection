@@ -2,12 +2,11 @@
 
 \chapter{Data Exploration} \label{chap2}
 \section{Introduction}
-\paragraph{}
-A good starting point for the analysis is to make some data exploration of the data set. The first thing to be done is statistical analysis such as counting the number of text per class or counting the number of words per sentence. The second step consit of doing Latent Dirichlet Allocation\cite{blei2003latent} in order to make unsupervised clustering of the text and see if there is some kind of correlation between the clusters to which a text belongs and its labels. 
 
+A good starting point for the analysis is to make some data exploration of the data set. The first thing to be done is statistical analysis such as counting the number of text per class or counting the number of words per sentence. Then it is possible to try to get an insight of the data distribution by making dimensionality reduction and plotting data in 2D. 
 \section{Datasets} \label{intro:dataset}
 \subsection{Fake News Corpus}
-\paragraph{}
+
 This works uses multiples corpus in order to train and test different models. The main corpus used for training is called Fake News Corpus\cite{Szpakowski}. This corpus have been automatically crawled using \url{opensources.co} labels. In other words, domains have been labeled with one or more labels in \begin{itemize}
   \item Fake News
   \item Satire
@@ -20,12 +19,12 @@ This works uses multiples corpus in order to train and test different models. Th
   \item Political
   \item Credible
 \end{itemize}
-\paragraph{}
+
 These annotations have been provided by crowdsourcing, which means that they might not be exactly accurate, but are expected to be close to the reality. Because this works focus on fake news detection against reliable news, only the news labels as fake and credible have been used. 
 
 \subsection{Liar, Liar Pants on Fire}
-\paragraph{}
-The third and last dataset is \textbf{Liar, Liar Pants on Fire} dataset\cite{Wang2017}, which is a collection of twelve thousand small sentences collected from various sources and hand labeled. They are devided in six classes:
+
+The second dataset is \textbf{Liar, Liar Pants on Fire} dataset\cite{Wang2017}, which is a collection of twelve thousand small sentences collected from various sources and hand labeled. They are devided in six classes:
 \begin{itemize}
   \item pants-fire
   \item false
@@ -34,17 +33,17 @@ The third and last dataset is \textbf{Liar, Liar Pants on Fire} dataset\cite{Wan
   \item mostly-true
   \item true
 \end{itemize} 
-\paragraph{}
-This set will be used a second test set. Because in this case there are six classes againt two in the other cases, a threshold should be used in order to fix which one will be concidered as true or false in order to be compared with the other dataset.  
-\paragraph{}
+
+This set will be used a second test set. Because in this case there are six classes againt two in the other cases, a threshold should be used in order to fix which one will be concidered as true or false in order to be compared with the other dataset.  \\
+
 It should be noted that this one differ from the two other dataset is it is composed only on short sentences, and thus it should not be expected to have very good results on this dataset for models trained on Fake News Corpus which is made of full texts. In addition, the texts from the latest dataset are more politicaly oriented then the ones from the first one. 
 
 \section{Dataset statistics}
 \subsection{Fake News Corpus}
 \subsubsection{General Analysis}
-\paragraph{} Because \textbf{Fake News Corpus} is the main dataset, the data exploration will start with this dataset. And the first thing is to count the number of items per class. Before starting the analysis, it is needed to cleanup the dataset. As it is originaly given in a large 30GB CSV file, the first step is to put everything in a database in order to be able to retreive only wanted peice of information. In order to do so, the file have been red line by line. It appears that some of the lines are baddly formated, preventing them to be red correctly, in this case they are dropped without being put in the database. Also, each line that is a duplicate of a line already red is also dropped. The second step in cleaning the set consist of some more duplicate removal. Indeed, dropping same lines remove only exact duplicate. It appears that some news does have the same content, with slight variation in the title, or a different author. In order to remove the duplicate, each text is hashed using SHA256 and those hash a compared, removing duplicates and keeping only one. 
+ Because \textbf{Fake News Corpus} is the main dataset, the data exploration will start with this dataset. And the first thing is to count the number of items per class. Before starting the analysis, it is needed to cleanup the dataset. As it is originaly given in a large 30GB CSV file, the first step is to put everything in a database in order to be able to retreive only wanted peice of information. In order to do so, the file have been red line by line. It appears that some of the lines are baddly formated, preventing them to be red correctly, in this case they are dropped without being put in the database. Also, each line that is a duplicate of a line already red is also dropped. The second step in cleaning the set consist of some more duplicate removal. Indeed, dropping same lines remove only exact duplicate. It appears that some news does have the same content, with slight variation in the title, or a different author. In order to remove the duplicate, each text is hashed using SHA256 and those hash a compared, removing duplicates and keeping only one. \\
 
-\paragraph{} Because the dataset have been cleaned, numbers provided by the dataset creators and number computed after cleaning will be provided. We found the values given at \textbf{Table \ref{tab:explo:count1}}. It shows that the number of fake news is smaller by a small factors with respect to the number of reliable news, but given the total number of items it should not cause any problems. But it will still be taken into account later on. 
+Because the dataset have been cleaned, numbers provided by the dataset creators and number computed after cleaning will be provided. We found the values given at \textbf{Table \ref{tab:explo:count1}}. It shows that the number of fake news is smaller by a small factors with respect to the number of reliable news, but given the total number of items it should not cause any problems. But it will still be taken into account later on. 
 
 \begin{table}[h]
 \centering
@@ -73,7 +72,7 @@ In addition to the numbers provided at \textbf{Table \ref{tab:explo:count1}}, th
   \item Rumor: 376815
 \end{itemize}
 
-\paragraph{} To have a better view of the distribution of categories, an histogram is provided at \textbf{Figure \ref{fig:chap1:hist1}}.
+ To have a better view of the distribution of categories, an histogram is provided at \textbf{Figure \ref{fig:chap1:hist1}}.\\
 
 \begin{figure*}[!ht]
 	\centering
@@ -82,7 +81,7 @@ In addition to the numbers provided at \textbf{Table \ref{tab:explo:count1}}, th
 	\label{fig:chap1:hist1}
 \end{figure*}
 
-In addition, the number of words per text and the average number of words per sentences have been computed for each text categories. \textbf{Figure \ref{fig:data_explo:stats1}} shows the boxplots for these values. It can be seen that there is no significative difference that might be used in order to make class prediction. 
+In addition, the number of words per text and the average number of words per sentences have been computed for each text categories. \textbf{Figure \ref{fig:data_explo:stats1}} shows the boxplots for these values. It can be seen that there is no significative difference that might be used in order to make class prediction.\\ 
 
 \begin{figure}[!ht]
   \centering
@@ -99,7 +98,7 @@ In addition, the number of words per text and the average number of words per se
   \label{fig:data_explo:stats1}
 \end{figure}
 
-Before counting the number of words and sentences, the texts are preprocessed using gensim\cite{rehurek_lrec} and NLTK\cite{BirdKleinLoper09}. The first step consist of spliting text into an array of sentences on stop punctuation such as dots or questions mark, but not on commas. The second step consist on filttering words that are contained in these sentences, to do so, stopwords (words such as 'a', 'an', 'the'), punctuation, words or size less or equal to tree, non alpha-numeric words, numeric values and tags (such as html tags) are removed. Finnaly, the number of word still present is used. 
+Before counting the number of words and sentences, the texts are preprocessed using gensim\cite{rehurek_lrec} and NLTK\cite{BirdKleinLoper09}. The first step consist of spliting text into an array of sentences on stop punctuation such as dots or questions mark, but not on commas. The second step consist on filttering words that are contained in these sentences, to do so, stopwords (words such as 'a', 'an', 'the'), punctuation, words or size less or equal to tree, non alpha-numeric words, numeric values and tags (such as html tags) are removed. Finnaly, the number of word still present is used. \\
 
 \begin{figure}[!ht]
      \centering
@@ -155,9 +154,9 @@ Before counting the number of words and sentences, the texts are preprocessed us
         \label{fig:data_explo:source}
 \end{figure}
 
-\paragraph{} An interesting features to look at is the distrubtion of news sources with respect to their categories. It shows that in some case some source a predominant. For instance, looking at \textbf{Figure \ref{fig:data_explo:source}} shows that most of the reliable news are from \textit{nytimes.com} and in the same way, most of the fake news are coming from \textit{beforeitsnews.com}. That have to be taken into account when training and testing models as the goal is not to distinguish between these two sources but between fake news and reliable news. 
+ An interesting features to look at is the distribution of news sources with respect to their categories. It shows that in some case some source a predominant. For instance, looking at \textbf{Figure \ref{fig:data_explo:source}} shows that most of the reliable news are from \textit{nytimes.com} and in the same way, most of the fake news are coming from \textit{beforeitsnews.com}. That have to be taken into account when training and testing models as the goal is not to distinguish between these two sources but between fake news and reliable news. \\
 
-\paragraph{} An other import feature to look at is the distribution of the number of words in the text. Indded, at some point it will be needed to fix a constant length for the texts and using to small length would mean a lot of cutting and using too long size would mean too much padding. It is thus needed to investigate the length of the texts in order to choose the right one. It can be seen at \textbf{Figure \ref{fig:data_explo:fake_corps_summary1}} that reliable news have slightly more words than fake news, but the difference is minimal. 
+An other import feature to look at is the distribution of the number of words in the text. Indded, at some point it will be needed to fix a constant length for the texts and using to small length would mean a lot of cutting and using too long size would mean too much padding. It is thus needed to investigate the length of the texts in order to choose the right one. It can be seen at \textbf{Figure \ref{fig:data_explo:fake_corps_summary1}} that reliable news have slightly more words than fake news, but the difference is minimal. \\
 
 \begin{figure}[!ht]
   \centering
@@ -168,7 +167,7 @@ Before counting the number of words and sentences, the texts are preprocessed us
 
 
 \subsubsection{Fake News analysis}
-\paragraph{} In this section, the analysis will focus on fake news and reliable news. Because of what shows \textbf{Figure \ref{fig:data_explo:source}}, that is, some categories are almost all from the same source, an analysis of what happens when dropping these sources. First, lets compare the number of news while and while not taking into account majors sources. 
+In this section, the analysis will focus on fake news and reliable news. Because of what shows \textbf{Figure \ref{fig:data_explo:source}}, that is, some categories are almost all from the same source, an analysis of what happens when dropping these sources. First, lets compare the number of news while and while not taking into account majors sources. \\
 
 \begin{figure}[h]
   \centering
@@ -188,7 +187,7 @@ Comparing \textbf{Figure \ref{fig:data_explo:summary1}} and \textbf{Figure \ref{
 
 
 \subsection{Liar-Liar corpus}
-\paragraph{} As said in \textbf{Chapter \ref{section:intro}}, this dataset is made of small text of one or two sentences at most. Which means that they are smaller than than the ones in \textit{fake news corpus}. The distribution of words length can be seen at \textbf{Figure \ref{fig:data_explo:summary3}}. In addition, this dataset is not unbalanced as the other corpus is, which means that precautions does not have to be taken. 
+As said in \textbf{Chapter \ref{section:intro}}, this dataset is made of small text of one or two sentences at most. Which means that they are smaller than than the ones in \textit{fake news corpus}. The distribution of words length can be seen at \textbf{Figure \ref{fig:data_explo:summary3}}. In addition, this dataset is not unbalanced as the other corpus is, which means that precautions does not have to be taken. \\
 \begin{figure*}[h]
   \centering
   \includegraphics[width=\textwidth]{images/data_exploration/liar_liar_summary.pdf}
@@ -197,7 +196,7 @@ Comparing \textbf{Figure \ref{fig:data_explo:summary1}} and \textbf{Figure \ref{
 \end{figure*}
 
 \section{Visualisation with t-SNE}
-\paragraph{} In order to visualize the data it is needed to transform text in a numerical way and eventualy reduce the dimension in order to to allow it to be plotted on a 2D or 3D plot. Here TF-IDF (term frequency, inverse document frequency\cite{Robertson2004,Jones2004}) is used. How it works will be details later on. This produce a sparse matrix with each document being represented as an array, each value of the array being a value for one term. That is, the more term in the corpus, the longer the array becomes. For example, a corpus of 10.000 text with 20.000 uniques words would be represented as a $10000 \times 20000$ sparse matrix. As said before, plotting in 20000 dimension is not possible. In order to do so, the number of dimension needs to be reduced. Here, principal component analysis before t-SNE\cite{Maaten2008} will be used together. 
+In order to visualize the data it is needed to transform text in a numerical way and eventualy reduce the dimension in order to to allow it to be plotted on a 2D or 3D plot. Here TF-IDF (term frequency, inverse document frequency\cite{Robertson2004,Jones2004}) is used. How it works will be details later on. This produce a sparse matrix with each document being represented as an array, each value of the array being a value for one term. That is, the more term in the corpus, the longer the array becomes. For example, a corpus of 10.000 text with 20.000 uniques words would be represented as a $10000 \times 20000$ sparse matrix. As said before, plotting in 20000 dimension is not possible. In order to do so, the number of dimension needs to be reduced. Here, principal component analysis before t-SNE\cite{Maaten2008} will be used together. \\
 
 \paragraph{What is t-SNE?} It stands for \textbf{t-distributed stochastic neighbor embedding}. The goal of this method is that two points to are closed in $\mathcal{R}^{Q}$ should be close in $\mathcal{R}^{S}, S \ll Q$. In order to do so, the algorithm starts by fitting a probability distribution on the input points. It starts by computing
 \begin{equation*}
@@ -233,7 +232,7 @@ The documentation of the module of scikit-learn\cite{scikit-learn} used for comp
   \label{fig:data_explo:tsne1}
 \end{figure*}
 
-Increasing the number of PCA components to 1750 gives the results at \textbf{Figure \ref{fig:data_explo:tsne2}} and does not shows more clustering, even if it explains $75\%$ of the variance. This shows that classifiying the dots might not be easy, but it should be remineded that it is a dimensionality reduction and that there is a loss of information. Some of the original data dimension can have a better separation of the classes. 
+Increasing the number of PCA components to 1750 gives the results at \textbf{Figure \ref{fig:data_explo:tsne2}} and does not shows more clustering, even if it explains $75\%$ of the variance. This shows that classifiying the dots might not be easy, but it should be remineded that it is a dimensionality reduction and that there is a loss of information. Some of the original data dimension can have a better separation of the classes. \\
 
 \begin{figure*}[h]
   \centering
@@ -242,7 +241,9 @@ Increasing the number of PCA components to 1750 gives the results at \textbf{Fig
   \label{fig:data_explo:tsne2}
 \end{figure*}
 
-\paragraph{} It is not possible to use t-SNE on the \textit{Fake News Corpus} because the algorithm is quadratic with respect to the number of samples. Which make it impossible to compute for that corpus which is larger than the \textit{liar-liar} corpus. But it is still possible to try to make some vizualisation using truncated singular v	alues decomposition.
+It is not possible to use t-SNE on the \textit{Fake News Corpus} because the algorithm is quadratic with respect to the number of samples. Which make it impossible to compute for that corpus which is larger than the \textit{liar-liar} corpus. But it is still possible to try to make some vizualisation using truncated singular values decomposition.\\
+
+In this case, only with a 2D projection, we can already see some kind of separation between the two classes, thus we can think that the \textbf{Fake News Corpus} will be easier to deal with. 
 
 \begin{figure*}[h]
   \centering
@@ -252,4 +253,4 @@ Increasing the number of PCA components to 1750 gives the results at \textbf{Fig
 \end{figure*}
 
 \section{Conclusion}
-\paragraph{} Data exploration have shown that there is no real statistical differences between text metadata for fake and reliable news, and thus make it not interesting for using it for classifying new texts. In addition, dimensionality reduction does not show any sign of helpfulness for the classification. 
+Data exploration have shown that there is no real statistical differences between text metadata for fake and reliable news, and thus make it not interesting for using it for classifying new texts. In addition, dimensionality reduction does not show any sign of helpfulness for the classification. 
