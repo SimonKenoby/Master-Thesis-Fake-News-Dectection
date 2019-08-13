@@ -154,7 +154,7 @@ if __name__ == "__main__":
     array, labels = load_data(trainFile, dct)
 
     net = LSTM(len(dct), SEQ_LENGTH, EMBEDDING_DIM, HIDDEN, LAYERS, DROPOUT)
-    net.initialize(mx.init.Normal(sigma=0.001), ctx = ctx)
+    net.initialize(mx.init.Normal(sigma=1), ctx = ctx)
     trainer = gluon.Trainer(net.collect_params(), 'adam', {'learning_rate': 0.001, 'wd' : 0.00001})
     loss = gluon.loss.SigmoidBinaryCrossEntropyLoss(from_sigmoid=False)
     hidden = net.begin_state(func=mx.nd.zeros, batch_size=BATCH_SIZE, ctx = mx.cpu(0))

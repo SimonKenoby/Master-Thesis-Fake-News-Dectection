@@ -49,14 +49,18 @@ class LSTM(gluon.Block):
         super(LSTM, self).__init__(**kwargs)
         self.seq_length = seq_length
         with self.name_scope():
+            self.norm1 = gluon.nn.BatchNorm(axis=1, center=True, scale=True)
             self.LSTM1 = gluon.rnn.LSTM(num_hidden, num_layers, layout = 'NTC', bidirectional = True)
             self.dropout = gluon.nn.Dropout(dropout)
+            self.norm2 = gluon.nn.BatchNorm(axis=1, center=True, scale=True)
             self.attention = Attention(seq_length, num_embed, num_hidden, num_layers, dropout)
             self.fc1 = gluon.nn.Dense(1)
             
     def forward(self, inputs, hidden):
-        output, hidden = self.LSTM1(inputs, hidden)
+        output = self.norm1(inputs)
+        output, hidden = self.LSTM1(output, hidden)
         output = self.dropout(output)
+        output = self.norm2(output)
         output = self.attention(output)
         output = self.fc1(output)
         return nd.sigmoid( output ), hidden
@@ -104,14 +108,14 @@ if __name__ == "__main__":
     from register_experiment import Register
 
     r = Register(args.host, args.port, args.db, args.collection)
-    r.newExperiment(r.getLastExperiment() + 1, 'Self_Embedding LSTM 5')
+    r.newExperiment(r.getLastExperiment() + 1, 'Attention LSTM 5.1')
 
     ds = train('train', SEQ_LENGTH, EMBEDDING_DIM, '/home/simon/Documents/TFE/Code/utils')
 
     net = LSTM(SEQ_LENGTH, EMBEDDING_DIM, HIDDEN, LAYERS, DROPOUT)
     net.initialize(mx.init.Normal(sigma=0.01), ctx = ctx)
-    schedule = mx.lr_scheduler.PolyScheduler(max_update=(len(ds) // BATCH_SIZE) * EPOCHS, base_lr=0.01, pwr=2)
-    trainer = gluon.Trainer(net.collect_params(), 'adam', {'learning_rate': 0.00001, 'wd' : 0.0001, 'lr_scheduler' : schedule})
+    schedule = mx.lr_scheduler.PolyScheduler(max_update=(len(ds) // BATCH_SIZE) * EPOCHS, base_lr=0.000001, pwr=2)
+    trainer = gluon.Trainer(net.collect_params(), 'adam', {'learning_rate': 0.0000001, 'wd' : 0.0001, 'lr_scheduler' : schedule})
     loss = gluon.loss.SigmoidBinaryCrossEntropyLoss(from_sigmoid=True)
     hidden = net.begin_state(func=mx.nd.zeros, batch_size=BATCH_SIZE, ctx = mx.cpu(0))
 
@@ -120,7 +124,7 @@ if __name__ == "__main__":
     for epochs in range(0, EPOCHS):
         total_L = 0.0
         accuracy = []
-        dl = DataLoader(ds, batch_size = BATCH_SIZE, last_batch = 'discard', num_workers=CPU_COUNT // 2)
+        dl = DataLoader(ds, batch_size = BATCH_SIZE, last_batch = 'discard', num_workers=CPU_COUNT // 4)
         hidden = net.begin_state(func=mx.nd.zeros, batch_size=BATCH_SIZE, ctx = ctx)
         recall_list = []
         cfMatrix = []

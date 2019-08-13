@@ -1,19 +1,19 @@
 #!/bin/bash
 
-train="/home/simon/Documents/TFE/Data/train.json"
+train="/home/simon/Documents/TFE/Data/train2.json"
 test_dir="/home/simon/Documents/TFE/Data/"
 out_dir="checkpoint/"
 out_prefix="model"
 utils="/home/simon/Documents/TFE/Code/utils"
 logs="train.log"
 dictFile='Dictionary.dct'
-SEQ_LENGTH_A=(200)
-EMBEDDING_DIM_A=(200)
-HIDDEN_A=(200)
+SEQ_LENGTH_A=(20)
+EMBEDDING_DIM_A=(10)
+HIDDEN_A=(10)
 LAYERS_A=(1)
-DROPOUT_A=(0.25 0.50)
+DROPOUT_A=(0.50 0.75)
 BATCH_SIZE=512
-EPOCHS=50
+EPOCHS=1000
 
 : 'SEQ_LENGTH_A=(3 5 7)
 EMBEDDING_DIM_A=(5 10)
@@ -23,7 +23,7 @@ DROPOUT_A=(0 0.2)
 BATCH_SIZE=128
 EPOCHS=5'
 
-test=$test_dir/test.json
+test=$test_dir/test2.json
 #test=$(find . -name "*split*")
 
 for SEQ_LENGTH in ${SEQ_LENGTH_A[@]}; do

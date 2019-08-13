@@ -5,12 +5,12 @@ test_dir="/home/simon/Documents/TFE/Data/"
 out_dir="checkpoint/"
 out_prefix="model"
 utils="/home/simon/Documents/TFE/Code/utils"
-SEQ_LENGTH_A=(200 300)
-HIDDEN_A=(200 300)
+SEQ_LENGTH_A=(300)
+HIDDEN_A=(200)
 LAYERS_A=(1)
 DROPOUT_A=(0.50 0.75)
-BATCH_SIZE=512
-EPOCHS=50
+BATCH_SIZE=256
+EPOCHS=25
 EMBEDDING_DIM=300
 
 : 'SEQ_LENGTH_A=(3 5 7)
@@ -30,7 +30,7 @@ for SEQ_LENGTH in ${SEQ_LENGTH_A[@]}; do
 			for DROPOUT in ${DROPOUT_A[@]}; do
 				python $utils/check_params.py \
 				--SEQ_LENGTH $SEQ_LENGTH --EMBEDDING_DIM $EMBEDDING_DIM --HIDDEN $HIDDEN --LAYERS $LAYERS --DROPOUT $DROPOUT --EPOCHS $EPOCHS \
-				--Name 'Self_Embedding LSTM 5' --db TFE --collection results4 --host localhost --port 27017;
+				--Name 'Attention LSTM 5.2' --db TFE --collection results4 --host localhost --port 27017;
 				check=$?
 				if [ $check -eq 0 ]
 				then
