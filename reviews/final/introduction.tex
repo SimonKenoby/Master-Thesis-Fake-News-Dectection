@@ -84,12 +84,15 @@ Tacchini et al.\cite{Tacchini2017} proposed a method based on social network inf
 Thorne et al.\cite{Thorne2017} proposed a stacked ensemble classifier in order to address a subproblem of fake news detection which is stance classification. It is the fact of finding if an article agree, disagree or simply discus a fact. \\
 
 Granik and Mesyura\cite{Granik2017} used Na\"ive-Bayes classifier in order to classify news from buzzfeed datasets.\\
+
 In addition to texts and social features, Yang et al.\cite{Yang2018} used visual features such as images with a convolutional neural network. \\
+
 Wang et al.\cite{Wang2018} also used visual features for classifying fake news but uses adversarial neural networks to do so. 
 \subsection{State of the Art Text classification}
 When it comes to state of the art for text classification, it includes Long short-term memory (LSTM)\cite{Hochreiter1997LongSM}, Attention Mechanism\cite{Vaswani2017AttentionIA}, IndRNN\cite{Li2018}, Attention-Based Bidirection LSTM\cite{zhou-etal-2016-attention}, Hierarchical Attention Networks for Text Classification\cite{yang_hierarchical_2016}, Adversarial Training Methods For Supervised Text Classification\cite{miyato_adversarial_2016}, Convolutional Neural Networks for Sentence Classification\cite{kim_convolutional_2014} and RMDL: Random Multimodel Deep Learning for Classification\cite{kowsari_rmdl:_2018}. All of these models have comparable performances. 
 \section{Conclusion}
 As it has been shown in \textbf{Section \ref{intro:feature_extract}} and \textbf{Section \ref{intro:models}} multiple approaches can be used in order to extract features and use them in models. This works focus on textual news content features. Indeed, other features related to social media are difficult to acquire. For example, users’ information is difficult to obtain on Facebook, as well as post information. In addition, the different datasets that have been presented at \textbf{Section \ref{intro:dataset}} does not provide any other information than textual ones. \\
+
 Looking at \textbf{Figure \ref{fig:intro:features}} it can be seen that the main focus will be made on unsupervised and supervised learning models using textual news content. It should be noted that machine learning models usually comes with a trade-off between precision and recall and thus that a model which is very good at detected fake news might have a high false positive rate as opposite to a model with a low false positive rate which might not be good at detecting them. This cause ethical questions such as automatic censorship that will not be discussed here. 
 \begin{figure*}
  \centering

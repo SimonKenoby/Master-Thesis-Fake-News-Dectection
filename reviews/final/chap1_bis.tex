@@ -1,4 +1,6 @@
 \chapter{Related Work}
+\section{Introduction}
+In this chapter I will details a bit more some related works that are worth investigating. 
 \section{Supervised Learning for Fake News Detection\cite{Reis2019}}
 Reis et al. use machine learning techniques on buzzfeed article related to US election. The evaluated algorithm are k-Nearest Neighbors, Na\"ive-Bayes, Random Forests, SVM with RBF kernel and XGBoost. \\
 
@@ -70,3 +72,44 @@ In addition they used one-page out, using posts from a single page as test data 
 	\caption{Results by tacchnini et al. }
 	\label{fig:chap1:tacchini2}
 \end{figure}
+
+\section{Fake News Detection using Stacked Ensemble of Classifiers}
+Thorne et al.\cite{Thorne2017} worked on \textit{Fake News Challenge} by proposing a stack of different classifiers: a multilayer perceptron with relu activation on average of word2vec for headline and tf-idf vectors for article body, average word2vec for headline and article body, tf-idf bigrams and unigram on article body, logistic regression with L2 regularization and concatenation of word2vec for headline and article body with MLP and dropout. \\
+
+Finaly, a gradient boosted tree is used for the final classification. \\
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/chap1_bis/rev6.png}
+	\caption{Results by Thorne et al. }
+	\label{fig:chap1:thorn1}
+\end{figure}
+
+\section{onvolutional Neural Networks for Fake News Detection\cite{Yang2018}}
+Yang et al. used a CNN with images contained in article in order to make the classification. They used kaggle fake news dataset\footnote{\url{https://www.kaggle.com/mrisdal/fake-news}}, in addition they scrapped real news from trusted source such as New York Times and Washington Post. \\
+
+Their network is made of two branch: one text branch and one images branch (\textbf{Figure \ref{fig:chap1:yang1}}). The textual branch is then devided of two subbranch: textual explicit: derived information from text such as length of the news and the text latent subbranch, which is the embedding of the text, limited to 1000 words. \\
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{images/chap1_bis/rev7.png}
+	\caption{TI-CNN }
+	\label{fig:chap1:yang1}
+\end{figure}
+
+The image branch is also made of two subbranch, one containing information such as image resolution or the number of person present on the image, the second subbranch use a CNN on the image itself. The full details of the network are at \textbf{Figure \ref{fig:chap1:yang2}}. And the results are at \textbf{Figure \ref{fig:chap1:yang3}} and shows that indeed using images works better. 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/chap1_bis/rev8.png}
+	\caption{TI-CNN }
+	\label{fig:chap1:yang2}
+\end{figure}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/chap1_bis/rev9.png}
+	\caption{TI-CNN, results }
+	\label{fig:chap1:yang3}
+\end{figure}
+
+\section{Conclusion}
+We have seen in the previous sections that mosts of the related works focus on improving the prediction quality by adding additional features. The fact is that these features are not always available, for instance some articale may not contains images. There is also the fact that using social media information is problematic because it is easy to create new account on these medias and fool the detection system. That's why I chose to focus on article body only and see if it is possible to accuratly detect fake news. 

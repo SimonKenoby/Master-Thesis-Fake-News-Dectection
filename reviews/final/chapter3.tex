@@ -4,8 +4,11 @@ In this chapter, we will focus on the more traditional methods used in natural l
 \section{Text to vectors}
 As explained before, text needs to be represented in a way that gives more meaningful information than a simple sequence of bits, which have additional drawbacks such that for a given word, the sequence of bits representing it depends on the coding.
  The first and simplest coding that comes to mind is a one-hot encoding: a matrix $M$ of size number of texts $\times$ number of words where $M_{ij} = 1$ if the word $j$ is present in the text  $i$ and $0$ in the other case. But this is still not enough as each word is given the same weight, no matter how often it appears in the text. \\ 
+
  In order to overcome this problem, term-frequency might be used, that is, rather than setting $M_{ij}$ to 0 or 1 we set it to the amount of time it appears in the text. \\ 
+
  It is possible to use even better text embedding. It is called term-frequency, inverse document frequency. The main idea is that a word that appears often in all the documents is not helpful in order to classify the documents. For example, if the task is to classify books of biology and physics, words atoms, cells or light are more useful than today or tomorrow. \\
+
 In order to compute tf-idf, it is separated in two parts, the first one being term frequency and the second one inverse document frequency. We have that \begin{equation}
  tf_{ij} = \#(W_j | W_j \in D_i)\\ 
 \end{equation}
@@ -36,10 +39,12 @@ It Is Defined As \begin{equation}
 \end{equation}
 The f1-score combines the recall and the precision. It is defined by 
 \begin{equation}
- f1-score = \frac{2 * precision * recall}{precision + recall}\
+ f1-score = \frac{2 * precision * recall}{precision + recall}\\
 \end{equation}
 It is also possible to look at the weighted average of all these values. For instance, it is possible to compute the global recall by averaging the recall for both classes by the respective class ratio. \\
+
 Finally, raw output can be used by looking at the confusion matrix.\\
+
 The first parameter to tune is the max number of features used by tf-idf. This is the maximum number of words that will be kept to create the text encoding. The words that are kept are the most frequent words. 
 \section{Models}
 Four models have been used in order to classify texts represented as a TF-IDF matrix. These are Multinomial Na\"{i}ve-Bayes, Linear SVM, Ridge Classifier and Decision Tree. I will start by a very brief recap of each model and how they work. 
@@ -70,6 +75,7 @@ Where $\xi$ is a loss function, in this case L2 loss function has been used, and
 Class of new examples are assigned by looking at the value of $\mathbf{w^Tw}$. The class 1 is assigned if $\mathbf{w^Tw} \geq 0$ and the class $-1$ if $\mathbf{w^Tw} < 0$.
 \subsection{Decision Tree\cite{Rokach:2014:DMD:2755359}}
 Decision tree works by recursively selecting features and splitting the dataset on those features. These features can either be nominal or continuous. \\
+
 In order to find the best split, it uses gini impurity. 
 \begin{equation}
  G = \sum_{i=1}^C p(i) * (1-p(i))\\
@@ -109,8 +115,10 @@ With the ridge classifier model, it is also possible to tweak the penalty value 
 \end{figure*} 
 \subsection{Max Feature Number}
 Starting with the maximum number of features, the precision of each model can be analysed when limiting the maximum number of words. The results for each model can be seen at \textbf{Figure \ref{fig:chap3:max_feature3}, \ref{fig:chap3:max_feature1}} and \textbf{\ref{fig:chap3:max_feature2}}. Shows that depending on the metrics we want to optimize it is better to choose different parameters. For instance, in order to maximize F1-score, it is better to use a maximum number of features of 1000.\\
+
 The results are slightly different if the goal is to optimize the precision because if the best value stays the same for Linear SVM and Ridge Classifier, the Na\"{i}ve-Bayes work better when using the maximum number of features and it goes the same way for recall. 
 Based on \textbf{Figure \ref{fig:chap3:max_feature3}} we can say that when it comes to precision and recall, Na\"{i}ve-Bayes is the one that performs the best.\\
+
 Row results for max features selection are available at \textbf{Appendix \ref{Appendix1}}.
 \begin{figure*}[]
  \centering
@@ -154,6 +162,7 @@ As it has been shown in \textbf{Chapter \ref{chap2}}, the fake news corpus is un
 \subsection{Model selection without using SMOTE}
 \subsubsection{Hyperparameters tuning}
 As for the models trained on the \textbf{liar-liar corpus}, hyper-parameters can be optimized the same way. The average metric for each model with respect to their parameters are shown at \textbf{Figure \ref{fig:chap3:ridge2}, \ref{fig:chap3:dt2}} and \textbf{\ref{fig:chap3:lsvm2}}. \\
+
 \begin{figure*}
  \centering
  \includegraphics[width=0.8\textwidth]{images/chapitre3/ridge}
@@ -168,6 +177,7 @@ The optimal parameter for the ridge classifier is clearly 1. As well as for the 
  \label{fig:chap3:dt2}
 \end{figure*}
 And finally, the optimal value for the penalty parameter of the svm is also 1.\\
+
 \begin{figure*}
  \centering
  \includegraphics[width=0.8\textwidth]{images/chapitre3/svc_fake}
@@ -175,6 +185,7 @@ And finally, the optimal value for the penalty parameter of the svm is also 1.\\
  \label{fig:chap3:lsvm2}
 \end{figure*}
 By looking at \textbf{Figure \ref{fig:chap3:max_feature1}, \ref{fig:chap3:max_feature2}} and \textbf{\ref{fig:chap3:max_feature3}} we can find optimal parameters for the number of features used in TF-IDF. It shows that linear svm and ridge classifiers are the ones that perform the best, having an average precision of sligtly more than $94\%$ for the linear svm and $94\%$ for the ridge classifier. They achieve these performances from $50,000$ features and does not decrease. On the other hand, Na\"{i}ve-Bayes reaches a pike at $100,000$ features and greatly decrease afterward. \\
+
 \begin{figure*}
  \centering
  \includegraphics[width=0.8\textwidth]{images/chapitre3/ML_fake_average}
@@ -203,6 +214,7 @@ By looking at \textbf{Figure \ref{fig:chap3:max_feature1}, \ref{fig:chap3:max_fe
 \end{figure*}
 \subsection{Model selection with SMOTE}
 The first thing that can be noticed at \textbf{Figure \ref{fig:chap3:ridge3}, \ref{fig:chap3:dt3}, \ref{fig:chap3:lsvm3}, \ref{fig:chap3:smote_max_feat1}, \ref{fig:chap3:smote_max_feat2}} and \textbf{\ref{fig:chap3:smote_max_feat3}} is that the two models that worked the best without applying SMOTE method, linear SVM and ridge classifiers are still the ones that perform the best. By comparing \textbf{Figure \ref{fig:chap3:lsvm2}} and \textbf{Figure \ref{fig:chap3:lsvm3}} we can see that it works better when applying a smaller regularization parameter. It goes from $0.66\%$ of accuracy to  $0.86\%$ of accuracy thus acting as a regularization. The same does not apply to ridge classifiers. \\
+
 \begin{figure*}
  \centering
  \includegraphics[width=0.8\textwidth]{images/chapitre3/ridge+smote}
@@ -320,6 +332,7 @@ support   &  1106.000000 &  1428.000000 &  0.542226 &  2534.000000 &   2534.0000
 \caption{Raw results on \textbf{Liar-Liar Corpus}.}
 \end{table}
 Finally, it is possible to look at the ROC curve at \textbf{Figure \ref{fig:chap3:roc1}}. One more time, it shows that Na\"{i}ve-Bayes, linear svm and ridge classifier have similar performance, but in this case it shows that NB has a little advantage, with a slightly larger AUC. There is only one point for the decision tree as it does not output probabilities for each class. \\
+
 \begin{figure*}
  \centering
  \includegraphics[width=0.8\textwidth]{images/chapitre3/roc1}
@@ -333,6 +346,7 @@ Finally, it is possible to look at the ROC curve at \textbf{Figure \ref{fig:chap
  \label{fig:chap3:confMat1}
 \end{figure*}
 When it comes to the \textbf{Fake news corpus}, linear models are still the ones that perform the best, with linear svm reaching an accuracy of $94.7\%$ and ridge classifiers $93.98\%$. Surprisingly, decision tree outperform Na\"{i}ve-Bayes in this case, with an accuracy of $89.4\%$ when Na\"{i}ve-Bayes only gets $85.3\%$.\\
+
 \begin{table}
 \begin{subtable}{\textwidth}
  \begin{tabular}{lrrrrr}
@@ -396,6 +410,7 @@ In this case, the ROC curve (\textbf{Figure \ref{fig:chap3:roc2}}) shows almost 
  \label{fig:chap3:roc2}
 \end{figure*}
 Confusion matrix (\textbf{Figure \ref{fig:chap3:confMat2}}) shows that Na\"{i}ve-Bayes has a tendency of classifying fake news as being reliable. And the other hand, ridge classifier is the one that makes the least misclassification for reliable news, which is a good point. \\
+
 \begin{figure*}
  \centering
  \includegraphics[width=0.8\textwidth]{images/chapitre3/test_fake_confMat}
@@ -472,7 +487,11 @@ Finally, there is the results of the models trained with SMOTE data augmentation
 \end{figure*}
 \section{Conclusion}
 In this chapter we have analysed how traditional machine learning algorithms words on two different datasets, the second being imbalanced a data augmentation technique, called SMOTE, has been used in order to see if it improves the results. \\
+
 We can conclude that in all the cases linear models are the ones that work the best, with a top accuracy of $61.7\%$ on the \textbf{liar-liar corpus} using Ridge Classifier, and a top accuracy of $94.7\%$ on the \textbf{Fake News Corpus} using linear svm. At the end, the result obtains on the second data set are really good, when those obtain on the first when are mitigated. \\
+
 As explained earlier, it might be important to choose to model that makes the smaller misclassification rate on reliable news in order to avoid possible censorship and confusion matrix shows that in both case Ridge Classifiers is the ones that make the fewer errors in that case. \\
+
 In addition, we have shown that Synthectic Minority Over Sampling Techniques acts as a regularizers, as it does improve performance when the penalization term in small on linear models. \\
+
 In the next section, the focus will be put on trying to improve results on the \textbf{Liar-Liar corpus} as there is room for improvement and that the second dataset already as very good results. But models will still be trying on it for comparison. 

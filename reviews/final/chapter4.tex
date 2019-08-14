@@ -4,6 +4,7 @@ In this section, we will focus on the deep learning models, the first one being 
 \section{Text to Vectors}
 \subsection{Word2Vec}
 Word2Vec comes in two fashions: continuous bag of words (CBOW) and skip gram. It is originally designed to predict a word given a context. For instance, given two previous words and the next two words, which word is the most likely to take place between them. But it appears that the hidden representation of these words works well as word embedding and has very interesting properties such that words with similar meaning have similar vector representation. It is also possible to perform arithmetic that captures information such as singular, plural or even capital and countries. For example, we have that $dog - dogs \approx cat - cats$ but also $Paris - France \approx Berlin - Germany$. \\
+
 It is possible to visualize these relationships by using t-SNE for projecting high dimensions word vectors in 2D space. The results of various relationships can be seen at \textbf{Figure \ref{fig:chap4:word2vec}}.
 \begin{figure*}
  \centering
@@ -30,6 +31,7 @@ The output layer values are computed as
  \mathbf{Y} = \mathbf{W'^Th}
 \end{equation}
 As before $\mathbf{W'^{N \times V}}$ is also a weight matrix to optimize. The loss can be computed as softmax cross entropy. \\
+
 It is also possible to make the opposite: predicting the context given a single input word. This is the skip-gram model. In this case the loss becomes \textbf{Equation \ref{eq:loss}}.
 \begin{equation}
  E = - \sum_{c=1}^C u_{j^*_c} + C \cdot \sum_{j' = 1}^V \exp(u_{j'}) \ \label{eq:loss}
@@ -43,7 +45,9 @@ $j_c^*$ is the index of the cth output context word and $u_{j^*_c}$ is the score
 \end{figure*}
 \section{LSTM}
 LSTM or Long Short Term Memory\cite{Hochreiter1997LongSM} is a kind of recurrent neural network that fits well to temporal or sequential input such as texts. A RNN is a type of neural network where the hidden state is fed in a loop with the sequential inputs. There are usually shown as unrolled version of it (\textbf{Figure \ref{fig:chap4:RNN_unroll}}). Each of the $X_i$ being one value in the sequence.\\
+
 In this case, $X_i$ values are word vectors. There are two possibilities, either use pre-trained vector with word2vec or make $X_i$ inputs a parameter to learn in the same way as it works for the Word2Vec algorithm, having a one-hot encoding of the word and a matrix of weights to tune. Each method will be used. \\
+
 Recurrent Neural Networks do not works very well with long-term dependencies, that is why LSTM have been introduced. It is made of an input gate, an output gate and a forget gate that are combined in \textbf{Equation \ref{eq:LSTM}}.
 \begin{figure}
  \centering
@@ -68,6 +72,7 @@ Recurrent Neural Networks do not works very well with long-term dependencies, th
 A bidirectional LSTM works the same way, but the input is fed in the two directions, from the start to the end and from the end to the start.
 \section{Attention Mechanism}
 Attention mechanism\cite{zhou-etal-2016-attention,Vaswani2017AttentionIA} adds an extra layer between LSTM outputs and the final output of the network. It merges word-level features into sentence features using a weight vector. \\
+
 \begin{figure}
  \centering
  \includegraphics[width=\textwidth]{images/chapitre4/attention.png}
@@ -91,12 +96,15 @@ For the classification, it uses a softmax classifier as $\hat{p}(y|S) = softmax(
 \section{Results}
 \subsection{Methodology}
 In order to train the models and perform hyper parameters optimization grid search have been used when it was possible (on the liar-liar dataset) and knwoleadge acquired there have been used in order to tune parameters for the networks on the \textbf{Fake News Corpus}. In addition, in order to find the best parameters among all tested with gird search, for each metric, the training epochs having the highest validation value for those metrics have been chosen. \\
+
 All the models have been trained using adam optimizer and initialized using a normal distribution for the weights. \\
+
 As SMOTE cannot be used on the \textbf{Fake News Corpus} dues to the size of the corpus, in order to rebalance the dataset the minority class have been over sampled by feeding multiple times the same input by looping through them. 
 \subsection{Liar-Liar dataset results}
 As explained earlier, both models have been trained using different embedding: the first one being pre-trained word2vec vectors of size 300 and the second one being a tunable parameter with different embedding size.
 \subsubsection{LSTM}
 When it comes to LSTM trained on liar-liar dataset, it simply does not works. It classifies almost all the texts as being from the same class. Although, it reaches a good score on the training data, it does not manage to generalize correctly. \textbf{Figure \ref{fig:chap4:lstm2}} shows the recall, precision and f1-score and loss for training and testing set of the best models for the LSTM using word2vec. We can see that even if the training score increase, the testing values oscillate. \\
+
 \begin{figure}
  \centering
  \includegraphics[width=\textwidth]{images/chapitre4/lstm2}
@@ -129,6 +137,7 @@ The precision of the different models range from $53\%$ to $63\%$ (\textbf{Figur
  \label{fig:chap4:att1:distPrecision}
 \end{figure}
 The training plot of the model that reaches the maximum precision can be seen at \textbf{figure \ref{fig:chap4:att1:train}}. It shows that after the 25th iteration, the validation values start to decrease, which is a sign of overfitting. \\
+
 \begin{figure}
  \centering
  \includegraphics[width=\textwidth]{images/chapitre4/attention1}
@@ -144,6 +153,7 @@ Finally, there is the models where the embedding is a tunable parameter. The \te
 \end{figure}
 There are a few models that have top precision higher than $75\%$, but looking at the training plot (\textbf{Appendix \ref{Appendix2}, Figure \ref{appendix2:training_plot1}}) shows that the model does not perform well. Because in particular case precision in not a good indicator of how well a model perform, f1-score will be used instead, as it is a balance between precision and recall. \\
 And the best f1-score obtained is $0.55384$, which is quite smaller than the $0.63$ for the model using word2vec. The training plot is at \textbf{Figure \ref{fig:chap4:att3:f1}}. We can see that there is still room for improvement, the next step is to see what happens when training on more epochs. \\
+
 \begin{figure}
  \centering
  \includegraphics[width=\textwidth]{images/chapitre4/attention-f1}
@@ -165,7 +175,7 @@ The previous section shows a few things
  \item Using word2vec rather than training the embedding gives better results.
 \end{itemize}
 It also shows that despite reaching a very good precision, recall and f1-score on the training set it does not perform well on the validation set. This is a sign of overfitting. In order to avoid this, multiple methods have been applied without showing any improvement. \\
-{}
+
 The following methods have been applied: 
 \begin{itemize}
  \item Dropout\cite{srivastava2014dropout}, 
@@ -252,7 +262,9 @@ support   &  1106.000000 &  1428.000000 &  0.610892 &  2534.000000 &   2534.0000
 \section{Attention Mechanism on fake news corpus}
 \subsection{Model Selection}
 The two models using word2vec embedding have shown to work better than their counterparts, this why only these two methods will be tested on \textbf{Fake News Corpus} for comparison as very good results have already been obtained. \\
+
 It shows out that in this case LSTMs works better than Attention Mechanism, but as in previous section does not reach machine learning results. \\
+
 The best LSTM obtained use sequence of 200 words and 200 hidden layers, with an average precision of $0.929376$ on the validation set. The training plots of this particular model are shown at \textbf{Figure \ref{chap4:fig:lstm5.1}}.\\
 \begin{figure*}
  \centering
@@ -262,6 +274,7 @@ The best LSTM obtained use sequence of 200 words and 200 hidden layers, with an 
 \end{figure*} 
 
 In the case of attention mechanism, training on the \textbf{Fake News Corpus} has shown to be harder than on the \textbf{Liar-Liar Corpus} as using too large learning rate would lead to oscillating loss and too small learning rate lead to halting the loss decrease. This can be seen at \textbf{Appendix \ref{appendix2:training_plot2}}. \\
+
 The same parameters as for the LSTM will be used for training the Attention Network. Its training plot is available at \textbf{Figure \ref{chap4:fig:attention5}}.
 \begin{figure*}
  \centering
@@ -303,5 +316,7 @@ The final results are given at \textbf{Table \ref{table:chap4:results2}}. It sho
 It is likely to be possible to reach results as well as LSTM or even better for the Attention Network, but due to technical and time constraints I was not able to experiment further. For instance, using longer sequence length and more hidden units with a smaller learning rate might have overcome this problem. 
 \section{Conclusion}
 In this chapter I have investigated how state-of-the-art deep learning models work on fake news detection, and it shows that for the particular case of fake news detection it does not outperform traditional machine learning methods. I have also made some addition to the original model that improves the performances by a few percent by replacing the tunable word embedding by constant one using word2vec. It shows out that it helps reduce overfitting and increase result on the testing set. \\
+
 A hypothesis to explain why these two deep learning methods do not works as well as machine learning methods is the fact that in this case text are required to be the same size. Which means that some of them require some padding and the other are srunk. In the second case, information is lost. \\
+
 In addition, it shows that \textbf{Liar-Liar Corpus} is hard to work on, with $60\%$ precision, when \textbf{Fake News Corpus} still have good results. 
