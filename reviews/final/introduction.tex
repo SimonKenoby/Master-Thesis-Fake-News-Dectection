@@ -9,13 +9,12 @@ Fake news has quickly become a society problem, being used to propagate false or
 Fake news has also been used in order to influence the referendum in the United Kingdom for the "Brexit". \\
 
 In this paper I experiment the possibility to detect fake news based only on textual information by applying traditional machine learning techniques\cite{Fan2008LIBLINEARAL,Robertson2004,zhang_optimality_nodate} as well as bidirectional-LSTM\cite{Hochreiter1997LongSM} and attention mechanism\cite{zhou-etal-2016-attention} on two different datasets that contain different kinds of news.\\
+
 %TODO: Define fake news
 %TODO: Expliquer les differentes mÃ©thodes de dÃ©tection de fake news dans le paper Fake News Detection on Social Media: A Data Mining Perspective 1708.01967v3.pdf
 In order to work on fake news detection, it is important to understand what is fake news and how they are characterized. The following is based on \textit{Fake News Detection on Social Media: A Data Mining Perspective}\cite{shu2017fake}.\\
 
 The first is characterization or what is fake news and the second is detection. In order to build detection models, it is need to start by characterization, indeed, it is need to understand what is fake news before trying to detect them. \\
-
-Fake news definition is made of two parts: authenticity and intent. Authenticity means that fake news content false information that can be verified as such, which means that conspiracy theory is not included in fake news as there are difficult to be proven true or false in most cases. The second part, intent, means that the false information has been written with the goal of misleading the reader. 
 
 \begin{figure}
  \centering
@@ -24,11 +23,12 @@ Fake news definition is made of two parts: authenticity and intent. Authenticity
  \label{fig:intro:characterization}
 \end{figure}
 \subsection{Fake News Characterization}
+Fake news definition is made of two parts: authenticity and intent. Authenticity means that fake news content false information that can be verified as such, which means that conspiracy theory is not included in fake news as there are difficult to be proven true or false in most cases. The second part, intent, means that the false information has been written with the goal of misleading the reader. 
 \newtheorem{def:fake_news}{Definition}
 \begin{def:fake_news}
 Fake news is a news article that is intentionally and verifiable false
 \end{def:fake_news}
-The part of the definition introducing the intent of misleading the reader automatically discard satire news media, that is why this work will focus on the first part, the fact that the piece of information is verifiable false or true. Indeed, even if satire news media does not have the intent to mislead the readers, not all of them have the ability of making criticism and not taking it to the first degree. On the other hand, in the case of political media, even if it clearly tries to influence the consumer, verifying the authenticity of there claims is usually harder as, in most of the cases, openly lies. 
+
 \section{Feature Extraction} \label{intro:feature_extract}
 \subsection{News Content Features}
 Now that fake news has been defined and the target has been set, it is needed to analyse what features can be used in order to classify fake news. Starting by looking at news content, it can be seen that it is made of four principal raw components: 
