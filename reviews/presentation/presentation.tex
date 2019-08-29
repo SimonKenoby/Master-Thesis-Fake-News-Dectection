@@ -1,0 +1,57 @@
+\documentclass{beamer}
+\usepackage{graphics}
+\usepackage[autoplay,autoresume,loop]{animate}
+\usepackage{subcaption}
+\usepackage{pgfpages}
+
+\setbeameroption{show notes on second screen=right} % Both
+\setbeamertemplate{note page}{\pagecolor{yellow!5}\insertnote}\usepackage{palatino}
+
+\usetheme{metropolis}           % Use metropolis theme
+\title{Fake News Detection Using Machine Learning}
+\date{September 10, 2019}
+\author{Author: Simon Lorent \\ Supervisor: Aswhin Ittoo}
+\institute{University Of Liège}
+\begin{document}
+  \maketitle
+  \section{Introduction}
+
+  \begin{frame}{Fake news used to influence elections}
+  2016 US presidential elections (Allcott et al.)\cite{Allcott2017}
+	  \begin{itemize}
+	 \item $62\%$ of US citizens get their news for social medias\cite{gottfried2016news}
+	 \item Fake news had more share on Facebook than mainstream news\cite{silverman2016teens}.
+	\end{itemize}
+	\note[item]{Expliquer l'inpact des fake news sur les elections}
+	\note[item]{La suite définit ce que sont les fake news}
+  \end{frame}
+
+  \begin{frame}{Definition}
+  \newtheorem{def:fake_news}{Definition}
+	\begin{def:fake_news}
+	Fake news is a news article that is intentionally and verifiable false\cite{shu2017fake}
+	\end{def:fake_news}
+	\note[item]{Dire que l'on peut caracteriser les fake news de plusieurs façon: le contenu et le context}
+  \end{frame}
+
+  \begin{frame}[allowframebreaks]{Fake News Characterisation}
+News content features:
+  	\begin{itemize}
+ \item \textbf{Source}: Where does the news come from, who wrote it, is this source reliable or not.
+ \item \textbf{Headline}: Short summary of the news content that try to attract the reader.
+ \item \textbf{Body Text}: The actual text content of the news.
+ \item \textbf{Image/Video}: Usualy, textual information is agremented with visual information such as images, videos or audio.  
+\end{itemize}
+	\newpage
+  Social context features:
+  \begin{itemize}
+ \item \textbf{Expert-oriented}: relies on experts, such as journalists or scientists, to assess the news content.
+ \item \textbf{Crowdsourcing-oriented}: relies on the wisdom of crowd that says that if a sufficiently large number of persons say that something is false or true then it should be.
+ \item \textbf{Computational-oriented}: relies on automatic fact checking, that could be based on external resources such as DBpedia.
+\end{itemize}
+  \end{frame}
+  \begin{frame}[allowframebreaks]{Bibliography}
+    \bibliographystyle{unsrt}
+	\bibliography{../references/references.bib}
+  \end{frame}
+\end{document}
