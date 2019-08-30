@@ -11,7 +11,7 @@
 \title{Fake News Detection Using Machine Learning}
 \date{September 10, 2019}
 \author{Author: Simon Lorent \\ Supervisor: Aswhin Ittoo}
-\institute{University Of Liège}
+\institute{University Of Li\`ege}
 \begin{document}
   \maketitle
   \section{Introduction}
@@ -37,21 +37,63 @@
   \begin{frame}[allowframebreaks]{Fake News Characterisation}
 News content features:
   	\begin{itemize}
- \item \textbf{Source}: Where does the news come from, who wrote it, is this source reliable or not.
- \item \textbf{Headline}: Short summary of the news content that try to attract the reader.
- \item \textbf{Body Text}: The actual text content of the news.
- \item \textbf{Image/Video}: Usualy, textual information is agremented with visual information such as images, videos or audio.  
-\end{itemize}
+		 \item \textbf{Source}: Where does the news come from, who wrote it, is this source reliable or not.
+		 \item \textbf{Headline}: Short summary of the news content that try to attract the reader.
+		 \item \textbf{Body Text}: The actual text content of the news.
+		 \item \textbf{Image/Video}: Usualy, textual information is agremented with visual information such as images, videos or audio.  
+		\end{itemize}
+	\note{}
 	\newpage
-  Social context features:
-  \begin{itemize}
- \item \textbf{Expert-oriented}: relies on experts, such as journalists or scientists, to assess the news content.
- \item \textbf{Crowdsourcing-oriented}: relies on the wisdom of crowd that says that if a sufficiently large number of persons say that something is false or true then it should be.
- \item \textbf{Computational-oriented}: relies on automatic fact checking, that could be based on external resources such as DBpedia.
-\end{itemize}
-  \end{frame}
+	\vfill
+	\begin{figure}
+		 \includegraphics[scale=0.20]{fake-news-photos-viral-photoshop-8-5c6fe61f88240__700}
+	\end{figure}
+	\newpage
+  Different kind of models:
+	  	\begin{itemize}
+		 \item \textbf{Expert-oriented}: relies on experts, such as journalists or scientists, to assess the news content.
+		 \item \textbf{Crowdsourcing-oriented}: relies on the wisdom of crowd that says that if a sufficiently large number of persons say that something is false or true then it should be.
+		 \item \textbf{Computational-oriented}: relies on automatic fact checking, that could be based on external resources such as DBpedia.
+		\end{itemize}
+		\note{}
+	\end{frame}
+	\section{Methodology}
+	\begin{frame}[allowframebreaks]{Methodology}
+		Goal:
+		\begin{itemize}
+			\item Comparing the performances of "traditional" machine learning techniques and deep learning techniques
+			\item Comparing the performances of these techniques on two differents datasets.
+		\end{itemize}
+		\note{}
+		\newpage
+		Models used:
+		\begin{itemize}
+			\item Na\"ive-Bayes
+			\item SVM
+			\item Decision Tree
+			\item Ridge Classifier
+			\item LSTM
+			\item Attention Mechanism\cite{zhou-etal-2016-attention}
+		\end{itemize}
+		\note{}
+	\end{frame}
+	\begin{frame}{Text embedding}
+		Two kind of text to vectors: 
+		\begin{itemize}
+			\item TF-IDF
+			\item word2vec\cite{Mikolov2013}
+		\end{itemize}
+		\note{}
+	\end{frame}
+	\begin{frame}[allowframebreaks]{Attention Mechanism}
+		\begin{figure}
+		 \includegraphics[scale=0.25]{attention}
+	\end{figure}
+	\note{}
+	\end{frame}
   \begin{frame}[allowframebreaks]{Bibliography}
     \bibliographystyle{unsrt}
 	\bibliography{../references/references.bib}
+	\note{}
   \end{frame}
 \end{document}
