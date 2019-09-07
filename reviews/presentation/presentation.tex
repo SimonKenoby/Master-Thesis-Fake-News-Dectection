@@ -3,6 +3,8 @@
 \usepackage[autoplay,autoresume,loop]{animate}
 \usepackage{subcaption}
 \usepackage{pgfpages}
+\usepackage{longtable}
+
 
 \setbeameroption{show notes on second screen=right} % Both
 \setbeamertemplate{note page}{\pagecolor{yellow!5}\insertnote}\usepackage{palatino}
@@ -77,19 +79,56 @@ News content features:
 		\end{itemize}
 		\note{}
 	\end{frame}
-	\begin{frame}{Text embedding}
-		Two kind of text to vectors: 
-		\begin{itemize}
-			\item TF-IDF
-			\item word2vec\cite{Mikolov2013}
-		\end{itemize}
-		\note{}
-	\end{frame}
 	\begin{frame}[allowframebreaks]{Attention Mechanism}
 		\begin{figure}
 		 \includegraphics[scale=0.25]{attention}
 	\end{figure}
 	\note{}
+	\end{frame}
+	\begin{frame}{Word Embedding}
+		\begin{itemize}
+			\item One-hot encoding 
+			\item Word2Vec\cite{Mikolov2013}
+		\end{itemize}
+		\begin{itemize}
+			\item $e_i = W_e * x_i$
+			\item $e_i = $ dictionary lookup
+		\end{itemize} 
+		\note{$W_e$ is a tunnable parameters and word2vec are pretrained}
+		\note{One-hot vector are made from the training set by building a dictionary}
+	\end{frame}
+	\begin{frame}{Attention Mechanism}
+		\begin{equation}
+			 H = [h_1,h_2,...,h_T]
+		\end{equation}
+		Where T is the sequence length. 
+		Then we define 
+		\begin{align}
+		 M &= \tanh(H)\\
+		 \alpha &= softmax(w^TM) \\
+		 r &= H \alpha^T 
+		\end{align}
+		Finally, we compute $h^* = \tanh(r)$.
+	\end{frame}
+	\section{Results}
+	\begin{frame}{Machine learning}
+		\begin{figure}
+		\centering
+			\includegraphics[width=0.6\textwidth]{res1.png}
+		\end{figure}
+	\end{frame}
+	\begin{frame}{Machine learning II}
+		\begin{figure}
+		\centering
+			\includegraphics[width=0.6\textwidth]{res2.png}
+		\end{figure}
+		
+	\end{frame}
+	\begin{frame}{Machine learning III}
+	\begin{figure}
+		\centering
+			\includegraphics[width=0.6\textwidth]{res3.png}
+		\end{figure}
 	\end{frame}
   \begin{frame}[allowframebreaks]{Bibliography}
     \bibliographystyle{unsrt}
